@@ -8,6 +8,7 @@ import { Dispatch, SetStateAction } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { MainMenu } from './mainMenu'
 import { useProfil } from '@/data/useProfil'
+import { useAkademikTahunAktif } from '@/data/akademik/useTahunAktif'
 
 export function MainHeader({
   setIsOpen,
@@ -17,8 +18,8 @@ export function MainHeader({
   isOpen: boolean
 }) {
   const navigate = useNavigate()
-  const { loadingProfil, dataProfil, dataTahunAktif, loadingTahunAktif } =
-    useProfil()
+  const { loadingProfil, dataProfil } = useProfil()
+  const { dataTahunAktif, loadingTahunAktif } = useAkademikTahunAktif()
 
   return (
     <div

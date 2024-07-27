@@ -19,7 +19,7 @@ export default function RootLayout() {
   const [fitur, setFitur] = useState<string>()
 
   return (
-    <div className="flex h-screen items-center justify-center text-[2rem] phones:text-[2.4rem]">
+    <div className="flex h-screen w-full items-center justify-center text-[2rem] phones:text-[2.4rem]">
       <div className="scrollbar flex h-auto max-h-[98vh] w-[80%] flex-col overflow-y-auto rounded-4x shadow-md phones:h-full phones:max-h-full phones:w-full phones:rounded-none phones:border-0">
         <div className="rounded-tl-4x rounded-tr-4x bg-primary-100 p-32 text-white phones:rounded-none">
           <MainHeader

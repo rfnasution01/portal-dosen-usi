@@ -8,7 +8,6 @@ export const PhotoEndpoints = api.injectEndpoints({
         method: 'POST',
         body: foto,
       }),
-      invalidatesTags: ['siakad-profil'],
     }),
   }),
 })

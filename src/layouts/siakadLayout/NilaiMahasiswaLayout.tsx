@@ -1,11 +1,5 @@
 import { Loading } from '@/components/Loading'
-import SkeletonText from '@/components/SkeletonComonent/SkeletonText'
-import { useSiakadJadwalKuliah } from '@/data/siakad/dashboard'
-import {
-  AspekNilaiMahasiswaMenu,
-  JadwalKuliahInfo,
-  JadwalKuliahKeterangan,
-} from '@/features/siakad/jadwalKuliah'
+import { JadwalKuliahKeterangan } from '@/features/siakad/jadwalKuliah'
 import { usePathname } from '@/utils/usePathname'
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,13 +9,6 @@ import { Outlet, useNavigate } from 'react-router-dom'
 export default function NilaiMahasiswaLayout() {
   const navigate = useNavigate()
   const { thirdPathname } = usePathname()
-
-  const {
-    jadwalKuliahDetail,
-    loadingJadwalKuliah,
-    nilaiMahasiswa,
-    loadingNilaiMahasiswa,
-  } = useSiakadJadwalKuliah()
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -46,22 +33,22 @@ export default function NilaiMahasiswaLayout() {
         Jadwal Perkuliahan
       </p>
       <div className="flex flex-col gap-8 border-l-2 border-primary-900 bg-primary-50 p-32">
-        {loadingJadwalKuliah ? (
+        {/* {loadingJadwalKuliah ? (
           <SkeletonText lines={4} />
         ) : (
           <JadwalKuliahInfo jadwalKuliahDetail={jadwalKuliahDetail} />
-        )}
+        )} */}
       </div>
 
       {thirdPathname === undefined && <JadwalKuliahKeterangan />}
 
-      <div>
+      {/* <div>
         {loadingNilaiMahasiswa ? (
           <SkeletonText lines={1} className="w-1/4 phones:w-1/2" />
         ) : (
           <AspekNilaiMahasiswaMenu aspekNilai={nilaiMahasiswa?.aspek_nilai} />
         )}
-      </div>
+      </div> */}
 
       {isLoading ? <Loading /> : <Outlet />}
     </div>

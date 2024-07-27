@@ -21,17 +21,17 @@ export function MainMenu({
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }) {
   const { isShowLogout, setIsShowLogout, handleLogout } = useLogout()
-  const { firstPathname } = usePathname()
+  const { secondPathname } = usePathname()
 
   const [isShow, setIsShow] = useState<boolean>(false)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   const isActivePage = (item: string) => {
     if (
-      (item.toLowerCase() === 'dashboard' && firstPathname === '') ||
+      (item.toLowerCase() === 'dashboard' && secondPathname === undefined) ||
       (item.toLocaleLowerCase() === 'dashboard' &&
-        firstPathname === 'edit-ta') ||
-      convertToSlug(item) === firstPathname
+        secondPathname === 'edit-ta') ||
+      convertToSlug(item) === secondPathname
     ) {
       return true
     }
@@ -42,7 +42,7 @@ export function MainMenu({
     <div className="flex flex-col gap-8">
       {/* --- Dashboard --- */}
       <Link
-        to={'/'}
+        to={'/akademik'}
         className={clsx(
           'flex items-center gap-12 rounded-lg p-12 hover:bg-primary-active hover:text-white',
           {

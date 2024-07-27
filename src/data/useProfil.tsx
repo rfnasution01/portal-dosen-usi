@@ -3,14 +3,12 @@ import {
   useGetIdentitasQuery,
   useGetInstitusiQuery,
   useGetProfilQuery,
-  useGetTahunAktifQuery,
 } from '@/store/slices/profilType'
 import {
   GetAplikasiType,
   GetIdentitasType,
   GetInstitusiType,
   GetProfilType,
-  GetTahunAkademikType,
 } from '@/store/type/identitasType'
 import { useEffect, useState } from 'react'
 
@@ -83,23 +81,6 @@ export function useProfil() {
 
   const loadingAplikasi = isLoadingAplikasi || isFetchingAplikasi
 
-  //   --- Tahun Aktif ---
-  const [dataTahunAktif, setDataTahunAktif] = useState<GetTahunAkademikType>()
-
-  const {
-    data: TahunAktif,
-    isLoading: isLoadingTahunAktif,
-    isFetching: isFetchingTahunAktif,
-  } = useGetTahunAktifQuery()
-
-  useEffect(() => {
-    if (TahunAktif) {
-      setDataTahunAktif(TahunAktif?.data)
-    }
-  }, [TahunAktif])
-
-  const loadingTahunAktif = isLoadingTahunAktif || isFetchingTahunAktif
-
   return {
     dataIdentitas,
     loadingIdentitas,
@@ -109,7 +90,5 @@ export function useProfil() {
     loadingInstitusi,
     dataAplikasi,
     loadingAplikasi,
-    dataTahunAktif,
-    loadingTahunAktif,
   }
 }

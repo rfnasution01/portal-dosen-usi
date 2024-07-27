@@ -1,28 +1,7 @@
 import { useRef } from 'react'
 import printJS from 'print-js'
-import {
-  GetSiakadBobotNilaiTyoe,
-  GetSiakadJadwalKuliahNilaiMahasiswaType,
-  GetSiakadJadwalKuliahType,
-} from '@/store/type/siakad/jadwalKuliahType'
-import {
-  GetSiakadIdentitasType,
-  GetSiakadProfilType,
-} from '@/store/type/siakad/profilType'
 
-export function PrintBAUAS({
-  response,
-  jadwalKuliahDetail,
-  identitas,
-  profil,
-  bobot,
-}: {
-  response: GetSiakadJadwalKuliahNilaiMahasiswaType
-  jadwalKuliahDetail: GetSiakadJadwalKuliahType
-  identitas: GetSiakadIdentitasType
-  profil: GetSiakadProfilType
-  bobot: GetSiakadBobotNilaiTyoe[]
-}) {
+export function PrintBAUAS() {
   const printRef = useRef<HTMLDivElement>(null)
   // const totalPage = Math.ceil((profil?.length + 2) / 15)
 
@@ -226,7 +205,7 @@ export function PrintBAUAS({
   return (
     <>
       <div ref={printRef} style={{ display: 'none' }}>
-        <table>
+        {/* <table>
           <thead>
             <tr>
               <td>
@@ -438,7 +417,7 @@ export function PrintBAUAS({
               </td>
             </tr>
           </tfoot>
-        </table>
+        </table> */}
       </div>
 
       <button

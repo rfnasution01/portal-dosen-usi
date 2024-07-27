@@ -1,20 +1,9 @@
 import { MenubarPrint } from '@/components/Menubar/MenubarPrint'
-import { SiakadAspekNilaiType } from '@/store/type/siakad/jadwalKuliahType'
-import { convertToSlug } from '@/utils/formatText'
-import { usePathname } from '@/utils/usePathname'
-import clsx from 'clsx'
-import { Link } from 'react-router-dom'
 
-export function AspekNilaiMahasiswaMenu({
-  aspekNilai,
-}: {
-  aspekNilai: SiakadAspekNilaiType[]
-}) {
-  const { thirdPathname } = usePathname()
-
+export function AspekNilaiMahasiswaMenu() {
   return (
     <div className="scrollbar flex w-full items-center justify-between gap-12 overflow-x-auto">
-      <div className="flex gap-12">
+      {/* <div className="flex gap-12">
         {aspekNilai?.map((item, idx) => (
           <Link
             to={convertToSlug(item?.nama)}
@@ -47,7 +36,7 @@ export function AspekNilaiMahasiswaMenu({
             <p className="text-nowrap">Rekap Nilai</p>
           </button>
         </Link>
-      </div>
+      </div> */}
       <div className="flex items-center gap-12">
         <MenubarPrint />
       </div>

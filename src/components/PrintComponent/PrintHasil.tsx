@@ -1,25 +1,7 @@
-import { Fragment, useRef } from 'react'
+import { useRef } from 'react'
 import printJS from 'print-js'
-import {
-  GetSiakadJadwalKuliahNilaiMahasiswaType,
-  GetSiakadJadwalKuliahType,
-} from '@/store/type/siakad/jadwalKuliahType'
-import {
-  GetSiakadIdentitasType,
-  GetSiakadProfilType,
-} from '@/store/type/siakad/profilType'
 
-export function PrintHasil({
-  response,
-  jadwalKuliahDetail,
-  identitas,
-  profil,
-}: {
-  response: GetSiakadJadwalKuliahNilaiMahasiswaType
-  jadwalKuliahDetail: GetSiakadJadwalKuliahType
-  identitas: GetSiakadIdentitasType
-  profil: GetSiakadProfilType
-}) {
+export function PrintHasil() {
   const printRef = useRef<HTMLDivElement>(null)
   // const totalPage = Math.ceil((profil?.length + 2) / 15)
 
@@ -239,38 +221,38 @@ export function PrintHasil({
     }
   }
 
-  const transformResponse = (
-    response: GetSiakadJadwalKuliahNilaiMahasiswaType,
-  ) => {
-    return response?.data?.map((mahasiswa) => {
-      const transformedAspekNilai: { [key: string]: string | null } = {}
+  // const transformResponse = (
+  //   response: GetSiakadJadwalKuliahNilaiMahasiswaType,
+  // ) => {
+  //   return response?.data?.map((mahasiswa) => {
+  //     const transformedAspekNilai: { [key: string]: string | null } = {}
 
-      response?.aspek_nilai?.forEach((aspek) => {
-        const matchedAspek = mahasiswa?.nilai_aspek?.find(
-          (nilaiAspek) => nilaiAspek?.id === aspek?.id,
-        )
-        transformedAspekNilai[aspek?.nama as string] = matchedAspek
-          ? matchedAspek?.nilai
-          : null
-      })
+  //     response?.aspek_nilai?.forEach((aspek) => {
+  //       const matchedAspek = mahasiswa?.nilai_aspek?.find(
+  //         (nilaiAspek) => nilaiAspek?.id === aspek?.id,
+  //       )
+  //       transformedAspekNilai[aspek?.nama as string] = matchedAspek
+  //         ? matchedAspek?.nilai
+  //         : null
+  //     })
 
-      return {
-        idm: mahasiswa?.idm,
-        nim: mahasiswa?.nim,
-        nama: mahasiswa?.nama,
-        nilai_akhir: mahasiswa?.nilai_akhir,
-        huruf: mahasiswa?.huruf,
-        sks: mahasiswa?.sks,
-        mutu: mahasiswa?.mutu,
-        ...transformedAspekNilai,
-      }
-    })
-  }
+  //     return {
+  //       idm: mahasiswa?.idm,
+  //       nim: mahasiswa?.nim,
+  //       nama: mahasiswa?.nama,
+  //       nilai_akhir: mahasiswa?.nilai_akhir,
+  //       huruf: mahasiswa?.huruf,
+  //       sks: mahasiswa?.sks,
+  //       mutu: mahasiswa?.mutu,
+  //       ...transformedAspekNilai,
+  //     }
+  //   })
+  // }
 
   return (
     <>
       <div ref={printRef} style={{ display: 'none' }}>
-        <table>
+        {/* <table>
           <thead>
             <tr>
               <td>
@@ -467,7 +449,7 @@ export function PrintHasil({
               </td>
             </tr>
           </tfoot>
-        </table>
+        </table> */}
       </div>
 
       <button

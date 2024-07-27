@@ -2,14 +2,8 @@ import { useState } from 'react'
 import { Menubar, MenubarContent, MenubarMenu, MenubarTrigger } from './Menubar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPrint } from '@fortawesome/free-solid-svg-icons'
-import { useSiakadJadwalKuliah } from '@/data/siakad/dashboard'
-import { useSiakadProfil } from '@/data/siakad/useProfil'
-import { PrintBAUAS, PrintHasil, PrintKehadiran } from '../PrintComponent'
 
 export function MenubarPrint() {
-  const { nilaiMahasiswa, jadwalKuliahDetail, bobot } = useSiakadJadwalKuliah()
-  const { identitas, profil } = useSiakadProfil()
-
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleMenuClick = () => {
@@ -35,7 +29,7 @@ export function MenubarPrint() {
         </MenubarTrigger>
         {isMenuOpen && (
           <MenubarContent className="absolute -right-[10rem] top-0 w-[30rem] bg-white p-32 text-[2rem] text-primary-900 shadow-lg transition-all duration-300">
-            <div className="flex flex-col gap-12">
+            {/* <div className="flex flex-col gap-12">
               <PrintHasil
                 response={nilaiMahasiswa}
                 jadwalKuliahDetail={jadwalKuliahDetail}
@@ -57,7 +51,7 @@ export function MenubarPrint() {
                 profil={profil}
                 bobot={bobot}
               />
-            </div>
+            </div> */}
           </MenubarContent>
         )}
       </MenubarMenu>

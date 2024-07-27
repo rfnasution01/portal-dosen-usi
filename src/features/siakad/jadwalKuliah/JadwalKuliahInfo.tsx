@@ -1,14 +1,7 @@
-import { LabelJadwalKuliah } from '@/components/LabelComponent'
-import { GetSiakadJadwalKuliahType } from '@/store/type/siakad/jadwalKuliahType'
-
-export function JadwalKuliahInfo({
-  jadwalKuliahDetail,
-}: {
-  jadwalKuliahDetail: GetSiakadJadwalKuliahType
-}) {
+export function JadwalKuliahInfo() {
   return (
     <>
-      <LabelJadwalKuliah
+      {/* <LabelJadwalKuliah
         label1="Mata Kuliah"
         value1={jadwalKuliahDetail?.nama_mk}
         label2="Tahun Ajaran / Tahapan"
@@ -31,7 +24,7 @@ export function JadwalKuliahInfo({
         dosen={jadwalKuliahDetail?.dosen}
         label2="Kelas Perkuliahan"
         value2={jadwalKuliahDetail?.nama_kelas}
-      />
+      /> */}
     </>
   )
 }

@@ -1,8 +1,8 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
+  AkademikDashboardPage,
   ComingSoonPage,
   CommonLayout,
-  DashboardPage,
   EditTahunAkademikPage,
   JadwalKuliahDetailPage,
   JadwalKuliahPage,
@@ -43,7 +43,13 @@ export const router = createBrowserRouter([
             children: [
               {
                 path: '',
-                element: <DashboardPage />,
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <AkademikDashboardPage />,
+                  },
+                ],
               },
             ],
           },

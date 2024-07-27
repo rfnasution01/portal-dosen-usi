@@ -4,7 +4,6 @@ import { UseFormReturn } from 'react-hook-form'
 import { Form } from '@/components/Form'
 import { useNavigate } from 'react-router-dom'
 import { SelectListData } from '@/components/SelectComponent'
-import { useReferensi } from '@/data/siakad/useReferensi'
 import { ValidasiUpdate } from '@/components/DialogComponent/ValidasiUpdate'
 import { PreviewUpdateTA } from '@/components/Preview/siakad'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,7 +27,6 @@ export default function FormUpdateTahunAkademik({
   isSubmit: boolean
 }) {
   const navigate = useNavigate()
-  const { isFetchingProdi, isLoadingProdi, listProdiOption } = useReferensi()
 
   const ListTahun = []
   const tahunSekarang = new Date().getFullYear()
@@ -77,7 +75,7 @@ export default function FormUpdateTahunAkademik({
                 level2
               />
 
-              <SelectListData
+              {/* <SelectListData
                 form={form}
                 name="kode_prodi"
                 placeholder="Pilih Prodi"
@@ -87,7 +85,7 @@ export default function FormUpdateTahunAkademik({
                 isLoading={isLoadingProdi}
                 isFetching={isFetchingProdi}
                 level3
-              />
+              /> */}
             </div>
             {/* --- Button Group --- */}
             <div className="flex gap-32">

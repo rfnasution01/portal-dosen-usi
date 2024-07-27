@@ -15,20 +15,22 @@ export const NilaiMahasiswaLayout = loadable(
 // ----- Pages -----
 // ------------------
 export const ComingSoonPage = loadable(() => import('@/pages/ComingSoon'))
-export const DashboardPage = loadable(() => import('@/pages/Dashboard'))
+export const AkademikDashboardPage = loadable(
+  () => import('@/pages/akademik/dashboard'),
+)
 export const EditTahunAkademikPage = loadable(
   () => import('@/pages/EditTahunAkademik'),
 )
 
 export const JadwalKuliahPage = loadable(
-  () => import('@/pages/jadwalKuliah/JadwalKuliah'),
+  () => import('@/pages/akademik/jadwalKuliah/JadwalKuliah'),
 )
 export const JadwalKuliahDetailPage = loadable(
-  () => import('@/pages/jadwalKuliah/JadwalKuliahDetail'),
+  () => import('@/pages/akademik/jadwalKuliah/JadwalKuliahDetail'),
 )
 export const NilaiMahasiswaPage = loadable(
-  () => import('@/pages/jadwalKuliah/NilaiMahasiswa'),
+  () => import('@/pages/akademik/jadwalKuliah/NilaiMahasiswa'),
 )
 export const NilaiMahasiswaPerAspekPage = loadable(
-  () => import('@/pages/jadwalKuliah/NilaiMahasiswaPerAspek'),
+  () => import('@/pages/akademik/jadwalKuliah/NilaiMahasiswaPerAspek'),
 )

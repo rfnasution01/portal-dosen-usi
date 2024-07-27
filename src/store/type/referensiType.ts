@@ -1,4 +1,10 @@
-export type GetProdiType = {
-  kode_prodi: string
-  nama_prodi: string
+export type GetReferensiType = {
+  nama: string
+  id: string
+}
+
+export type GetReferensiNegaraType = {
+  id: string
+  nama: string
+  warga_negara: string
 }

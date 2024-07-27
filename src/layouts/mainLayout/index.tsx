@@ -23,8 +23,10 @@ export default function Mainlayout() {
           <MainAside setIsOpen={setIsOpen} isOpen={isOpen} />
         </div>
         {/* --- Konten --- */}
-        <div className="scrollbar flex h-full flex-1 flex-col gap-32 overflow-y-auto">
-          <Outlet />
+        <div className="scrollbar flex h-full w-full flex-1 flex-col gap-32 overflow-y-auto">
+          <div className="scrollbar flex h-full flex-col overflow-y-auto p-32">
+            <Outlet />
+          </div>
         </div>
       </div>
       <ToastContainer />

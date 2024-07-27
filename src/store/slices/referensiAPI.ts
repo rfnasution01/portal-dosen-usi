@@ -1,15 +1,66 @@
 import { Res, api } from '../api'
-import { GetProdiType } from '../type/referensiType'
+import { GetReferensiNegaraType, GetReferensiType } from '../type/referensiType'
 
 export const ReferensiEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
-    getProdi: builder.query<Res<GetProdiType[]>, void>({
-      query: () => ({
-        url: `referensi/program_studi`,
+    getReferensi: builder.query<Res<GetReferensiType[]>, { q: string }>({
+      query: ({ q }) => ({
+        url: `referensi`,
         method: 'GET',
+        params: {
+          q: q,
+        },
+      }),
+    }),
+    getReferensiNegara: builder.query<
+      Res<GetReferensiNegaraType[]>,
+      { q: string }
+    >({
+      query: ({ q }) => ({
+        url: `ref_negara`,
+        method: 'GET',
+        params: {
+          q: q,
+        },
+      }),
+    }),
+    getReferensiProvinsi: builder.query<Res<GetReferensiType[]>, void>({
+      query: () => ({
+        url: `ref_negara`,
+        method: 'GET',
+      }),
+    }),
+    getReferensiKabupaten: builder.query<
+      Res<GetReferensiType[]>,
+      { id_provinsi: string }
+    >({
+      query: ({ id_provinsi }) => ({
+        url: `ref_kabupaten`,
+        method: 'GET',
+        params: {
+          id_provinsi: id_provinsi,
+        },
+      }),
+    }),
+    getReferensiKecamatan: builder.query<
+      Res<GetReferensiType[]>,
+      { id_kabupaten: string }
+    >({
+      query: ({ id_kabupaten }) => ({
+        url: `ref_kecamatan`,
+        method: 'GET',
+        params: {
+          id_kabupaten: id_kabupaten,
+        },
       }),
     }),
   }),
 })
 
-export const { useGetProdiQuery } = ReferensiEndpoints
+export const {
+  useGetReferensiKabupatenQuery,
+  useGetReferensiKecamatanQuery,
+  useGetReferensiNegaraQuery,
+  useGetReferensiProvinsiQuery,
+  useGetReferensiQuery,
+} = ReferensiEndpoints
