@@ -1,4 +1,7 @@
 import { Loading } from '@/components/Loading'
+import SkeletonText from '@/components/SkeletonComonent/SkeletonText'
+import { useAkademikJadwalKuliah } from '@/data/akademik'
+import { JadwalKuliahInfo } from '@/features/akademik/jadwalKuliah'
 import { JadwalKuliahKeterangan } from '@/features/siakad/jadwalKuliah'
 import { usePathname } from '@/utils/usePathname'
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
@@ -6,9 +9,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
-export default function NilaiMahasiswaLayout() {
+export default function AkademikJadwalKuliahLayout() {
   const navigate = useNavigate()
-  const { thirdPathname } = usePathname()
+  const { fourthPathname } = usePathname()
+  const { dataJadwalDetail, loadingJadwalDetail } = useAkademikJadwalKuliah()
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -16,13 +20,13 @@ export default function NilaiMahasiswaLayout() {
     setIsLoading(true)
     const timer = setTimeout(() => setIsLoading(false), 100)
     return () => clearTimeout(timer)
-  }, [thirdPathname])
+  }, [fourthPathname])
 
   return (
     <div className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto p-32">
       <div
         onClick={() => {
-          navigate('/jadwal-perkuliahan')
+          navigate('/akademik/jadwal-perkuliahan')
         }}
         className="flex items-center gap-12 font-sans text-[2.2rem] text-black-300 hover:cursor-pointer hover:text-primary-active"
       >
@@ -33,14 +37,14 @@ export default function NilaiMahasiswaLayout() {
         Jadwal Perkuliahan
       </p>
       <div className="flex flex-col gap-8 border-l-2 border-primary-900 bg-primary-50 p-32">
-        {/* {loadingJadwalKuliah ? (
+        {loadingJadwalDetail ? (
           <SkeletonText lines={4} />
         ) : (
-          <JadwalKuliahInfo jadwalKuliahDetail={jadwalKuliahDetail} />
-        )} */}
+          <JadwalKuliahInfo jadwalKuliahDetail={dataJadwalDetail} />
+        )}
       </div>
 
-      {thirdPathname === undefined && <JadwalKuliahKeterangan />}
+      {fourthPathname === undefined && <JadwalKuliahKeterangan />}
 
       {/* <div>
         {loadingNilaiMahasiswa ? (

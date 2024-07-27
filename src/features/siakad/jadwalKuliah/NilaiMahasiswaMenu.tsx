@@ -24,7 +24,7 @@ export function AspekNilaiMahasiswaMenu() {
             </button>
           </Link>
         ))}
-        <Link to={'/jadwal-perkuliahan/mahasiswa'}>
+        <Link to={'/akademik/sjadwal-perkuliahan/mahasiswa'}>
           <button
             className={clsx('rounded-3xl border px-24 py-16 ', {
               'border-transparent bg-primary-900 text-neutral-white':

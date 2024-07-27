@@ -108,3 +108,8 @@ export function formatBibliographyName(fullName: string): string {
 
   return formattedName
 }
+
+export const getDayName = (dayIndex) => {
+  const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
+  return days[dayIndex]
+}

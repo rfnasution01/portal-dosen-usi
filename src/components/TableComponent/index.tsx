@@ -18,6 +18,7 @@ export type Column<T> = {
 
 export interface ItemTable {
   id?: string
+  id_kelas_makul?: string
 }
 
 type Props<T extends ItemTable, P> = {
@@ -145,18 +146,24 @@ export function Table<T extends ItemTable, P>({
                         <td className="px-24 py-12 align-top leading-medium">
                           <div className="flex items-center justify-center gap-12">
                             <Link
-                              to={'/jadwal-perkuliahan/detail'}
+                              to={'/akademik/jadwal-perkuliahan/detail'}
                               onClick={() => {
-                                localStorage.setItem('jadwalID', row?.id)
+                                localStorage.setItem(
+                                  'jadwalID',
+                                  row?.id_kelas_makul,
+                                )
                               }}
                               className="rounded-lg bg-info px-12 py-4 text-neutral-white"
                             >
                               <FontAwesomeIcon icon={faUser} />
                             </Link>
                             <Link
-                              to={'/jadwal-perkuliahan/mahasiswa'}
+                              to={'/akademik/jadwal-perkuliahan/mahasiswa'}
                               onClick={() => {
-                                localStorage.setItem('jadwalID', row?.id)
+                                localStorage.setItem(
+                                  'jadwalID',
+                                  row?.id_kelas_makul,
+                                )
                               }}
                               className="rounded-lg bg-info px-12 py-4 text-neutral-white"
                             >

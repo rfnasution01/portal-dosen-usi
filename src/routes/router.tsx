@@ -1,6 +1,7 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   AkademikDashboardPage,
+  AkademikJadwalKuliahLayout,
   AkademikUmumLayout,
   ComingSoonPage,
   CommonLayout,
@@ -9,7 +10,6 @@ import {
   JadwalKuliahPage,
   LoginLayout,
   MainLayout,
-  NilaiMahasiswaLayout,
   NilaiMahasiswaPage,
   NilaiMahasiswaPerAspekPage,
   RootLayout,
@@ -68,7 +68,7 @@ export const router = createBrowserRouter([
               },
               {
                 path: 'mahasiswa',
-                element: <NilaiMahasiswaLayout />,
+                element: <AkademikJadwalKuliahLayout />,
                 children: [
                   {
                     path: '',
