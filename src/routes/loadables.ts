@@ -38,6 +38,14 @@ export const NilaiMahasiswaPerAspekPage = loadable(
   () => import('@/pages/akademik/jadwalKuliah/NilaiMahasiswaPerAspek'),
 )
 
-export const UmumTentangPage = loadable(
-  () => import('@/pages/akademik/umum/UmumTentang'),
+export const UmumTentangInstitusiPage = loadable(
+  () => import('@/pages/akademik/umum/UmumTentangInstitusi'),
+)
+
+export const UmumTentangFakultasPage = loadable(
+  () => import('@/pages/akademik/umum/UmumTentangFakultas'),
+)
+
+export const UmumTentangDetailFakultasPage = loadable(
+  () => import('@/pages/akademik/umum/DetailUmumTentangFakultas'),
 )

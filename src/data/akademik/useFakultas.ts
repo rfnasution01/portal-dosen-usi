@@ -6,7 +6,7 @@ import { GetFakultasType } from '@/store/type/akademik/fakultasType'
 import { useEffect, useState } from 'react'
 
 export function useAkademikFakultas() {
-  const id = localStorage.getItem('editID') ?? ''
+  const id = localStorage.getItem('fakultasID') ?? ''
 
   //   --- Fakultas ---
   const [dataFakultas, setDataFakultas] = useState<GetFakultasType[]>()
