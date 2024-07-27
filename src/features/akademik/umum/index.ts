@@ -1,1 +1,2 @@
-export * from './TentangInfo'
+export * from './TentangInstitusiInfo'
+export * from './TentangProdiInfo'

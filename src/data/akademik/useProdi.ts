@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from 'react'
 
 export function useAkademikProdi() {
-  const id = localStorage.getItem('editID') ?? ''
+  const id = localStorage.getItem('prodiID') ?? ''
 
   //   --- Prodi ---
   const [dataProdi, setDataProdi] = useState<GetProdiType[]>()

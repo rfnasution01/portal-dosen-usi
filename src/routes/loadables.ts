@@ -49,3 +49,11 @@ export const UmumTentangFakultasPage = loadable(
 export const UmumTentangDetailFakultasPage = loadable(
   () => import('@/pages/akademik/umum/DetailUmumTentangFakultas'),
 )
+
+export const UmumTentangProdiPage = loadable(
+  () => import('@/pages/akademik/umum/UmumTentangProdi'),
+)
+
+export const UmumTentangDetailProdiPage = loadable(
+  () => import('@/pages/akademik/umum/DetailUmumTentangProdi'),
+)
