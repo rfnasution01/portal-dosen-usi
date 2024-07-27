@@ -1,0 +1,5 @@
+export * from './TentangInfo'
+export * from './TentangVisi'
+export * from './TentangMisi'
+export * from './TentangTujuan'
+export * from './TentangDeskripsiSingkat'

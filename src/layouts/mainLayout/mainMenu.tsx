@@ -21,7 +21,7 @@ export function MainMenu({
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }) {
   const { isShowLogout, setIsShowLogout, handleLogout } = useLogout()
-  const { secondPathname } = usePathname()
+  const { secondPathname, thirdPathname } = usePathname()
 
   const [isShow, setIsShow] = useState<boolean>(false)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
@@ -31,7 +31,8 @@ export function MainMenu({
       (item.toLowerCase() === 'dashboard' && secondPathname === undefined) ||
       (item.toLocaleLowerCase() === 'dashboard' &&
         secondPathname === 'edit-ta') ||
-      convertToSlug(item) === secondPathname
+      convertToSlug(item) === secondPathname ||
+      convertToSlug(item) === thirdPathname
     ) {
       return true
     }

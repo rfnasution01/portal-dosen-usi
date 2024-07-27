@@ -13,6 +13,7 @@ import {
   NilaiMahasiswaPage,
   NilaiMahasiswaPerAspekPage,
   RootLayout,
+  UmumTentangPage,
 } from './loadables'
 import Cookies from 'js-cookie'
 
@@ -93,6 +94,10 @@ export const router = createBrowserRouter([
               {
                 path: 'profil',
                 element: <AkademikUmumLayout />,
+              },
+              {
+                path: 'tentang-institusi',
+                element: <UmumTentangPage />,
               },
             ],
           },
