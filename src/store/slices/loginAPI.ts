@@ -8,7 +8,7 @@ export const LoginEndpoints = api.injectEndpoints({
       { data: PostLoginParams }
     >({
       query: ({ data }) => ({
-        url: `auth/login`,
+        url: `login`,
         method: 'POST',
         body: data,
       }),

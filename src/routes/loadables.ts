@@ -4,6 +4,7 @@ import loadable from '@loadable/component'
 // ----- Layouts -----
 // ------------------
 export const CommonLayout = loadable(() => import('@/layouts/CommonLayout'))
+export const RootLayout = loadable(() => import('@/layouts/rootLayout'))
 export const LoginLayout = loadable(() => import('@/layouts/loginLayout'))
 export const MainLayout = loadable(() => import('@/layouts/mainLayout'))
 export const NilaiMahasiswaLayout = loadable(

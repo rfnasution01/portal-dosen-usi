@@ -11,13 +11,14 @@ import {
   NilaiMahasiswaLayout,
   NilaiMahasiswaPage,
   NilaiMahasiswaPerAspekPage,
+  RootLayout,
 } from './loadables'
 import Cookies from 'js-cookie'
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />,
+    element: <CommonLayout />,
     loader: async () => {
       const jwtPayload = Cookies.get('token')
 
@@ -30,53 +31,63 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <CommonLayout />,
-        children: [
-          {
-            path: '',
-            element: <DashboardPage />,
-          },
-        ],
+        element: <RootLayout />,
       },
       {
-        path: 'jadwal-perkuliahan',
-        element: <CommonLayout />,
+        path: 'akademik',
+        element: <MainLayout />,
         children: [
           {
             path: '',
-            element: <JadwalKuliahPage />,
-          },
-          {
-            path: 'detail',
-            element: <JadwalKuliahDetailPage />,
-          },
-          {
-            path: 'mahasiswa',
-            element: <NilaiMahasiswaLayout />,
+            element: <CommonLayout />,
             children: [
               {
                 path: '',
-                element: <NilaiMahasiswaPage />,
-              },
-              {
-                path: ':aspek',
-                element: <NilaiMahasiswaPerAspekPage />,
+                element: <DashboardPage />,
               },
             ],
           },
+          {
+            path: 'jadwal-perkuliahan',
+            element: <CommonLayout />,
+            children: [
+              {
+                path: '',
+                element: <JadwalKuliahPage />,
+              },
+              {
+                path: 'detail',
+                element: <JadwalKuliahDetailPage />,
+              },
+              {
+                path: 'mahasiswa',
+                element: <NilaiMahasiswaLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <NilaiMahasiswaPage />,
+                  },
+                  {
+                    path: ':aspek',
+                    element: <NilaiMahasiswaPerAspekPage />,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: 'umum',
+            element: <ComingSoonPage />,
+          },
+          {
+            path: 'edit-ta',
+            element: <EditTahunAkademikPage />,
+          },
+          {
+            path: 'Kalender',
+            element: <ComingSoonPage />,
+          },
         ],
-      },
-      {
-        path: 'umum',
-        element: <ComingSoonPage />,
-      },
-      {
-        path: 'edit-ta',
-        element: <EditTahunAkademikPage />,
-      },
-      {
-        path: 'Kalender',
-        element: <ComingSoonPage />,
       },
     ],
   },
