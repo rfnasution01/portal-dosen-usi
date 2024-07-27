@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCaretDown,
+  faCircleExclamation,
   faFolder,
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
@@ -35,6 +36,7 @@ type Props<T extends ItemTable, P> = {
   isNumber?: boolean
   currentPage?: number
   pageSize?: number
+  isDosen?: boolean
 }
 
 export function Table<T extends ItemTable, P>({
@@ -51,6 +53,7 @@ export function Table<T extends ItemTable, P>({
   currentPage,
   pageSize,
   isAksi,
+  isDosen,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
 
@@ -95,13 +98,14 @@ export function Table<T extends ItemTable, P>({
 
                   {/* --- Action --- */}
                   {isAksi && (
-                    <th className="sticky top-0 border-b-2 bg-primary-900 px-24 py-24 text-left uppercase text-white">
+                    <th className="sticky top-0 border-b-2 bg-primary-900 px-24 py-24 text-center uppercase text-white">
                       Aksi
                     </th>
                   )}
+
                   {/* ----- Detail Header ----- */}
                   {collapseComponent && (
-                    <th className="sticky right-0 top-0 bg-white p-16 text-left">
+                    <th className="sticky right-0 top-0 bg-white p-16 text-center">
                       <span className="shadow-[-2.4rem_0_0.4rem_rgb(255,255,255)]">
                         Detail
                       </span>
@@ -145,30 +149,46 @@ export function Table<T extends ItemTable, P>({
                       {isAksi && (
                         <td className="px-24 py-12 align-top leading-medium">
                           <div className="flex items-center justify-center gap-12">
-                            <Link
-                              to={'/akademik/jadwal-perkuliahan/detail'}
-                              onClick={() => {
-                                localStorage.setItem(
-                                  'jadwalID',
-                                  row?.id_kelas_makul,
-                                )
-                              }}
-                              className="rounded-lg bg-info px-12 py-4 text-neutral-white"
-                            >
-                              <FontAwesomeIcon icon={faUser} />
-                            </Link>
-                            <Link
-                              to={'/akademik/jadwal-perkuliahan/mahasiswa'}
-                              onClick={() => {
-                                localStorage.setItem(
-                                  'jadwalID',
-                                  row?.id_kelas_makul,
-                                )
-                              }}
-                              className="rounded-lg bg-info px-12 py-4 text-neutral-white"
-                            >
-                              <FontAwesomeIcon icon={faFolder} />
-                            </Link>
+                            {!isDosen && (
+                              <Link
+                                to={'/akademik/jadwal-perkuliahan/detail'}
+                                onClick={() => {
+                                  localStorage.setItem(
+                                    'jadwalID',
+                                    row?.id_kelas_makul,
+                                  )
+                                }}
+                                className="rounded-lg bg-info px-12 py-4 text-neutral-white"
+                              >
+                                <FontAwesomeIcon icon={faUser} />
+                              </Link>
+                            )}
+                            {!isDosen && (
+                              <Link
+                                to={'/akademik/jadwal-perkuliahan/mahasiswa'}
+                                onClick={() => {
+                                  localStorage.setItem(
+                                    'jadwalID',
+                                    row?.id_kelas_makul,
+                                  )
+                                }}
+                                className="rounded-lg bg-info px-12 py-4 text-neutral-white"
+                              >
+                                <FontAwesomeIcon icon={faFolder} />
+                              </Link>
+                            )}
+                            {isDosen && (
+                              <Link
+                                to={'/akademik/umum/dosen-prodi/detail'}
+                                onClick={() => {
+                                  localStorage.setItem('dosenID', row?.id)
+                                }}
+                                className="flex items-center gap-12 rounded-lg bg-info px-12 py-4 text-neutral-white"
+                              >
+                                <FontAwesomeIcon icon={faCircleExclamation} />
+                                <p>Detail</p>
+                              </Link>
+                            )}
                           </div>
                         </td>
                       )}

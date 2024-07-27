@@ -6,15 +6,18 @@ import {
 
 export const DosenEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
-    getDosen: builder.query<Res<GetDosenType[]>, void>({
-      query: () => ({
+    getDosen: builder.query<Res<GetDosenType[]>, { id: string }>({
+      query: ({ id }) => ({
         url: `dosen`,
         method: 'GET',
+        params: {
+          id: id,
+        },
       }),
     }),
     getDosenDetail: builder.query<Res<GetDosenDetailType>, { id: string }>({
       query: ({ id }) => ({
-        url: `dosen/detail`,
+        url: `dosen_detail`,
         method: 'GET',
         params: {
           id: id,

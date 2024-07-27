@@ -99,3 +99,7 @@ export const AkademikDataLainSchema = zod.object({
   id_hobby: zod.string().nullable().nullish().optional(),
   file: zod.string().nullable().nullish().optional(),
 })
+
+export const AkademikFilterProdiSchema = zod.object({
+  id: zod.string().nullable().nullish().optional(),
+})

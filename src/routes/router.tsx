@@ -13,6 +13,8 @@ import {
   NilaiMahasiswaPage,
   NilaiMahasiswaPerAspekPage,
   RootLayout,
+  UmumDetailDosenPage,
+  UmumDosenPage,
   UmumTentangDetailFakultasPage,
   UmumTentangDetailProdiPage,
   UmumTentangFakultasPage,
@@ -128,6 +130,20 @@ export const router = createBrowserRouter([
                   {
                     path: 'detail',
                     element: <UmumTentangDetailProdiPage />,
+                  },
+                ],
+              },
+              {
+                path: 'dosen-prodi',
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <UmumDosenPage />,
+                  },
+                  {
+                    path: 'detail',
+                    element: <UmumDetailDosenPage />,
                   },
                 ],
               },
