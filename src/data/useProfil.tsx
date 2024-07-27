@@ -3,7 +3,7 @@ import {
   useGetIdentitasQuery,
   useGetInstitusiQuery,
   useGetProfilQuery,
-} from '@/store/slices/profilType'
+} from '@/store/slices/profilAPI'
 import {
   GetAplikasiType,
   GetIdentitasType,

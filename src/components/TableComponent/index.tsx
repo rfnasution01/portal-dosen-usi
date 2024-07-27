@@ -57,20 +57,20 @@ export function Table<T extends ItemTable, P>({
     typeof columns === 'function' ? columns(columnProps as P) : columns
 
   return (
-    <div className={`h-full w-full rounded-2xl ${containerClasses}`}>
+    <div className={`w-full rounded-2xl ${containerClasses}`}>
       {/* ----- Loading UI ----- */}
       {loading ? (
         <Loading width="6.4rem" height="6.4rem" />
       ) : (
         <div
-          className={`scrollbar flex h-full flex-col overflow-auto ${maxHeight}`}
+          className={`flex flex-col ${maxHeight}`}
           style={{ scrollbarGutter: 'stable', borderRadius: '3rem' }}
         >
           {/* ----- No Data/Fallback UI ----- */}
           {!data || data.length === 0 ? (
             <p className="text-[2rem] text-typography-disabled">No data.</p>
           ) : (
-            <table className="scrollbar flex-1 border-collapse overflow-y-auto border border-black-300 bg-white text-[2rem]">
+            <table className="flex-1 border-collapse border border-black-300 bg-white text-[2rem]">
               <thead className="relative z-10 align-top leading-medium text-neutral-white">
                 <tr className="">
                   {/* --- NO --- */}

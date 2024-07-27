@@ -5,66 +5,112 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Form'
+
 import { cn } from '@/utils/cn'
 import { UseFormReturn } from 'react-hook-form'
-import Select from 'react-select'
+import Select, { components } from 'react-select'
 import { customStyles } from '@/store/type/selectType'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { GetReferensiType } from '@/store/type/referensiType'
+import { useGetReferensiQuery } from '@/store/slices/referensiAPI'
 
-interface inputProps {
-  name: string
-  placeholder?: string
-  headerLabel?: string
+type inputProps = {
+  placeholder: string
   isDisabled?: boolean
+  name: string
+  headerLabel?: string
+  useFormReturn: UseFormReturn
   className?: string
-  isLoading?: boolean
-  isFetching?: boolean
+  setIdKategori?: Dispatch<SetStateAction<string>>
+  q?: string
   level1?: boolean
   level2?: boolean
   level3?: boolean
   level4?: boolean
   level5?: boolean
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  form?: UseFormReturn | any | undefined
-  data: {
-    value: string
-    label: string
-  }[]
 }
 
-export function SelectListData({
+export function SelectListReferensi({
   name,
   headerLabel,
   placeholder,
   isDisabled,
-  form,
+  useFormReturn,
   className,
-  data,
+  setIdKategori,
+  q,
   level1,
   level2,
   level3,
   level4,
   level5,
-  isLoading,
-  isFetching,
 }: inputProps) {
+  const [query, setQuery] = useState<string>(null)
+  const [listKonten, setListKonten] = useState<GetReferensiType[]>([])
+
+  const { data, isSuccess, isLoading, isFetching } = useGetReferensiQuery(
+    {
+      q: q,
+    },
+    { skip: !q },
+  )
+
+  useEffect(() => {
+    if (!isFetching) {
+      if (data?.meta?.page > 1) {
+        setListKonten((prevData) => [...prevData, ...(data?.data ?? [])])
+      } else {
+        setListKonten([...(data?.data ?? [])])
+      }
+    }
+  }, [data])
+
+  let KontenOption = []
+  if (isSuccess) {
+    KontenOption = listKonten.map((item) => {
+      return {
+        value: item?.id,
+        label: item?.nama,
+      }
+    })
+  }
+
+  const search = (newValue: string) => {
+    if (newValue != query) {
+      setQuery(newValue)
+    }
+  }
+
+  const Option = (props) => {
+    return (
+      <components.Option {...props}>
+        <div ref={props.innerRef}>
+          <div className="flex flex-col gap-4">
+            <p className="text-[2rem] font-bold">{props?.label ?? '-'}</p>
+          </div>
+        </div>
+      </components.Option>
+    )
+  }
+
   return (
     <FormField
       name={name}
-      control={form.control}
+      control={useFormReturn.control}
       render={({ field }) => {
         return (
           <FormItem
             className={cn(
-              `${level1 ? 'z-50' : level2 ? 'z-40' : level3 ? 'z-30' : level4 ? 'z-20' : level5 ? 'z-10' : 'z-0'} text-warna-dark flex w-full items-center gap-12 text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]`,
+              `${level1 ? 'z-50' : level2 ? 'z-40' : level3 ? 'z-30' : level4 ? 'z-20' : level5 ? 'z-10' : 'z-0'} text-warna-dark flex w-full flex-col gap-12 text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]`,
               className,
             )}
           >
             {headerLabel && (
-              <div className="text-warna-dark w-2/5 phones:w-full phones:text-left">
+              <div className="text-warna-dark phones:w-full phones:text-left">
                 <FormLabel className="font-roboto">{headerLabel}</FormLabel>
               </div>
             )}
-            <div className="w-3/5 phones:w-full">
+            <div className="w-full phones:w-full">
               <FormControl>
                 <Select
                   {...field}
@@ -119,18 +165,25 @@ export function SelectListData({
                     }),
                   }}
                   className={`${level1 ? 'z-50' : level2 ? 'z-40' : level3 ? 'z-30' : level4 ? 'z-20' : level5 ? 'z-10' : 'z-0'} text-[2rem]`}
-                  options={data}
-                  value={data.filter((item) => item.value === field.value)[0]}
-                  placeholder={placeholder ?? 'Input here'}
-                  onChange={(optionSelected: {
-                    value: string
-                    label: string
-                  }) => {
+                  options={KontenOption}
+                  value={
+                    KontenOption.filter((item) => item.value === field.value)[0]
+                  }
+                  placeholder={placeholder ?? 'Pilih'}
+                  onInputChange={search}
+                  onChange={(optionSelected) => {
                     field.onChange(optionSelected?.value)
-                    form.setValue(name, optionSelected?.value)
+                    useFormReturn.setValue(
+                      `nama_kategori_${name}`,
+                      optionSelected?.label,
+                    )
+                    if (setIdKategori) {
+                      setIdKategori(optionSelected?.value)
+                    }
                   }}
                   isDisabled={isDisabled}
-                  isLoading={isLoading || isFetching}
+                  isLoading={isFetching || isLoading}
+                  components={{ Option }}
                 />
               </FormControl>
             </div>

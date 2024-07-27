@@ -1,6 +1,7 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   AkademikDashboardPage,
+  AkademikUmumLayout,
   ComingSoonPage,
   CommonLayout,
   EditTahunAkademikPage,
@@ -83,7 +84,17 @@ export const router = createBrowserRouter([
           },
           {
             path: 'umum',
-            element: <ComingSoonPage />,
+            element: <CommonLayout />,
+            children: [
+              {
+                path: '',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'profil',
+                element: <AkademikUmumLayout />,
+              },
+            ],
           },
           {
             path: 'edit-ta',

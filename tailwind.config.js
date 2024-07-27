@@ -120,6 +120,9 @@ export default {
           DEFAULT: '#e74c3c',
           shade: { 100: '#6b7280' },
         },
+        warning: {
+          DEFAULT: '#DFDF0B',
+        },
         danger: {
           DEFAULT: '#E23333',
         },

@@ -10,6 +10,9 @@ export const MainLayout = loadable(() => import('@/layouts/mainLayout'))
 export const NilaiMahasiswaLayout = loadable(
   () => import('@/layouts/siakadLayout/NilaiMahasiswaLayout'),
 )
+export const AkademikUmumLayout = loadable(
+  () => import('@/layouts/akademikLayout/umumLayout'),
+)
 
 // ------------------
 // ----- Pages -----

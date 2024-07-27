@@ -1,0 +1,7 @@
+export * from './useAkademikKepegawaian'
+export * from './useAkademikDataLain'
+export * from './useAkademikDokumen'
+export * from './useAkademikDomisili'
+export * from './useAkademikDosen'
+export * from './useAkademikKependudukan'
+export * from './useAkademikRekening'

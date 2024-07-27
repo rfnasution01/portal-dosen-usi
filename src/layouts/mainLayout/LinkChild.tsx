@@ -17,7 +17,7 @@ export function LinkChild({
     <>
       {item?.children?.map((list, idx) => (
         <Link
-          to={`/${convertToSlug(item?.nama)}/${convertToSlug(list)}`}
+          to={`/akademik/${convertToSlug(item?.nama)}/${convertToSlug(list)}`}
           onClick={() => {
             setIsOpen(false)
           }}
