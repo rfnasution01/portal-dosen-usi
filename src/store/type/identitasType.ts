@@ -170,3 +170,11 @@ export type GetAplikasiType = {
   gambar: string
   logo: string
 }
+
+export type GetTahunAkademikType = {
+  tahun_akademik: string
+  id_tahapan: string
+  id_prodi: string
+  tahapan: string
+  prodi: string
+}

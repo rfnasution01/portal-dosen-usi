@@ -4,6 +4,7 @@ import {
   GetIdentitasType,
   GetInstitusiType,
   GetProfilType,
+  GetTahunAkademikType,
 } from '../type/identitasType'
 
 export const ProfilEndpoints = api.injectEndpoints({
@@ -32,6 +33,12 @@ export const ProfilEndpoints = api.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getTahunAktif: builder.query<Res<GetTahunAkademikType>, void>({
+      query: () => ({
+        url: `data_aktif`,
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
@@ -40,4 +47,5 @@ export const {
   useGetIdentitasQuery,
   useGetInstitusiQuery,
   useGetProfilQuery,
+  useGetTahunAktifQuery,
 } = ProfilEndpoints

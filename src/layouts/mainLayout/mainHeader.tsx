@@ -1,6 +1,5 @@
 import { IconDashboard } from '@/assets/icon'
 import SkeletonText from '@/components/SkeletonComonent/SkeletonText'
-import { useSiakadProfil } from '@/data/siakad/useProfil'
 import { faAlignJustify, faClose } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
@@ -8,6 +7,7 @@ import Cookies from 'js-cookie'
 import { Dispatch, SetStateAction } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { MainMenu } from './mainMenu'
+import { useProfil } from '@/data/useProfil'
 
 export function MainHeader({
   setIsOpen,
@@ -17,7 +17,8 @@ export function MainHeader({
   isOpen: boolean
 }) {
   const navigate = useNavigate()
-  const { loadingProfil, profil } = useSiakadProfil()
+  const { loadingProfil, dataProfil, dataTahunAktif, loadingTahunAktif } =
+    useProfil()
 
   return (
     <div
@@ -33,18 +34,21 @@ export function MainHeader({
             Portal Akademik Dosen
           </p>
         </div>
-        {loadingProfil ? (
+        {loadingProfil || loadingTahunAktif ? (
           <SkeletonText lines={1} className="w-1/3" />
         ) : (
-          profil && (
+          dataProfil && (
             <div className="flex items-center gap-12 phones:gap-32">
-              <p className="phones:hidden"> {profil?.identitas?.nama}</p>
-              <p className="phones:hidden">|</p>
               <p className="phones:hidden">
-                {profil?.akademik?.nama_tahun} / {profil?.akademik?.tahap}
+                {' '}
+                {dataProfil?.header_profil?.nama}
               </p>
               <p className="phones:hidden">|</p>
-              <p className="phones:hidden">{profil?.akademik?.nama_prodi}</p>
+              <p className="phones:hidden">
+                {dataTahunAktif?.tahun_akademik} / {dataTahunAktif?.tahapan}
+              </p>
+              <p className="phones:hidden">|</p>
+              <p className="phones:hidden">{dataTahunAktif?.prodi}</p>
               <p className="phones:hidden">|</p>
               <Link to={'edit-ta'}>
                 <span className="hover:cursor-pointer hover:text-white">

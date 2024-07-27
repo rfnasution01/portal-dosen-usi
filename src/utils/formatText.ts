@@ -84,3 +84,27 @@ export function convertToSnakeCase(text) {
 
   return snakeCaseText
 }
+
+export function formatBibliographyName(fullName: string): string {
+  // Split the full name by spaces
+  const nameParts = fullName?.split(' ')
+
+  // Extract the last name (assuming it's the last part)
+  const lastName = nameParts?.pop()
+
+  // Extract the first name and middle names
+  const firstName = nameParts?.shift()
+  const middleNames = nameParts?.join(' ')
+
+  // Construct the formatted name
+  const formattedName = `${lastName}, ${firstName?.charAt(0)}${
+    middleNames
+      ? middleNames
+          ?.split(' ')
+          ?.map((name) => name?.charAt(0))
+          ?.join('')
+      : ''
+  } ${middleNames?.split(' ').pop()}`
+
+  return formattedName
+}
