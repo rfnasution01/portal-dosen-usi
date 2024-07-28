@@ -26,7 +26,7 @@ export const ReferensiEndpoints = api.injectEndpoints({
     }),
     getReferensiProvinsi: builder.query<Res<GetReferensiType[]>, void>({
       query: () => ({
-        url: `ref_negara`,
+        url: `ref_provinsi`,
         method: 'GET',
       }),
     }),

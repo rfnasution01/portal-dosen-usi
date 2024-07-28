@@ -16,7 +16,7 @@ export function FormAkademikDosen({
 
   return (
     <>
-      <div className="flex gap-24 phones:flex-col">
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="id_sinta"
           form={form}
@@ -36,7 +36,7 @@ export function FormAkademikDosen({
           isDisabled={disabled}
         />
       </div>
-      <div className="flex gap-24 phones:flex-col">
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="id_scopus"
           form={form}
@@ -56,7 +56,7 @@ export function FormAkademikDosen({
           isDisabled={disabled}
         />
       </div>
-      <div className="flex gap-24 phones:flex-col">
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="nidk"
           form={form}
@@ -76,7 +76,7 @@ export function FormAkademikDosen({
           isDisabled={disabled}
         />
       </div>
-      <div className="flex gap-24 phones:flex-col">
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="id_rumpun_ilmu"
           form={form}
@@ -94,7 +94,7 @@ export function FormAkademikDosen({
           isDisabled={disabled}
         />
       </div>
-      <div className="flex gap-24 phones:flex-col">
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="serdos_tanggal"
           form={form}

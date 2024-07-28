@@ -1,3 +1,6 @@
 export * from './SelectData'
 export * from './SelectReferensi'
 export * from './SelectProdi'
+export * from './SelectProvinsi'
+export * from './SelectKabupaten'
+export * from './SelectKecamatan'

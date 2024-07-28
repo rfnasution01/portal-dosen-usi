@@ -11,7 +11,11 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dispatch, SetStateAction } from 'react'
 import { UseFormReturn } from 'react-hook-form'
-import { AkademikPreviewDosen, AkademikPreviewKepegawaian } from '../preview'
+import {
+  AkademikPreviewDomisili,
+  AkademikPreviewDosen,
+  AkademikPreviewKepegawaian,
+} from '../preview'
 
 export function ButtonGroup({
   isEdit,
@@ -98,6 +102,17 @@ export function ButtonGroup({
                 serdos_status={form.watch('serdos_status')}
                 serdos_tanggal={form.watch('serdos_tanggal')}
                 serdos_nomor={form.watch('serdos_nomor')}
+              />
+            ) : menu === 'Alamat Domisili & Kontak' ? (
+              <AkademikPreviewDomisili
+                id_provinsi={form.watch('provinsi')}
+                id_kecamatan={form.watch('kecamatan')}
+                id_kabupaten={form.watch('kabupaten')}
+                alamat_lengkap={form.watch('alamat_lengkap')}
+                jarak_rumah_kantor={form.watch('jarak_rumah_kantor')}
+                kode_pos={form.watch('kode_pos')}
+                handphone={form.watch('nomor_telepon')}
+                no_telp_kantor={form.watch('nomor_telepon_kantor')}
               />
             ) : (
               ''
