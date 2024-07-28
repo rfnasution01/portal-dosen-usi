@@ -16,6 +16,7 @@ import {
   UmumDetailDosenPage,
   UmumDetailPengumumanPage,
   UmumDetailPimpinanPage,
+  UmumDokumenPage,
   UmumDosenPage,
   UmumPengumumanPage,
   UmumPimpinanPage,
@@ -178,6 +179,10 @@ export const router = createBrowserRouter([
                     element: <UmumDetailPimpinanPage />,
                   },
                 ],
+              },
+              {
+                path: 'dokumen-akademik',
+                element: <UmumDokumenPage />,
               },
             ],
           },

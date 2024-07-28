@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 export function useAkademikDokumen() {
   //   --- Tahun Aktif ---
-  const [dataDokumen, setDataDokumen] = useState<GetDokumenAkademikType>()
+  const [dataDokumen, setDataDokumen] = useState<GetDokumenAkademikType[]>()
 
   const {
     data: Dokumen,

@@ -81,3 +81,7 @@ export const UmumPimpinanPage = loadable(
 export const UmumDetailPimpinanPage = loadable(
   () => import('@/pages/akademik/umum/DetailUmumPimpinan'),
 )
+
+export const UmumDokumenPage = loadable(
+  () => import('@/pages/akademik/umum/UmumDokumen'),
+)

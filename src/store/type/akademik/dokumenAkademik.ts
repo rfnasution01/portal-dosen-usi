@@ -5,4 +5,5 @@ export type GetDokumenAkademikType = {
   tanggal: string
   judul: string
   file: string
+  id: string
 }

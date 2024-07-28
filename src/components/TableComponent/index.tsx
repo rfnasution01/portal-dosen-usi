@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCaretDown,
   faCircleExclamation,
+  faDownload,
   faFolder,
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
@@ -20,6 +21,7 @@ export type Column<T> = {
 export interface ItemTable {
   id?: string
   id_kelas_makul?: string
+  file?: string
 }
 
 type Props<T extends ItemTable, P> = {
@@ -38,6 +40,7 @@ type Props<T extends ItemTable, P> = {
   pageSize?: number
   isDosen?: boolean
   isPimpin?: boolean
+  isDokumen?: boolean
 }
 
 export function Table<T extends ItemTable, P>({
@@ -56,6 +59,7 @@ export function Table<T extends ItemTable, P>({
   isAksi,
   isDosen,
   isPimpin,
+  isDokumen,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
 
@@ -151,7 +155,7 @@ export function Table<T extends ItemTable, P>({
                       {isAksi && (
                         <td className="px-24 py-12 align-top leading-medium">
                           <div className="flex items-center justify-center gap-12">
-                            {!isDosen && !isPimpin && (
+                            {!isDosen && !isPimpin && !isDokumen && (
                               <Link
                                 to={'/akademik/jadwal-perkuliahan/detail'}
                                 onClick={() => {
@@ -165,7 +169,7 @@ export function Table<T extends ItemTable, P>({
                                 <FontAwesomeIcon icon={faUser} />
                               </Link>
                             )}
-                            {!isDosen && !isPimpin && (
+                            {!isDosen && !isPimpin && !isDokumen && (
                               <Link
                                 to={'/akademik/jadwal-perkuliahan/mahasiswa'}
                                 onClick={() => {
@@ -202,6 +206,17 @@ export function Table<T extends ItemTable, P>({
                               >
                                 <FontAwesomeIcon icon={faCircleExclamation} />
                                 <p>Detail</p>
+                              </Link>
+                            )}
+
+                            {isDokumen && (
+                              <Link
+                                to={row?.file}
+                                target="_blank"
+                                className="flex items-center gap-12 rounded-lg bg-info px-12 py-4 text-neutral-white"
+                              >
+                                <FontAwesomeIcon icon={faDownload} />
+                                <p>Download</p>
                               </Link>
                             )}
                           </div>
