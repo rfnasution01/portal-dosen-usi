@@ -92,7 +92,7 @@ export const JadwalKuliahEndpoints = api.injectEndpoints({
     }),
     updateNilai: builder.mutation<void, { body: PostJadwalKuliahType }>({
       query: ({ body }) => ({
-        url: `jadwal_kuliah_mhs_nilai_aspek`,
+        url: `jadwal_kuliah_mhs_nilai`,
         method: 'POST',
         body: body,
       }),

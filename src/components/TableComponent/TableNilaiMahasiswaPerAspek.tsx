@@ -117,12 +117,12 @@ export function TableMahasiswaPerAspek({
                       </td>
                     ))}
                   <td className="px-24 py-12 text-center align-middle leading-medium ">
-                    {loadingStates[row.idm] ? (
+                    {loadingStates[row.id_mk] ? (
                       <img src={LoadingGif} alt="Loading" />
                     ) : (
                       <FormJadwalKuliah
                         form={form}
-                        isLoading={loadingStates[row.idm]}
+                        isLoading={loadingStates[row.id_mk]}
                         handleSubmit={handleSubmit}
                         row={row}
                         setLoading={handleLoading}

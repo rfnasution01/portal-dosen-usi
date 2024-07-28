@@ -17,7 +17,7 @@ export default function JadwalKuliahDetail() {
   } = useAkademikJadwalKuliah()
 
   return (
-    <div className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto p-32 font-sans">
+    <div className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto font-sans">
       <div
         onClick={() => {
           navigate(-1)

@@ -31,7 +31,8 @@ import { Bounce, toast } from 'react-toastify'
 import { rowType } from '@/components/FormComponent/akademik'
 
 export function useAkademikJadwalKuliah() {
-  const idEdit = localStorage.getItem('jadwalID') ?? ''
+  const id = localStorage.getItem('jadwalID') ?? ''
+  const editID = localStorage?.getItem('editID') ?? ''
   const [isShowKomposisi, setIsShowKomposisi] = useState<boolean>(false)
   const [isShow, setIsShow] = useState<boolean>(false)
 
@@ -82,9 +83,9 @@ export function useAkademikJadwalKuliah() {
     isFetching: isFetchingJadwalMahasiswa,
   } = useGetJadwalMahasiswaQuery(
     {
-      id_kelas_makul: idEdit,
+      id_kelas_makul: id,
     },
-    { skip: !idEdit || idEdit === '' || idEdit === 'undefined' },
+    { skip: !id || id === '' || id === 'undefined' },
   )
 
   useEffect(() => {
@@ -106,9 +107,9 @@ export function useAkademikJadwalKuliah() {
     isFetching: isFetchingJadwalDetail,
   } = useGetJadwalDetailQuery(
     {
-      id_kelas_makul: idEdit,
+      id_kelas_makul: id,
     },
-    { skip: !idEdit || idEdit === '' || idEdit === 'undefined' },
+    { skip: !id || id === '' || id === 'undefined' },
   )
 
   useEffect(() => {
@@ -128,9 +129,9 @@ export function useAkademikJadwalKuliah() {
     isFetching: isFetchingKomposisi,
   } = useGetKomposisiNilaiQuery(
     {
-      id_kelas_makul: idEdit,
+      id_kelas_makul: id,
     },
-    { skip: !idEdit || idEdit === '' || idEdit === 'undefined' },
+    { skip: !id || id === '' || id === 'undefined' },
   )
 
   useEffect(() => {
@@ -157,9 +158,9 @@ export function useAkademikJadwalKuliah() {
     isFetching: isFetchingJadwalNilai,
   } = useGetJadwalNilaiQuery(
     {
-      id_kelas_makul: idEdit,
+      id_kelas_makul: id,
     },
-    { skip: !idEdit || idEdit === '' || idEdit === 'undefined' },
+    { skip: !id || id === '' || id === 'undefined' },
   )
 
   useEffect(() => {
@@ -198,13 +199,13 @@ export function useAkademikJadwalKuliah() {
         })
       }
 
-      const nilaiTransform = transformResponse(JadwalNilai?.data, idEdit)
+      const nilaiTransform = transformResponse(JadwalNilai?.data, editID)
       setPostData({
         id_mk: nilaiTransform?.[0]?.id_mk,
-        id_aspek: idEdit,
+        id_aspek: editID,
       })
 
-      setNilaiMahasiswaTransform(transformResponse(JadwalNilai?.data, idEdit))
+      setNilaiMahasiswaTransform(transformResponse(JadwalNilai?.data, editID))
     }
   }, [JadwalNilai])
 
@@ -258,7 +259,7 @@ export function useAkademikJadwalKuliah() {
     values: zod.infer<typeof AkademikJadwalKuliahKomposisiSchema>,
   ) => {
     const body = {
-      id_kelas_makul: idEdit,
+      id_kelas_makul: id,
       komposisi_nilai: values.komposisi_nilai,
     }
     try {
@@ -346,11 +347,12 @@ export function useAkademikJadwalKuliah() {
 
   const handleSubmit = async (idm: string) => {
     const body = {
-      idm: idm ?? '',
-      id_mk: postData?.id_mk ?? '',
+      id_krs: idm ?? '',
       id_aspek: postData?.id_aspek ?? '',
-      nilai: form.watch(`nilai_${idm}_${idEdit}`) ?? '',
+      nilai: form.watch(`nilai_${idm}_${editID}`) ?? '',
     }
+
+    console.log({ body })
 
     try {
       localStorage.setItem('idm', idm)
@@ -391,7 +393,7 @@ export function useAkademikJadwalKuliah() {
 
   const handleSubmitAjukan = async () => {
     const body = {
-      id_jadwal: idEdit,
+      id_jadwal: id,
     }
 
     try {

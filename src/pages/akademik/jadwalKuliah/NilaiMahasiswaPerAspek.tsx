@@ -9,6 +9,7 @@ export default function NilaiMahasiswaPerAspek() {
     handleSubmit,
     isSuccessEditNilai,
   } = useAkademikJadwalKuliah()
+
   return (
     <>
       <TableMahasiswaPerAspek

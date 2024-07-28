@@ -6,7 +6,7 @@ export default function JadwalKuliahDetail() {
   const { dataJadwalKuliah, loadingJadwalKuliah } = useAkademikJadwalKuliah()
 
   return (
-    <div className="scrollbar flex h-full  w-full flex-col gap-32 overflow-y-auto p-32">
+    <div className="scrollbar flex h-full  w-full flex-col gap-32 overflow-y-auto">
       <p className="font-sans text-[2.8rem] font-bold text-black-300">
         Jadwal Perkuliahan
       </p>

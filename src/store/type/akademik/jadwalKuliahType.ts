@@ -100,8 +100,7 @@ export type GetJadwalNilaiType = {
 }
 
 export type PostJadwalKuliahType = {
-  idm: string
-  id_mk: string
+  id_krs: string
   id_aspek: string
   nilai: string
 }
