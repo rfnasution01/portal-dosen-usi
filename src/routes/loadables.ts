@@ -85,3 +85,11 @@ export const UmumDetailPimpinanPage = loadable(
 export const UmumDokumenPage = loadable(
   () => import('@/pages/akademik/umum/UmumDokumen'),
 )
+
+export const KalendarAkademikPage = loadable(
+  () => import('@/pages/akademik/kalendar/KalendarAkademik'),
+)
+
+export const JadwalMingguIniPage = loadable(
+  () => import('@/pages/akademik/kalendar/JadwalMingguIni'),
+)

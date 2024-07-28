@@ -28,10 +28,10 @@ export default function AkademikUmumTentangProdi() {
                     {item?.daftar_program_studi?.map((list, id) => (
                       <div
                         key={id}
-                        className="flex items-center justify-between gap-32 text-[2rem] phones:flex-col phones:items-start"
+                        className="flex items-center justify-between gap-32 text-[2rem] phones:flex-col phones:items-start phones:justify-start phones:gap-12"
                       >
                         <p>{list?.nama_prodi}</p>
-                        <div className="flex justify-end phones:w-full">
+                        <div className="flex justify-end phones:w-full phones:justify-start">
                           <Link
                             to={'detail'}
                             onClick={() => {

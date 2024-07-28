@@ -1,6 +1,7 @@
 import {
   GetJadwalMahasiswaType,
   GetJadwalSemesterType,
+  JadwalType,
 } from '@/store/type/akademik/jadwalKuliahType'
 import { Column } from '../..'
 import { getInitials } from '@/utils/formatText'
@@ -65,4 +66,25 @@ export const columnsListJadwalMahasiswa: Column<GetJadwalMahasiswaType>[] = [
       )
     },
   },
+]
+
+export const columnsListJadwalKuliahMingguIni: Column<JadwalType>[] = [
+  {
+    header: 'Mulai',
+    key: 'mulai',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return <div>{rowData?.mulai?.slice(0, 5)}</div>
+    },
+  },
+  {
+    header: 'Selesai',
+    key: 'akhir',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return <div>{rowData?.akhir?.slice(0, 5)}</div>
+    },
+  },
+  { header: 'Kelas', key: 'kelas', width: '!min-w-[12rem]' },
+  { header: 'Ruangan', key: 'ruang', width: '!min-w-[12rem]' },
 ]

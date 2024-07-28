@@ -20,7 +20,15 @@ export type GetJadwalMingguType = {
     hari: string
     tanggal: string
   }
-  jadwal: []
+  jadwal: JadwalType[]
+}
+
+export type JadwalType = {
+  id: string
+  mulai: string
+  akhir: string
+  kelas: string
+  ruangan: string
 }
 
 export type GetJadwalDetailType = {

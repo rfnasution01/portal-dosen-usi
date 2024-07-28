@@ -3,7 +3,7 @@ import { GetKalendarAkademikType } from '@/store/type/akademik/kalendarAkademik'
 
 export const KalendarAkademikEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
-    getKalendarAkademik: builder.query<Res<GetKalendarAkademikType>, void>({
+    getKalendarAkademik: builder.query<Res<GetKalendarAkademikType[]>, void>({
       query: () => ({
         url: `kalender_akademik`,
         method: 'GET',

@@ -8,6 +8,8 @@ import {
   EditTahunAkademikPage,
   JadwalKuliahDetailPage,
   JadwalKuliahPage,
+  JadwalMingguIniPage,
+  KalendarAkademikPage,
   LoginLayout,
   MainLayout,
   NilaiMahasiswaPage,
@@ -183,6 +185,24 @@ export const router = createBrowserRouter([
               {
                 path: 'dokumen-akademik',
                 element: <UmumDokumenPage />,
+              },
+            ],
+          },
+          {
+            path: 'kalender',
+            element: <CommonLayout />,
+            children: [
+              {
+                path: '',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'kalender-akademik',
+                element: <KalendarAkademikPage />,
+              },
+              {
+                path: 'jadwal-minggu-ini',
+                element: <JadwalMingguIniPage />,
               },
             ],
           },

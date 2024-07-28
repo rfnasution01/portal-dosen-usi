@@ -18,7 +18,7 @@ export default function AkademikUmumTentangFakultas() {
             <div className="flex flex-col gap-12">
               {dataFakultas?.map((item, idx) => (
                 <div
-                  className="flex items-center gap-32 phones:flex-col phones:items-start"
+                  className="flex items-center gap-32 phones:flex-col phones:items-start phones:gap-12"
                   key={idx}
                 >
                   <p className="w-3/5 phones:w-full">

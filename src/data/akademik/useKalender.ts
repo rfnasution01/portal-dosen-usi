@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 export function useAkademikKalender() {
   //   --- Tahun Aktif ---
-  const [dataKalender, setDataKalender] = useState<GetKalendarAkademikType>()
+  const [dataKalender, setDataKalender] = useState<GetKalendarAkademikType[]>()
 
   const {
     data: Kalender,

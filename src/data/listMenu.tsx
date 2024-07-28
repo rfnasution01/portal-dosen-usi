@@ -35,6 +35,6 @@ export const ListMenu: ListMenuType[] = [
   {
     nama: 'Kalender',
     icon: <FontAwesomeIcon icon={faCalendarDays} />,
-    children: ['Kalender Akademik', 'Jadwal Minggu Ini', 'Jadwal Semester Ini'],
+    children: ['Kalender Akademik', 'Jadwal Minggu Ini'],
   },
 ]
