@@ -16,7 +16,7 @@ export default function AkademikUmumDosen() {
           {loadingDosenDetail ? (
             <Loading />
           ) : (
-            <div className="flex flex-col gap-24 rounded-2x bg-white p-32 text-neutral-black">
+            <div className="flex flex-col gap-24 rounded-2x bg-white p-32 text-neutral-black shadow-md">
               {dataDosenDetail?.biodata?.photo ||
               dataDosenDetail?.biodata?.photo !== '' ? (
                 <img

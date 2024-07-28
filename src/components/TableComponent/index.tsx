@@ -37,6 +37,7 @@ type Props<T extends ItemTable, P> = {
   currentPage?: number
   pageSize?: number
   isDosen?: boolean
+  isPimpin?: boolean
 }
 
 export function Table<T extends ItemTable, P>({
@@ -54,6 +55,7 @@ export function Table<T extends ItemTable, P>({
   pageSize,
   isAksi,
   isDosen,
+  isPimpin,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
 
@@ -149,7 +151,7 @@ export function Table<T extends ItemTable, P>({
                       {isAksi && (
                         <td className="px-24 py-12 align-top leading-medium">
                           <div className="flex items-center justify-center gap-12">
-                            {!isDosen && (
+                            {!isDosen && !isPimpin && (
                               <Link
                                 to={'/akademik/jadwal-perkuliahan/detail'}
                                 onClick={() => {
@@ -163,7 +165,7 @@ export function Table<T extends ItemTable, P>({
                                 <FontAwesomeIcon icon={faUser} />
                               </Link>
                             )}
-                            {!isDosen && (
+                            {!isDosen && !isPimpin && (
                               <Link
                                 to={'/akademik/jadwal-perkuliahan/mahasiswa'}
                                 onClick={() => {
@@ -182,6 +184,19 @@ export function Table<T extends ItemTable, P>({
                                 to={'/akademik/umum/dosen-prodi/detail'}
                                 onClick={() => {
                                   localStorage.setItem('dosenID', row?.id)
+                                }}
+                                className="flex items-center gap-12 rounded-lg bg-info px-12 py-4 text-neutral-white"
+                              >
+                                <FontAwesomeIcon icon={faCircleExclamation} />
+                                <p>Detail</p>
+                              </Link>
+                            )}
+
+                            {isPimpin && (
+                              <Link
+                                to={'/akademik/umum/data-pimpinan/detail'}
+                                onClick={() => {
+                                  localStorage.setItem('pimpinanID', row?.id)
                                 }}
                                 className="flex items-center gap-12 rounded-lg bg-info px-12 py-4 text-neutral-white"
                               >

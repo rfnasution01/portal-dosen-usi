@@ -15,8 +15,10 @@ import {
   RootLayout,
   UmumDetailDosenPage,
   UmumDetailPengumumanPage,
+  UmumDetailPimpinanPage,
   UmumDosenPage,
   UmumPengumumanPage,
+  UmumPimpinanPage,
   UmumTentangDetailFakultasPage,
   UmumTentangDetailProdiPage,
   UmumTentangFakultasPage,
@@ -160,6 +162,20 @@ export const router = createBrowserRouter([
                   {
                     path: ':pengumuman',
                     element: <UmumDetailPengumumanPage />,
+                  },
+                ],
+              },
+              {
+                path: 'data-pimpinan',
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <UmumPimpinanPage />,
+                  },
+                  {
+                    path: 'detail',
+                    element: <UmumDetailPimpinanPage />,
                   },
                 ],
               },

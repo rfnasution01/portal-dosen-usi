@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from 'react'
 
 export function useAkademikPimpinan() {
-  const id = localStorage.getItem('editID') ?? ''
+  const id = localStorage.getItem('pimpinanID') ?? ''
 
   //   --- Pimpinan ---
   const [dataPimpinan, setDataPimpinan] = useState<GetPimpinanType[]>()
