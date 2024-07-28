@@ -65,3 +65,11 @@ export const UmumDosenPage = loadable(
 export const UmumDetailDosenPage = loadable(
   () => import('@/pages/akademik/umum/DetailUmumDosen'),
 )
+
+export const UmumPengumumanPage = loadable(
+  () => import('@/pages/akademik/umum/UmumPengumuman'),
+)
+
+export const UmumDetailPengumumanPage = loadable(
+  () => import('@/pages/akademik/umum/DetailUmumPengumuman'),
+)

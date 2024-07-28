@@ -13,7 +13,7 @@ export type Res<T, M = undefined> = {
   status: boolean
   message: string
   data: T
-  related: T
+  related: T[]
   meta: Meta
   mapped?: M
 }

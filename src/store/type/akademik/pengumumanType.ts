@@ -8,3 +8,9 @@ export type GetPengumumanType = {
   photo: string[]
   dokumen: string[]
 }
+
+export type ParamsPengumumanType = {
+  search: string
+  page_number: number
+  page_size: number
+}

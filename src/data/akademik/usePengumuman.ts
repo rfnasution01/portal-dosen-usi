@@ -1,3 +1,4 @@
+import { Meta } from '@/store/api'
 import {
   useGetPengumumanDetailQuery,
   useGetPengumumanQuery,
@@ -6,20 +7,30 @@ import { GetPengumumanType } from '@/store/type/akademik/pengumumanType'
 import { useEffect, useState } from 'react'
 
 export function useAkademikPengumuman() {
-  const id = localStorage.getItem('editID') ?? ''
+  const id = localStorage.getItem('pengumumanID') ?? ''
+
+  const [pageNumber, setPageNumber] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(10)
+  const [search, setSearch] = useState<string>('')
 
   //   --- Pengumuman ---
   const [dataPengumuman, setDataPengumuman] = useState<GetPengumumanType[]>()
+  const [meta, setMeta] = useState<Meta>()
 
   const {
     data: Pengumuman,
     isLoading: isLoadingPengumuman,
     isFetching: isFetchingPengumuman,
-  } = useGetPengumumanQuery()
+  } = useGetPengumumanQuery({
+    page_number: pageNumber,
+    page_size: pageNumber,
+    search: search,
+  })
 
   useEffect(() => {
     if (Pengumuman) {
       setDataPengumuman(Pengumuman?.data)
+      setMeta(Pengumuman?.meta)
     }
   }, [Pengumuman])
 
@@ -28,16 +39,20 @@ export function useAkademikPengumuman() {
   //   --- Pengumuman ---
   const [dataPengumumanDetail, setDataPengumumanDetail] =
     useState<GetPengumumanType>()
+  const [dataPengumumanRelated, setDataPengumumanRelated] = useState<
+    GetPengumumanType[]
+  >([])
 
   const {
     data: PengumumanDetail,
     isLoading: isLoadingPengumumanDetail,
     isFetching: isFetchingPengumumanDetail,
-  } = useGetPengumumanDetailQuery({ id }, { skip: !id || id === '' })
+  } = useGetPengumumanDetailQuery({ id: id }, { skip: !id || id === '' })
 
   useEffect(() => {
     if (PengumumanDetail) {
       setDataPengumumanDetail(PengumumanDetail?.data)
+      setDataPengumumanRelated(PengumumanDetail?.related)
     }
   }, [PengumumanDetail])
 
@@ -49,5 +64,13 @@ export function useAkademikPengumuman() {
     dataPengumumanDetail,
     loadingPengumuman,
     loadingPengumumanDetail,
+    pageNumber,
+    pageSize,
+    search,
+    setPageNumber,
+    setPageSize,
+    setSearch,
+    meta,
+    dataPengumumanRelated,
   }
 }

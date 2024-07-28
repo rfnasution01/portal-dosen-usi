@@ -5,7 +5,7 @@ import { AkademikTentangProdiInfo } from '@/features/akademik/umum'
 import { convertSlugToText } from '@/utils/formatText'
 import { usePathname } from '@/utils/usePathname'
 
-export default function AkademikUmumDetailTentangFakultas() {
+export default function AkademikUmumDetailTentangProdi() {
   const { lastPathname } = usePathname()
   const { dataProdiDetail, loadingProdiDetail } = useAkademikProdi()
 

@@ -3,7 +3,7 @@ import { Loading } from '@/components/Loading'
 import { useAkademikDosen } from '@/data/akademik/useDosen'
 import { getInitials } from '@/utils/formatText'
 
-export default function AkademikUmumTentangProdi() {
+export default function AkademikUmumDosen() {
   const { dataDosenDetail, loadingDosenDetail } = useAkademikDosen()
 
   return (
