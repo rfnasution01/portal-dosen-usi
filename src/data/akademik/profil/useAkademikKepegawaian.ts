@@ -5,12 +5,16 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
 import { AkademikKepegawaianSchema } from '@/store/schema/akadamik/umumSchema'
+import { useProfil } from '@/data/useProfil'
 
 export function useAkademikKepegawaian() {
   const [isShow, setIsShow] = useState<boolean>(false)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
+  const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  const formKepegawaian = useForm<zod.infer<typeof AkademikKepegawaianSchema>>({
+  const { dataProfil } = useProfil()
+
+  const form = useForm<zod.infer<typeof AkademikKepegawaianSchema>>({
     resolver: zodResolver(AkademikKepegawaianSchema),
     defaultValues: {},
   })
@@ -19,14 +23,15 @@ export function useAkademikKepegawaian() {
   const [
     updateKepegawaian,
     {
-      isSuccess: successUpdateKepegawaian,
-      isError: isErrorUpdateKepegawaian,
-      error: errorUpdateKepegawaian,
-      isLoading: loadingUpdateKepegawaian,
+      isSuccess: successUpdate,
+      isError: isErrorUpdate,
+      error: errorUpdate,
+      isLoading: loadingUpdate,
     },
   ] = useUpdateKepegawaianMutation()
 
-  const handleSubmitKepegawaian = async (values) => {
+  const handleSubmit = async () => {
+    const values = form.watch()
     const formData = new FormData()
 
     formData.append('nama', values?.nama)
@@ -42,15 +47,17 @@ export function useAkademikKepegawaian() {
     formData.append('no_akun_finger', values?.no_akun_finger)
     formData.append('id_jabatan_akademik', values?.id_jabatan_akademik)
 
-    try {
-      await updateKepegawaian({ data: formData })
-    } catch (error) {
-      console.log(error)
+    if (isEdit && isShow && isSubmit) {
+      try {
+        await updateKepegawaian({ data: formData })
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
   useEffect(() => {
-    if (successUpdateKepegawaian) {
+    if (successUpdate) {
       toast.success('Berhasil update data!', {
         position: 'bottom-right',
         autoClose: 3000,
@@ -64,12 +71,13 @@ export function useAkademikKepegawaian() {
       })
       setIsShow(false)
       setIsSubmit(false)
+      setIsEdit(false)
     }
-  }, [successUpdateKepegawaian])
+  }, [successUpdate])
 
   useEffect(() => {
-    if (isErrorUpdateKepegawaian) {
-      const errorMsg = errorUpdateKepegawaian as { data?: { message?: string } }
+    if (isErrorUpdate) {
+      const errorMsg = errorUpdate as { data?: { message?: string } }
 
       toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
         position: 'bottom-right',
@@ -84,16 +92,44 @@ export function useAkademikKepegawaian() {
       })
       setIsShow(false)
       setIsSubmit(false)
+      setIsEdit(false)
     }
-  }, [isErrorUpdateKepegawaian, errorUpdateKepegawaian])
+  }, [isErrorUpdate, errorUpdate])
+
+  useEffect(() => {
+    if (dataProfil) {
+      const data = dataProfil?.kepegawaian
+      const datax = dataProfil?.header_profil
+
+      form.setValue('agama', datax?.agama)
+      form.setValue('email_perguruan_tinggi', data?.email_perguruan_tinggi)
+      form.setValue('gelar_belakang', datax?.gelar_belakang)
+      form.setValue('gelar_depan', datax?.gelar_depan)
+      form.setValue('id_agama', datax?.id_agama)
+      form.setValue('id_jabatan_akademik', data?.id_jabatan_akademik)
+      form.setValue('id_jenis_kelamin', datax?.id_jenis_kelamin)
+      form.setValue('id_status_nikah', datax?.id_status_nikah)
+      form.setValue('id_unit_kerja', data?.id_unit_kerja)
+      form.setValue('jabatan_akademik', data?.jabatan_akademik)
+      form.setValue('jenis_kelamin', datax?.jenis_kelamin)
+      form.setValue('nama', datax?.nama)
+      form.setValue('no_akun_finger', data?.no_akun_finger)
+      form.setValue('status_nikah', datax?.status_nikah)
+      form.setValue('tanggal_lahir', datax?.tanggal_lahir)
+      form.setValue('tempat_lahir', datax?.tempat_lahir)
+      form.setValue('unit_kerja', data?.unit_kerja)
+    }
+  }, [dataProfil])
 
   return {
     isShow,
     isSubmit,
     setIsShow,
     setIsSubmit,
-    loadingUpdateKepegawaian,
-    handleSubmitKepegawaian,
-    formKepegawaian,
+    loadingUpdate,
+    handleSubmit,
+    form,
+    isEdit,
+    setIsEdit,
   }
 }

@@ -9,6 +9,7 @@ import { AkademikKependudukanSchema } from '@/store/schema/akadamik/umumSchema'
 export function useAkademikKependudukan() {
   const [isShow, setIsShow] = useState<boolean>(false)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
+  const [isEdit, setIsEdit] = useState<boolean>(false)
 
   const formKependudukan = useForm<
     zod.infer<typeof AkademikKependudukanSchema>
@@ -43,10 +44,12 @@ export function useAkademikKependudukan() {
     formData.append('file_ktp', values?.file_ktp)
     formData.append('file_kk', values?.file_kk)
 
-    try {
-      await updateKependudukan({ data: formData })
-    } catch (error) {
-      console.log(error)
+    if (isEdit) {
+      try {
+        await updateKependudukan({ data: formData })
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
@@ -98,5 +101,7 @@ export function useAkademikKependudukan() {
     loadingUpdateKependudukan,
     handleSubmitKependudukan,
     formKependudukan,
+    isEdit,
+    setIsEdit,
   }
 }

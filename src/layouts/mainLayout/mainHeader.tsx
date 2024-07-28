@@ -30,7 +30,12 @@ export function MainHeader({
     >
       <div className="flex items-center justify-between gap-32 bg-primary-900 px-64 py-12 text-neutral-white phones:px-32">
         <div className="flex items-center gap-12">
-          <img src="/logo.png" className="w-[6rem]" loading="lazy" alt="Logo" />
+          <img
+            src="https://administrator.universitassimalungun.ac.id/assets/img/aplikasi/logo-usi_(1).png"
+            className="w-[6rem]"
+            loading="lazy"
+            alt="Logo"
+          />
           <p className="font-sans text-[2.4rem] font-bold phones:hidden">
             Portal Akademik Dosen
           </p>

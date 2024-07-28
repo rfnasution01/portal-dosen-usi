@@ -37,7 +37,10 @@ export function MainAplikasi({
             >
               <div className="flex flex-col items-center justify-center gap-16">
                 <img
-                  src={item?.gambar ?? '/logo.png'}
+                  src={
+                    item?.gambar ??
+                    'https://administrator.universitassimalungun.ac.id/assets/img/aplikasi/logo-usi_(1).png'
+                  }
                   alt={item?.nama_aplikasi}
                   loading="lazy"
                   className="h-[8rem] w-[8rem]"

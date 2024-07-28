@@ -10,9 +10,6 @@ export const MainLayout = loadable(() => import('@/layouts/mainLayout'))
 export const AkademikJadwalKuliahLayout = loadable(
   () => import('@/layouts/akademikLayout/jadwalKuliahLayout'),
 )
-export const AkademikUmumLayout = loadable(
-  () => import('@/layouts/akademikLayout/umumLayout'),
-)
 
 // ------------------
 // ----- Pages -----
@@ -92,4 +89,8 @@ export const KalendarAkademikPage = loadable(
 
 export const JadwalMingguIniPage = loadable(
   () => import('@/pages/akademik/kalendar/JadwalMingguIni'),
+)
+
+export const AkademikUmumDetailPegawai = loadable(
+  () => import('@/pages/akademik/umum/UmumDetailPegawai'),
 )

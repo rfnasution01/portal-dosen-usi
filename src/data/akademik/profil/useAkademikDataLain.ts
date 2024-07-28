@@ -1,49 +1,52 @@
-import { useUpdateRekeningMutation } from '@/store/slices/profilAPI'
 import { useEffect, useState } from 'react'
 import { Bounce, toast } from 'react-toastify'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
-import { AkademikRekeningSchema } from '@/store/schema/akadamik/umumSchema'
+import { AkademikDataLainSchema } from '@/store/schema/akadamik/umumSchema'
+import { useUpdateDataLainMutation } from '@/store/slices/profilAPI'
 
-export function useAkademikRekening() {
+export function useAkademikDataLain() {
   const [isShow, setIsShow] = useState<boolean>(false)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
+  const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  const formRekening = useForm<zod.infer<typeof AkademikRekeningSchema>>({
-    resolver: zodResolver(AkademikRekeningSchema),
+  const formDataLain = useForm<zod.infer<typeof AkademikDataLainSchema>>({
+    resolver: zodResolver(AkademikDataLainSchema),
     defaultValues: {},
   })
 
-  // --- Update Rekening ---
+  // --- Update DanLain ---
   const [
-    updateRekening,
+    updateDanLain,
     {
-      isSuccess: successUpdateRekening,
-      isError: isErrorUpdateRekening,
-      error: errorUpdateRekening,
-      isLoading: loadingUpdateRekening,
+      isSuccess: successUpdateDanLain,
+      isError: isErrorUpdateDanLain,
+      error: errorUpdateDanLain,
+      isLoading: loadingUpdateDanLain,
     },
-  ] = useUpdateRekeningMutation()
+  ] = useUpdateDataLainMutation()
 
-  const handleSubmitRekening = async (values) => {
+  const handleSubmitDanLain = async (values) => {
     const formData = new FormData()
 
-    formData.append('id_bank', values?.id_bank)
-    formData.append('nomor_rekening', values?.nomor_rekening)
-    formData.append('nama_rekening', values?.nama_rekening)
-    formData.append('cabang_bank', values?.cabang_bank)
+    formData.append('id_golongan_darah', values?.id_golongan_darah)
+    formData.append('tinggi_badan', values?.tinggi_badan)
+    formData.append('berat_badan', values?.berat_badan)
+    formData.append('id_hobby', values?.id_hobby)
     formData.append('file', values?.file)
 
-    try {
-      await updateRekening({ data: formData })
-    } catch (error) {
-      console.log(error)
+    if (isEdit) {
+      try {
+        await updateDanLain({ data: formData })
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
   useEffect(() => {
-    if (successUpdateRekening) {
+    if (successUpdateDanLain) {
       toast.success('Berhasil update data!', {
         position: 'bottom-right',
         autoClose: 3000,
@@ -58,11 +61,11 @@ export function useAkademikRekening() {
       setIsShow(false)
       setIsSubmit(false)
     }
-  }, [successUpdateRekening])
+  }, [successUpdateDanLain])
 
   useEffect(() => {
-    if (isErrorUpdateRekening) {
-      const errorMsg = errorUpdateRekening as { data?: { message?: string } }
+    if (isErrorUpdateDanLain) {
+      const errorMsg = errorUpdateDanLain as { data?: { message?: string } }
 
       toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
         position: 'bottom-right',
@@ -78,15 +81,17 @@ export function useAkademikRekening() {
       setIsShow(false)
       setIsSubmit(false)
     }
-  }, [isErrorUpdateRekening, errorUpdateRekening])
+  }, [isErrorUpdateDanLain, errorUpdateDanLain])
 
   return {
     isShow,
     isSubmit,
     setIsShow,
     setIsSubmit,
-    loadingUpdateRekening,
-    handleSubmitRekening,
-    formRekening,
+    loadingUpdateDanLain,
+    handleSubmitDanLain,
+    formDataLain,
+    isEdit,
+    setIsEdit,
   }
 }

@@ -9,6 +9,7 @@ import { AkademikDokumenSchema } from '@/store/schema/akadamik/umumSchema'
 export function useAkademikDokumen() {
   const [isShow, setIsShow] = useState<boolean>(false)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
+  const [isEdit, setIsEdit] = useState<boolean>(false)
 
   const formDokumen = useForm<zod.infer<typeof AkademikDokumenSchema>>({
     resolver: zodResolver(AkademikDokumenSchema),
@@ -46,10 +47,12 @@ export function useAkademikDokumen() {
     )
     formData.append('file_bpjs_pensiun', values?.file_bpjs_pensiun)
 
-    try {
-      await updateDokumen({ data: formData })
-    } catch (error) {
-      console.log(error)
+    if (isEdit) {
+      try {
+        await updateDokumen({ data: formData })
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
@@ -99,5 +102,7 @@ export function useAkademikDokumen() {
     loadingUpdateDokumen,
     handleSubmitDokumen,
     formDokumen,
+    isEdit,
+    setIsEdit,
   }
 }

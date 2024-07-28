@@ -1,9 +1,9 @@
-/* eslint-disable no-extra-semi */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormReturn } from 'react-hook-form'
 import { FormField, FormItem, FormLabel, FormMessage } from '@/components/Form'
 import { Input } from '.'
 import { ReactNode } from 'react'
+import clsx from 'clsx'
 
 export function FormInputText({
   form,
@@ -18,11 +18,13 @@ export function FormInputText({
   isDisabled,
   isNumber,
   isFloat,
+  isRow,
 }: {
   form: UseFormReturn | undefined | any
   label?: string | ReactNode
   placeholder?: string
   name: string
+  isRow?: boolean
   prefix?: JSX.Element
   suffix?: JSX.Element
   type?:
@@ -46,12 +48,25 @@ export function FormInputText({
       name={name}
       render={({ field }) => (
         <FormItem
-          className={`text-warna-dark flex w-full flex-col gap-12 text-[2rem] ${className}`}
+          className={clsx(
+            `flex w-full text-[2rem] text-primary-100 ${className}`,
+            {
+              'flex-row items-center gap-32 phones:flex-col phones:items-start phones:gap-12':
+                isRow,
+              'flex-col gap-12 ': !isRow,
+            },
+          )}
         >
-          {label && <FormLabel className="font-roboto">{label}</FormLabel>}
+          {label && (
+            <FormLabel
+              className={clsx('font-roboto', { 'w-1/3 phones:w-full': isRow })}
+            >
+              {label}
+            </FormLabel>
+          )}
           <Input
             {...field}
-            className="bg-white"
+            className={clsx('bg-white', { 'w-2/3 phones:w-full': isRow })}
             type={type}
             placeholder={placeholder}
             value={field.value}
@@ -70,26 +85,9 @@ export function FormInputText({
               }
               if (isFloat && type === 'text') {
                 const inputValue = (e.target as HTMLInputElement).value
-                let formattedValue = inputValue
+                const formattedValue = inputValue
                   .replace(/[^\d.]/g, '') // Remove non-digit and non-period characters
                   .replace(/(\..*?)\..*/g, '$1') // Allow only one period
-
-                const numericValue = parseFloat(formattedValue)
-                if (numericValue > 100) {
-                  formattedValue = '100'
-                } else {
-                  // Limit to two decimal places
-                  const decimalIndex = formattedValue.indexOf('.')
-                  if (
-                    decimalIndex !== -1 &&
-                    formattedValue.length - decimalIndex > 3
-                  ) {
-                    formattedValue = formattedValue.substring(
-                      0,
-                      decimalIndex + 3,
-                    )
-                  }
-                }
 
                 ;(e.target as HTMLInputElement).value = formattedValue
                 field.onChange(formattedValue)

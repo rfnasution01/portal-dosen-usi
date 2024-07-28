@@ -2,7 +2,7 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   AkademikDashboardPage,
   AkademikJadwalKuliahLayout,
-  AkademikUmumLayout,
+  AkademikUmumDetailPegawai,
   ComingSoonPage,
   CommonLayout,
   EditTahunAkademikPage,
@@ -106,7 +106,7 @@ export const router = createBrowserRouter([
               },
               {
                 path: 'profil',
-                element: <AkademikUmumLayout />,
+                element: <AkademikUmumDetailPegawai />,
               },
               {
                 path: 'tentang-institusi',

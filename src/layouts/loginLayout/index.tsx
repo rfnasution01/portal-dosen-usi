@@ -11,12 +11,12 @@ export default function LoginLayout() {
       <div className="flex w-3/12 flex-col gap-32 rounded-3x bg-white p-48 shadow-lg phones:w-5/6">
         <div className="flex flex-col items-center justify-center gap-12">
           <img
-            src="/logo.png"
+            src="https://administrator.universitassimalungun.ac.id/assets/img/aplikasi/logo-usi_(1).png"
             className="w-[12rem]"
             alt="Logo"
             loading="lazy"
           />
-          <p className="font-sans text-[3rem] text-black-100">
+          <p className="text-center font-sans text-[3rem] text-black-100">
             Portal Akademik Dosen
           </p>
         </div>

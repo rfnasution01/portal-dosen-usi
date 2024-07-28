@@ -9,6 +9,7 @@ import { useUpdateDomisiliMutation } from '@/store/slices/profilAPI'
 export function useAkademikDomisili() {
   const [isShow, setIsShow] = useState<boolean>(false)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
+  const [isEdit, setIsEdit] = useState<boolean>(false)
 
   const formDomisili = useForm<zod.infer<typeof AkademikDomisiliSchema>>({
     resolver: zodResolver(AkademikDomisiliSchema),
@@ -38,10 +39,12 @@ export function useAkademikDomisili() {
     formData.append('nomor_telepon', values?.nomor_telepon)
     formData.append('nomor_telepon_kantor', values?.nomor_telepon_kantor)
 
-    try {
-      await updateDomisili({ data: formData })
-    } catch (error) {
-      console.log(error)
+    if (isEdit) {
+      try {
+        await updateDomisili({ data: formData })
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
@@ -91,5 +94,7 @@ export function useAkademikDomisili() {
     loadingUpdateDomisili,
     handleSubmitDomisili,
     formDomisili,
+    isEdit,
+    setIsEdit,
   }
 }

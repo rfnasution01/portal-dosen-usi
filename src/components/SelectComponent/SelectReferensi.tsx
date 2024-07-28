@@ -13,6 +13,7 @@ import { customStyles } from '@/store/type/selectType'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { GetReferensiType } from '@/store/type/referensiType'
 import { useGetReferensiQuery } from '@/store/slices/referensiAPI'
+import clsx from 'clsx'
 
 type inputProps = {
   placeholder: string
@@ -28,6 +29,7 @@ type inputProps = {
   level3?: boolean
   level4?: boolean
   level5?: boolean
+  isRow?: boolean
 }
 
 export function SelectListReferensi({
@@ -44,6 +46,7 @@ export function SelectListReferensi({
   level3,
   level4,
   level5,
+  isRow,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
   const [listKonten, setListKonten] = useState<GetReferensiType[]>([])
@@ -101,16 +104,26 @@ export function SelectListReferensi({
         return (
           <FormItem
             className={cn(
-              `${level1 ? 'z-50' : level2 ? 'z-40' : level3 ? 'z-30' : level4 ? 'z-20' : level5 ? 'z-10' : 'z-0'} text-warna-dark flex w-full flex-col gap-12 text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]`,
+              `${level1 ? 'z-50' : level2 ? 'z-40' : level3 ? 'z-30' : level4 ? 'z-20' : level5 ? 'z-10' : 'z-0'} flex w-full text-primary-100 ${isRow ? 'flex-row items-center gap-32' : 'flex-col gap-12'} text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]`,
               className,
             )}
           >
             {headerLabel && (
-              <div className="text-warna-dark phones:w-full phones:text-left">
+              <div
+                className={clsx('text-primary-100 phones:text-left', {
+                  'w-1/3 phones:w-full': isRow,
+                  'w-full phones:w-full': !isRow,
+                })}
+              >
                 <FormLabel className="font-roboto">{headerLabel}</FormLabel>
               </div>
             )}
-            <div className="w-full phones:w-full">
+            <div
+              className={clsx('', {
+                'w-2/3 phones:w-full': isRow,
+                'w-full phones:w-full': !isRow,
+              })}
+            >
               <FormControl>
                 <Select
                   {...field}
@@ -177,6 +190,11 @@ export function SelectListReferensi({
                       `nama_kategori_${name}`,
                       optionSelected?.label,
                     )
+                    useFormReturn.setValue(
+                      name.substring(3),
+                      optionSelected?.label,
+                    )
+
                     if (setIdKategori) {
                       setIdKategori(optionSelected?.value)
                     }
