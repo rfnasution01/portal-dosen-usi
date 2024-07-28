@@ -1,11 +1,19 @@
+import { ValidasiAjukan } from '@/components/DialogComponent/ValidasiAjukan'
 import { TableMahasiswa } from '@/components/TableComponent/TableNilaiMahasiswa'
 import { useAkademikJadwalKuliah } from '@/data/akademik'
-import { faFile } from '@fortawesome/free-solid-svg-icons'
+import { faFile, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
 
 export default function NilaiMahasiswa() {
-  const { dataJadwalNilai, loadingJadwalNilai } = useAkademikJadwalKuliah()
+  const {
+    dataJadwalNilai,
+    loadingJadwalNilai,
+    isShow,
+    setIsShow,
+    handleSubmitAjukan,
+    isLoadingAjukanNilai,
+  } = useAkademikJadwalKuliah()
   return (
     <>
       <TableMahasiswa
@@ -16,27 +24,18 @@ export default function NilaiMahasiswa() {
       />
       <div className="flex w-full justify-end gap-32">
         <button
-          // onClick={() => {
-          //   setIsShow(true)
-          // }}
+          onClick={() => {
+            setIsShow(true)
+          }}
           className={clsx(
-            'flex items-center gap-12 rounded-2xl px-24 py-12 text-white hover:bg-opacity-80 disabled:cursor-not-allowed',
-            // {
-            //   'bg-danger': !isNotDraft,
-            //   'bg-success': isNotDraft,
-            // },
+            'flex items-center gap-12 rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-80 disabled:cursor-not-allowed',
           )}
         >
           <FontAwesomeIcon icon={faFile} />
-          <p>
-            {/* {isNotDraft
-              ? 'Nilai Telah Diajukan'
-              : 'Ajukan Nilai Ke Program Studi'} */}
-            Ajukan
-          </p>
+          <p>Ajukan Nilai Ke Program Studi</p>
         </button>
       </div>
-      {/* <ValidasiAjukan
+      <ValidasiAjukan
         isOpen={isShow}
         setIsOpen={setIsShow}
         child={
@@ -54,7 +53,7 @@ export default function NilaiMahasiswa() {
             <p>Ya, Saya yakin</p>
           </button>
         }
-      /> */}
+      />
     </>
   )
 }

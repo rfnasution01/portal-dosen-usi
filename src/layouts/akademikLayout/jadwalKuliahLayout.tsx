@@ -59,56 +59,60 @@ export default function AkademikJadwalKuliahLayout() {
         <FontAwesomeIcon icon={faArrowLeftLong} />
         <p>Kembali</p>
       </div>
-      <div className="flex items-center justify-between gap-32">
-        <p className="font-sans text-[2.8rem] font-bold text-black-300">
-          Jadwal Perkuliahan
-        </p>
-        <div className="flex items-center gap-16">
-          <button className="flex items-center gap-12 rounded-2xl bg-warning px-24 py-12 text-white hover:bg-opacity-80">
-            <FontAwesomeIcon icon={faPencil} />
-            <p>Input Nilai</p>
-          </button>
-          <button
-            onClick={() => setIsShowKomposisi(true)}
-            className="flex items-center gap-12 rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-80"
-          >
-            <FontAwesomeIcon icon={faPen} />
-            Set Komposisi Nilai
-          </button>
-        </div>
-      </div>
-      <div className="flex flex-col gap-8 border-l-2 border-primary-900 bg-primary-50 p-32">
-        {loadingJadwalDetail ? (
-          <SkeletonText lines={4} />
-        ) : (
-          <JadwalKuliahInfo jadwalKuliahDetail={dataJadwalDetail} />
-        )}
-      </div>
 
-      {fourthPathname === undefined && <JadwalKuliahKeterangan />}
-
-      {dataJadwalNilai?.aspek_nilai?.length === 0 && (
-        <div className="flex items-center gap-12 rounded-2xl bg-[#FBC3C3] p-24 text-danger">
-          <FontAwesomeIcon icon={faCircleExclamation} />
-          <p>
-            Anda belum set komposisi nilai, mohon tentukan terlebih dahulu
-            melalui fitur set komposisi nilai
+      <div className="scrollbar flex h-full flex-1 flex-col gap-32 overflow-y-auto">
+        <div className="flex items-center justify-between gap-32">
+          <p className="font-sans text-[2.8rem] font-bold text-black-300">
+            Jadwal Perkuliahan
           </p>
+          <div className="flex items-center gap-16">
+            <button className="flex items-center gap-12 rounded-2xl bg-warning px-24 py-12 text-white hover:bg-opacity-80">
+              <FontAwesomeIcon icon={faPencil} />
+              <p>Input Nilai</p>
+            </button>
+            <button
+              onClick={() => setIsShowKomposisi(true)}
+              className="flex items-center gap-12 rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-80"
+            >
+              <FontAwesomeIcon icon={faPen} />
+              Set Komposisi Nilai
+            </button>
+          </div>
         </div>
-      )}
+        <div className="scrollbar flex h-full flex-1 flex-col gap-32 overflow-y-auto">
+          <div className="flex flex-col gap-8 border-l-2 border-primary-900 bg-primary-50 p-32">
+            {loadingJadwalDetail ? (
+              <SkeletonText lines={4} />
+            ) : (
+              <JadwalKuliahInfo jadwalKuliahDetail={dataJadwalDetail} />
+            )}
+          </div>
 
-      <div>
-        {loadingJadwalNilai ? (
-          <SkeletonText lines={1} className="w-1/4 phones:w-1/2" />
-        ) : (
-          <AkademikNilaiMahasiswaMenu
-            aspekNilai={dataJadwalNilai?.aspek_nilai}
-          />
-        )}
+          {fourthPathname === undefined && <JadwalKuliahKeterangan />}
+
+          {dataJadwalNilai?.aspek_nilai?.length === 0 && (
+            <div className="flex items-center gap-12 rounded-2xl bg-[#FBC3C3] p-24 text-danger">
+              <FontAwesomeIcon icon={faCircleExclamation} />
+              <p>
+                Anda belum set komposisi nilai, mohon tentukan terlebih dahulu
+                melalui fitur set komposisi nilai
+              </p>
+            </div>
+          )}
+
+          <div>
+            {loadingJadwalNilai ? (
+              <SkeletonText lines={1} className="w-1/4 phones:w-1/2" />
+            ) : (
+              <AkademikNilaiMahasiswaMenu
+                aspekNilai={dataJadwalNilai?.aspek_nilai}
+              />
+            )}
+          </div>
+
+          {isLoading ? <Loading /> : <Outlet />}
+        </div>
       </div>
-
-      {isLoading ? <Loading /> : <Outlet />}
-
       <DialogSetKomposisi
         isOpen={isShowKomposisi}
         setIsOpen={setIsShowKomposisi}
