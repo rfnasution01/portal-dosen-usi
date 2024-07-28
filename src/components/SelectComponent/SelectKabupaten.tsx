@@ -12,6 +12,7 @@ import { cn } from '@/utils/cn'
 import { customStyles } from '@/store/type/selectType'
 import { GetReferensiType } from '@/store/type/referensiType'
 import { useGetReferensiKabupatenQuery } from '@/store/slices/referensiAPI'
+import clsx from 'clsx'
 
 type inputProps = {
   placeholder: string
@@ -25,6 +26,7 @@ type inputProps = {
   level3?: boolean
   level4?: boolean
   level5?: boolean
+  isRow?: boolean
 }
 
 export function SelectListKabupaten({
@@ -39,6 +41,7 @@ export function SelectListKabupaten({
   level3,
   level4,
   level5,
+  isRow,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
   const [listKabupaten, setListKabupaten] = useState<GetReferensiType[]>([])
@@ -94,16 +97,26 @@ export function SelectListKabupaten({
         return (
           <FormItem
             className={cn(
-              `${level1 ? 'z-50' : level2 ? 'z-40' : level3 ? 'z-30' : level4 ? 'z-20' : level5 ? 'z-10' : 'z-0'} text-warna-dark flex w-full flex-col gap-12 text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]`,
+              `${level1 ? 'z-50' : level2 ? 'z-40' : level3 ? 'z-30' : level4 ? 'z-20' : level5 ? 'z-10' : 'z-0'} text-warna-dark flex w-full ${isRow ? 'flex-row items-center gap-32' : 'flex-col gap-12'} gap-12 text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]`,
               className,
             )}
           >
             {headerLabel && (
-              <div className="text-warna-dark phones:w-full phones:text-left">
+              <div
+                className={clsx('text-primary-100 phones:text-left', {
+                  'w-1/3 phones:w-full': isRow,
+                  'w-full phones:w-full': !isRow,
+                })}
+              >
                 <FormLabel className="font-roboto">{headerLabel}</FormLabel>
               </div>
             )}
-            <div className="w-full phones:w-full">
+            <div
+              className={clsx('', {
+                'w-2/3 phones:w-full': isRow,
+                'w-full phones:w-full': !isRow,
+              })}
+            >
               <FormControl>
                 <Select
                   {...field}

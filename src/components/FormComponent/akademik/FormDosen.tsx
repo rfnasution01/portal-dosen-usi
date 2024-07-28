@@ -25,6 +25,7 @@ export function FormAkademikDosen({
           className="w-1/2 text-black-200 phones:w-full"
           type="text"
           isDisabled={disabled}
+          isRow
         />
         <FormInputText
           name="id_orcid"
@@ -34,6 +35,7 @@ export function FormAkademikDosen({
           className="w-1/2 text-black-200 phones:w-full"
           type="text"
           isDisabled={disabled}
+          isRow
         />
       </div>
       <div className="flex gap-64 phones:flex-col phones:gap-24">
@@ -45,6 +47,7 @@ export function FormAkademikDosen({
           className="w-1/2 text-black-200 phones:w-full"
           type="text"
           isDisabled={disabled}
+          isRow
         />
         <FormInputText
           name="nidn"
@@ -54,6 +57,7 @@ export function FormAkademikDosen({
           className="w-1/2 text-black-200 phones:w-full"
           type="text"
           isDisabled={disabled}
+          isRow
         />
       </div>
       <div className="flex gap-64 phones:flex-col phones:gap-24">
@@ -65,6 +69,7 @@ export function FormAkademikDosen({
           className="w-1/2 text-black-200 phones:w-full"
           type="text"
           isDisabled={disabled}
+          isRow
         />
         <FormInputText
           name="nupn"
@@ -74,6 +79,7 @@ export function FormAkademikDosen({
           className="w-1/2 text-black-200 phones:w-full"
           type="text"
           isDisabled={disabled}
+          isRow
         />
       </div>
       <div className="flex gap-64 phones:flex-col phones:gap-24">
@@ -85,6 +91,7 @@ export function FormAkademikDosen({
           className="w-1/2 text-black-200 phones:w-full"
           type="text"
           isDisabled={disabled}
+          isRow
         />
         <FormInputRadio
           name="serdos_status"
@@ -92,6 +99,7 @@ export function FormAkademikDosen({
           className="w-1/2 text-black-200 phones:w-full"
           label={'Serdos Status'}
           isDisabled={disabled}
+          isRow
         />
       </div>
       <div className="flex gap-64 phones:flex-col phones:gap-24">
@@ -103,6 +111,7 @@ export function FormAkademikDosen({
           className="w-1/2 text-black-200 phones:w-full"
           type="date"
           isDisabled={disabled}
+          isRow
         />
         <FormInputText
           name="serdos_nomor"
@@ -112,6 +121,7 @@ export function FormAkademikDosen({
           className="w-1/2 text-black-200 phones:w-full"
           type="text"
           isDisabled={disabled}
+          isRow
         />
       </div>
     </>

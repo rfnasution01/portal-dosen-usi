@@ -33,6 +33,7 @@ export function FormAkademikAlamat({
           isDisabled={disabled}
           className="w-full"
           level1
+          isRow
         />
 
         <div className="w-full phones:hidden" />
@@ -47,6 +48,7 @@ export function FormAkademikAlamat({
           isDisabled={!provinsi || isLoading || disabled}
           className="w-full"
           level2
+          isRow
         />
         <SelectListKecamatan
           key={`id_kecamatan-${provinsi}-${kabupaten}-${kecamatan}`}
@@ -56,6 +58,7 @@ export function FormAkademikAlamat({
           placeholder="Pilih"
           isDisabled={!provinsi || !kabupaten || isLoading || disabled}
           level3
+          isRow
         />
       </div>
       <div className="flex gap-64 phones:flex-col phones:gap-24">

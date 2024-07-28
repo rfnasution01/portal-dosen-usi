@@ -1,3 +1,5 @@
 export * from './DetailDosen'
 export * from './DetailKepegawaian'
 export * from './DetailDomisili'
+export * from './DetailDomisili'
+export * from './DetailRekening'

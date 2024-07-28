@@ -15,6 +15,7 @@ import {
   AkademikPreviewDomisili,
   AkademikPreviewDosen,
   AkademikPreviewKepegawaian,
+  AkademikPreviewRekening,
 } from '../preview'
 
 export function ButtonGroup({
@@ -113,6 +114,14 @@ export function ButtonGroup({
                 kode_pos={form.watch('kode_pos')}
                 handphone={form.watch('nomor_telepon')}
                 no_telp_kantor={form.watch('nomor_telepon_kantor')}
+              />
+            ) : menu === 'Rekening Bank' ? (
+              <AkademikPreviewRekening
+                id_bank={form.watch('bank')}
+                nomor_rekening={form.watch('nomor_rekening')}
+                nama_rekening={form.watch('nama_rekening')}
+                cabang_bank={form.watch('cabang_bank')}
+                file={form.watch('file')}
               />
             ) : (
               ''

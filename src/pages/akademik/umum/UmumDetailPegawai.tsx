@@ -5,6 +5,7 @@ import { useState } from 'react'
 import AkademikDetailKepegawaian from './profil/DetailKepegawaian'
 import AkademikDetailDosen from './profil/DetailDosen'
 import AkademikDetailDomisili from './profil/DetailDomisili'
+import AkademikDetailRekening from './profil/DetailRekening'
 
 export default function AkademikUmumLayout() {
   const [menu, setMenu] = useState<string>('Kepegawaian')
@@ -27,6 +28,8 @@ export default function AkademikUmumLayout() {
         <AkademikDetailDosen setMenu={setMenu} menu={menu} tabs={tab} />
       ) : menu === 'Alamat Domisili & Kontak' ? (
         <AkademikDetailDomisili setMenu={setMenu} menu={menu} tabs={tab} />
+      ) : menu === 'Rekening Bank' ? (
+        <AkademikDetailRekening setMenu={setMenu} menu={menu} tabs={tab} />
       ) : (
         <ComingSoonPage />
       )}
