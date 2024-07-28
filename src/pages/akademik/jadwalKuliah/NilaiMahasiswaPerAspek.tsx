@@ -1,16 +1,25 @@
+import { TableMahasiswaPerAspek } from '@/components/TableComponent/TableNilaiMahasiswaPerAspek'
+import { useAkademikJadwalKuliah } from '@/data/akademik'
+
 export default function NilaiMahasiswaPerAspek() {
+  const {
+    nilaiMahasiswaTransform,
+    dataJadwalNilai,
+    form,
+    handleSubmit,
+    isSuccessEditNilai,
+  } = useAkademikJadwalKuliah()
   return (
     <>
-      {/* <TableMahasiswaPerAspek
+      <TableMahasiswaPerAspek
         response={nilaiMahasiswaTransform}
         pageSize={1000}
         currentPage={1}
-        nilaiMahasiswa={nilaiMahasiswa}
+        nilaiMahasiswa={dataJadwalNilai}
         handleSubmit={handleSubmit}
         form={form}
-        isNotDraft={isNotDraft}
         isSuccessEditNilai={isSuccessEditNilai}
-      /> */}
+      />
     </>
   )
 }

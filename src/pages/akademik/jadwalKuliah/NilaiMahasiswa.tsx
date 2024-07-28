@@ -1,35 +1,42 @@
+import { TableMahasiswa } from '@/components/TableComponent/TableNilaiMahasiswa'
+import { useAkademikJadwalKuliah } from '@/data/akademik'
+import { faFile } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import clsx from 'clsx'
+
 export default function NilaiMahasiswa() {
+  const { dataJadwalNilai, loadingJadwalNilai } = useAkademikJadwalKuliah()
   return (
     <>
-      {/* <TableMahasiswa
-        response={nilaiMahasiswa}
-        loading={loadingNilaiMahasiswa}
+      <TableMahasiswa
+        response={dataJadwalNilai}
+        loading={loadingJadwalNilai}
         pageSize={1000}
         currentPage={1}
       />
       <div className="flex w-full justify-end gap-32">
         <button
-          disabled={isNotDraft}
-          onClick={() => {
-            setIsShow(true)
-          }}
+          // onClick={() => {
+          //   setIsShow(true)
+          // }}
           className={clsx(
             'flex items-center gap-12 rounded-2xl px-24 py-12 text-white hover:bg-opacity-80 disabled:cursor-not-allowed',
-            {
-              'bg-danger': !isNotDraft,
-              'bg-success': isNotDraft,
-            },
+            // {
+            //   'bg-danger': !isNotDraft,
+            //   'bg-success': isNotDraft,
+            // },
           )}
         >
           <FontAwesomeIcon icon={faFile} />
           <p>
-            {isNotDraft
+            {/* {isNotDraft
               ? 'Nilai Telah Diajukan'
-              : 'Ajukan Nilai Ke Program Studi'}
+              : 'Ajukan Nilai Ke Program Studi'} */}
+            Ajukan
           </p>
         </button>
       </div>
-      <ValidasiAjukan
+      {/* <ValidasiAjukan
         isOpen={isShow}
         setIsOpen={setIsShow}
         child={

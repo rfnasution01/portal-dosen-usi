@@ -1,9 +1,9 @@
 import { UseFormReturn } from 'react-hook-form'
-import { Form } from '@/components/Form'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FormInputText } from '@/components/InputComponent'
 import { useEffect, useState } from 'react'
+import { Form } from '@/components/Form'
 
 export type rowType = {
   idm: string
@@ -23,10 +23,12 @@ export default function FormJadwalKuliah({
   handleSubmit,
   row,
   setLoading,
+  isNotDraft,
   editID,
   keyString,
 }: {
   form: UseFormReturn
+  isNotDraft: boolean
   isLoading: boolean
   handleSubmit: (idm: string) => Promise<void>
   row: rowType
@@ -113,11 +115,12 @@ export default function FormJadwalKuliah({
             placeholder="Nilai"
             className="text-black-200"
             type="text"
-            isDisabled={isLoading}
+            isDisabled={isLoading || isNotDraft}
             isFloat
           />
           <button
             type="submit"
+            disabled={isNotDraft}
             className="flex items-center justify-center gap-12 rounded-2xl bg-success px-16 py-12 text-white disabled:cursor-not-allowed"
           >
             {isLoading ? (

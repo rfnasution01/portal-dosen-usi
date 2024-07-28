@@ -66,3 +66,42 @@ export type GetBobotNilaiType = {
   nilai_min: string
   nilai_max: string
 }
+
+export type GetKomposisiNilai = {
+  id: string
+  jenis_nilai: string
+  keterangan: string
+  persen: string
+  persentase: string
+}
+
+export type GetNilaiType = {
+  id_mahasiswa: string
+  nim: string
+  id_krs: string
+  nama: string
+  nilai_akhir: string
+  huruf: string
+  sks: string
+  mutu: string
+  nilai_aspek: GetAspekNilaiType[]
+}
+
+export type GetAspekNilaiType = {
+  id: string
+  jenis_nilai: string
+  persentase: string
+  nilai: string
+}
+
+export type GetJadwalNilaiType = {
+  data: GetNilaiType[]
+  aspek_nilai: GetAspekNilaiType[]
+}
+
+export type PostJadwalKuliahType = {
+  idm: string
+  id_mk: string
+  id_aspek: string
+  nilai: string
+}
