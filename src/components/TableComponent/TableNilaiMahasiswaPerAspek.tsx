@@ -15,6 +15,7 @@ export function TableMahasiswaPerAspek({
   handleSubmit,
   form,
   isSuccessEditNilai,
+  disabledPengajuan,
 }: {
   nilaiMahasiswa: GetJadwalNilaiType
   response: rowType[]
@@ -23,6 +24,7 @@ export function TableMahasiswaPerAspek({
   handleSubmit: (idm: string) => Promise<void>
   form: UseFormReturn
   isSuccessEditNilai: boolean
+  disabledPengajuan: boolean
 }) {
   const editID = localStorage?.getItem('editID') ?? ''
 
@@ -49,11 +51,9 @@ export function TableMahasiswaPerAspek({
   }
 
   return (
-    <div
-      className={`h-full w-full overflow-visible rounded-2xl bg-white phones:h-auto`}
-    >
+    <div className={`h-full w-full overflow-visible rounded-2xl phones:h-auto`}>
       <div
-        className={`scrollbar flex h-full flex-col overflow-auto phones:h-auto`}
+        className={`scrollbar flex flex-col overflow-auto phones:h-auto`}
         style={{ scrollbarGutter: 'stable' }}
       >
         <table className="h-full flex-1 border-collapse overflow-y-auto border border-black-300 bg-white text-[2rem] phones:h-auto">
@@ -129,6 +129,7 @@ export function TableMahasiswaPerAspek({
                         editID={editID}
                         keyString={key}
                         isSuccessEditNilai={isSuccessEditNilai}
+                        disabledPengajuan={disabledPengajuan}
                       />
                     )}
                   </td>

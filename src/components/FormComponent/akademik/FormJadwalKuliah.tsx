@@ -25,6 +25,7 @@ export default function FormJadwalKuliah({
   setLoading,
   editID,
   keyString,
+  disabledPengajuan,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -34,6 +35,7 @@ export default function FormJadwalKuliah({
   editID: string
   keyString: string
   isSuccessEditNilai: boolean
+  disabledPengajuan: boolean
 }) {
   const onSubmit = async () => {
     setLoading(row.id_mk, true)
@@ -103,6 +105,8 @@ export default function FormJadwalKuliah({
     }
   }, [keyString, editID, row, form, prevEditID])
 
+  const disabled = isLoading || disabledPengajuan
+
   return (
     <div>
       <Form {...form}>
@@ -113,11 +117,12 @@ export default function FormJadwalKuliah({
             placeholder="Nilai"
             className="text-black-200"
             type="text"
-            isDisabled={isLoading}
+            isDisabled={disabled}
             isFloat
           />
           <button
             type="submit"
+            disabled={disabled}
             className="flex items-center justify-center gap-12 rounded-2xl bg-success px-16 py-12 text-white disabled:cursor-not-allowed"
           >
             {isLoading ? (

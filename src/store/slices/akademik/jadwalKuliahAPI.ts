@@ -98,7 +98,10 @@ export const JadwalKuliahEndpoints = api.injectEndpoints({
       }),
       invalidatesTags: ['nilai'],
     }),
-    postAjukanNilai: builder.mutation<void, { body: { id_jadwal: string } }>({
+    postAjukanNilai: builder.mutation<
+      void,
+      { body: { id_kelas_makul: string } }
+    >({
       query: ({ body }) => ({
         url: `jadwal_kuliah_mhs_nilai_ajukan`,
         method: 'POST',

@@ -13,7 +13,6 @@ import {
   faArrowLeftLong,
   faCircleExclamation,
   faPen,
-  faPencil,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
@@ -48,6 +47,10 @@ export default function AkademikJadwalKuliahLayout() {
     return () => clearTimeout(timer)
   }, [fourthPathname])
 
+  const isShow = ['1', '2', '3', '4', '5', '6'].includes(
+    dataJadwalDetail?.status,
+  )
+
   return (
     <div className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto">
       <div
@@ -66,10 +69,30 @@ export default function AkademikJadwalKuliahLayout() {
             Jadwal Perkuliahan
           </p>
           <div className="flex items-center gap-16">
-            <button className="flex items-center gap-12 rounded-2xl bg-warning px-24 py-12 text-white hover:bg-opacity-80">
-              <FontAwesomeIcon icon={faPencil} />
-              <p>Input Nilai</p>
-            </button>
+            {/* <button
+              onClick={() => {
+                setIsEdit(!isEdit)
+              }}
+              className={clsx(
+                'flex items-center gap-12 rounded-2xl px-24 py-12 text-white hover:bg-opacity-80',
+                {
+                  'bg-danger': isEdit,
+                  'bg-warning': !isEdit,
+                },
+              )}
+            >
+              {isEdit ? (
+                <>
+                  <FontAwesomeIcon icon={faXmark} />
+                  <p>Batal</p>
+                </>
+              ) : (
+                <>
+                  <FontAwesomeIcon icon={faPencil} />
+                  <p>Edit Nilai</p>
+                </>
+              )}
+            </button> */}
             <button
               onClick={() => setIsShowKomposisi(true)}
               className="flex items-center gap-12 rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-80"
@@ -80,6 +103,46 @@ export default function AkademikJadwalKuliahLayout() {
           </div>
         </div>
         <div className="scrollbar flex h-full flex-1 flex-col gap-32 overflow-y-auto">
+          {isShow && (
+            <div
+              className={clsx('flex flex-col gap-8 border-l-2 p-32', {
+                'border-orange-900 bg-orange-100 text-orange-900':
+                  dataJadwalDetail?.status === '1',
+                'border-emerald-900 bg-emerald-100 text-emerald-900':
+                  dataJadwalDetail?.status === '2',
+                'border-rose-900 bg-rose-100 text-rose-900':
+                  dataJadwalDetail?.status === '3',
+                'border-yellow-900 bg-yellow-100 text-yellow-900':
+                  dataJadwalDetail?.status === '4',
+                'border-green-900 bg-green-100 text-green-900':
+                  dataJadwalDetail?.status === '5',
+                'border-red-900 bg-red-100 text-red-900':
+                  dataJadwalDetail?.status === '6',
+              })}
+            >
+              <p className="font-roboto text-[2.6rem]">
+                {dataJadwalDetail?.status === '0'
+                  ? 'Draft'
+                  : dataJadwalDetail?.status === '1'
+                    ? 'Menunggu Persetujuan Prodi'
+                    : dataJadwalDetail?.status === '2'
+                      ? 'Diterima Prodi'
+                      : dataJadwalDetail?.status === '3'
+                        ? 'Ditolak Prodi'
+                        : dataJadwalDetail?.status === '4'
+                          ? 'Diajukan Ke Akademik'
+                          : dataJadwalDetail?.status === '5'
+                            ? 'Diterima Akademik'
+                            : dataJadwalDetail?.status === '6'
+                              ? 'Ditolak Akademik'
+                              : ''}
+              </p>
+              {dataJadwalDetail?.status_alasan && (
+                <p className="font-sans">{dataJadwalDetail?.status_alasan}</p>
+              )}
+            </div>
+          )}
+
           <div className="flex flex-col gap-8 border-l-2 border-primary-900 bg-primary-50 p-32">
             {loadingJadwalDetail ? (
               <SkeletonText lines={4} />

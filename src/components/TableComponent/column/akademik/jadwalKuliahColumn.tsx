@@ -5,6 +5,9 @@ import {
 } from '@/store/type/akademik/jadwalKuliahType'
 import { Column } from '../..'
 import { getInitials } from '@/utils/formatText'
+import clsx from 'clsx'
+import dayjs from 'dayjs'
+import 'dayjs/locale/id'
 
 export const columnsListJadwalKuliah: Column<GetJadwalSemesterType>[] = [
   {
@@ -16,6 +19,90 @@ export const columnsListJadwalKuliah: Column<GetJadwalSemesterType>[] = [
   { header: 'SKS', key: 'sks', width: '!min-w-[12rem]' },
   { header: 'Kelas', key: 'kelas', width: '!min-w-[12rem]' },
   { header: 'Ruang', key: 'ruangan', width: '!min-w-[12rem]' },
+  {
+    header: 'Status',
+    key: 'status',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-32">
+          <div className="flex items-center justify-center">
+            <p
+              className={clsx(
+                'rounded-2xl px-16 py-8 text-center text-[1.8rem] text-white hover:bg-opacity-80',
+                {
+                  'bg-blue-500': rowData?.status === '0',
+                  'bg-orange-500': rowData?.status === '1',
+                  'bg-emerald-500': rowData?.status === '2',
+                  'bg-rose-500': rowData?.status === '3',
+                  'bg-yellow-500': rowData?.status === '4',
+                  'bg-green-500': rowData?.status === '5',
+                  'bg-red-500': rowData?.status === '6',
+                },
+              )}
+            >
+              {rowData?.status === '0'
+                ? 'Draft'
+                : rowData?.status === '1'
+                  ? 'Menunggu'
+                  : rowData?.status === '2'
+                    ? 'Diterima Prodi'
+                    : rowData?.status === '3'
+                      ? 'Ditolak Prodi'
+                      : rowData?.status === '4'
+                        ? 'Diajukan Ke Akademik'
+                        : rowData?.status === '5'
+                          ? 'Diterima Akademik'
+                          : rowData?.status === '6'
+                            ? 'Ditolak Akademik'
+                            : ''}
+            </p>
+          </div>
+        </div>
+      )
+    },
+  },
+  {
+    header: 'Status',
+    key: 'status',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      const isShow = ['1', '2', '3', '4', '5', '6'].includes(rowData?.status)
+
+      return (
+        <div className="flex flex-col gap-32">
+          {isShow ? (
+            <div className="flex flex-col gap-12">
+              {rowData?.status_user && (
+                <p>
+                  {rowData?.status === '1' || rowData?.status === '4'
+                    ? 'Diajukan'
+                    : rowData?.status === '2' || rowData?.status === '5'
+                      ? 'Diterima'
+                      : rowData?.status === '3' || rowData?.status === '6'
+                        ? 'Ditolak'
+                        : 'Diproses'}{' '}
+                  Oleh:{' '}
+                  <span className="font-roboto">{rowData?.status_user}</span>{' '}
+                  pada{' '}
+                  <span className="font-roboto">
+                    {dayjs(rowData?.status_at)
+                      .locale('id')
+                      .format('DD MMMM YYYY HH:mm')}
+                  </span>{' '}
+                  {rowData?.status !== '1' && rowData?.status_alasan
+                    ? `dengan alasan ${rowData?.status_alasan ?? '-'}`
+                    : ''}
+                </p>
+              )}
+            </div>
+          ) : (
+            '-'
+          )}
+        </div>
+      )
+    },
+  },
   {
     header: 'Hari/Jam',
     key: 'hari',

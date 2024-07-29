@@ -424,7 +424,7 @@ export function useAkademikJadwalKuliah() {
 
   const handleSubmitAjukan = async () => {
     const body = {
-      id_jadwal: id,
+      id_kelas_makul: id,
     }
 
     try {
@@ -466,6 +466,7 @@ export function useAkademikJadwalKuliah() {
         theme: 'light',
         transition: Bounce,
       })
+      setIsShow(false)
     }
   }, [isErrorAjukanNilai, errorAjukanNilai])
 

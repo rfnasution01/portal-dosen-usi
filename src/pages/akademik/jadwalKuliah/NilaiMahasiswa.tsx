@@ -13,7 +13,12 @@ export default function NilaiMahasiswa() {
     setIsShow,
     handleSubmitAjukan,
     isLoadingAjukanNilai,
+    dataJadwalDetail,
   } = useAkademikJadwalKuliah()
+
+  const isDisabled = ['1', '2', '4', '5', '6'].includes(
+    dataJadwalDetail?.status,
+  )
   return (
     <>
       <TableMahasiswa
@@ -27,6 +32,7 @@ export default function NilaiMahasiswa() {
           onClick={() => {
             setIsShow(true)
           }}
+          disabled={isDisabled}
           className={clsx(
             'flex items-center gap-12 rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-80 disabled:cursor-not-allowed',
           )}

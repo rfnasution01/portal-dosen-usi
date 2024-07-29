@@ -13,6 +13,10 @@ export type GetJadwalSemesterType = {
   fakultas: string
   id_kelas_makul: string
   tahun_ajaran: string
+  status: string
+  status_user: string
+  status_at: string
+  status_alasan: string
 }
 
 export type GetJadwalMingguType = {
@@ -42,6 +46,10 @@ export type GetJadwalDetailType = {
   dosen: string[]
   id: string
   tahun_akademik: string
+  status: string
+  status_user: string
+  status_at: string
+  status_alasan: string
 }
 
 export type JadwalKuliahType = {

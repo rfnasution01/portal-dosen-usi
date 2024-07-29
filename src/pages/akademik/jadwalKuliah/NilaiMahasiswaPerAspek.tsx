@@ -5,10 +5,15 @@ export default function NilaiMahasiswaPerAspek() {
   const {
     nilaiMahasiswaTransform,
     dataJadwalNilai,
+    dataJadwalDetail,
     form,
     handleSubmit,
     isSuccessEditNilai,
   } = useAkademikJadwalKuliah()
+
+  const isDisabled = ['1', '2', '4', '5', '6'].includes(
+    dataJadwalDetail?.status,
+  )
 
   return (
     <>
@@ -20,6 +25,7 @@ export default function NilaiMahasiswaPerAspek() {
         handleSubmit={handleSubmit}
         form={form}
         isSuccessEditNilai={isSuccessEditNilai}
+        disabledPengajuan={isDisabled}
       />
     </>
   )
