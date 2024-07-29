@@ -15,6 +15,7 @@ import {
   MainLayout,
   NilaiMahasiswaPage,
   NilaiMahasiswaPerAspekPage,
+  ProfilPage,
   RootLayout,
   UmumDetailDosenPage,
   UmumDetailPengumumanPage,
@@ -220,6 +221,10 @@ export const router = createBrowserRouter([
       {
         path: 'ubah-password',
         element: <GantiPasswordPage />,
+      },
+      {
+        path: 'profil',
+        element: <ProfilPage />,
       },
     ],
   },

@@ -25,3 +25,8 @@ export const UbahPasswordSchema = zod.object({
     invalid_type_error: 'Format password tidak valid',
   }),
 })
+
+export const ResetPasswordSchema = zod.object({
+  token: zod.string().optional().nullable().nullish(),
+  new_password: zod.string().optional().nullable().nullish(),
+})

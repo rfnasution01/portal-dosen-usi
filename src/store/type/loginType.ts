@@ -12,3 +12,8 @@ export type PostUbahPasswordType = {
   old_password: string
   new_password: string
 }
+
+export type PostResetPasswordType = {
+  token: string
+  new_password: string
+}

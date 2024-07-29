@@ -96,3 +96,4 @@ export const AkademikUmumDetailPegawai = loadable(
 )
 
 export const GantiPasswordPage = loadable(() => import('@/pages/GantiPassword'))
+export const ProfilPage = loadable(() => import('@/pages/Profil'))

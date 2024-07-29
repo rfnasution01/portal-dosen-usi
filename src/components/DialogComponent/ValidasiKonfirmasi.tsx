@@ -11,12 +11,16 @@ export function ValidasiKonfirmasi({
   children,
   childrenButton,
   isAuto,
+  title,
+  cancelString,
 }: {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
   children?: ReactNode
   childrenButton: ReactNode
   isAuto?: boolean
+  title?: string | ReactNode
+  cancelString?: string | ReactNode
 }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -42,7 +46,7 @@ export function ValidasiKonfirmasi({
             </DialogPrimitive.Close>
           </DialogHeader>
           <p className="text-sim-grey text-center text-[2.4rem]">
-            Apakah data yang anda masukkan sudah benar?
+            {title ?? 'Apakah data yang anda masukkan sudah benar?'}
           </p>
           {children}
           <div className="flex items-center justify-center gap-32 text-[2rem]">
@@ -51,8 +55,12 @@ export function ValidasiKonfirmasi({
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-12 rounded-2xl border bg-danger px-24 py-12 text-white hover:bg-opacity-80 disabled:cursor-not-allowed"
             >
-              <FontAwesomeIcon icon={faPencil} />
-              Ubah Data
+              {cancelString ?? (
+                <>
+                  <FontAwesomeIcon icon={faPencil} />
+                  Ubah Data
+                </>
+              )}
             </button>
             {childrenButton}
           </div>

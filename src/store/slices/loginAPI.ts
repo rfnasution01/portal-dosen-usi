@@ -2,6 +2,7 @@ import { Res, api } from '../api'
 import {
   LoginResponseType,
   PostLoginParams,
+  PostResetPasswordType,
   PostUbahPasswordType,
 } from '../type/loginType'
 
@@ -40,8 +41,26 @@ export const LoginEndpoints = api.injectEndpoints({
         'dan-lain-lain',
       ],
     }),
+    resetPassword: builder.mutation<void, { data: PostResetPasswordType }>({
+      query: ({ data }) => ({
+        url: `reset_password`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: [
+        'akademik-tahun-aktif',
+        'profil',
+        'komposisi',
+        'nilai',
+        'mahasiswa',
+        'dan-lain-lain',
+      ],
+    }),
   }),
 })
 
-export const { usePostLoginMutation, useUpdatePasswordMutation } =
-  LoginEndpoints
+export const {
+  usePostLoginMutation,
+  useUpdatePasswordMutation,
+  useResetPasswordMutation,
+} = LoginEndpoints

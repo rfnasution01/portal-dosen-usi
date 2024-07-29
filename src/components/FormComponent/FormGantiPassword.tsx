@@ -105,6 +105,8 @@ export function FormGantiPasswords({
         isOpen={isShow}
         setIsOpen={setIsShow}
         isAuto
+        title="Apakah Anda yakin ingin mengubah password Anda?"
+        cancelString="Batalkan"
         childrenButton={
           <button
             type="submit"
