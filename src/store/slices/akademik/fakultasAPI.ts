@@ -8,6 +8,7 @@ export const FakultasEndpoints = api.injectEndpoints({
         url: `fakultas`,
         method: 'GET',
       }),
+      providesTags: ['dan-lain-lain'],
     }),
     getFakultasDetail: builder.query<Res<GetFakultasType>, { id: string }>({
       query: ({ id }) => ({
@@ -17,6 +18,7 @@ export const FakultasEndpoints = api.injectEndpoints({
           id: id,
         },
       }),
+      providesTags: ['dan-lain-lain'],
     }),
   }),
 })

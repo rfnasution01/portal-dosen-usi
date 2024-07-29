@@ -13,18 +13,21 @@ export const ProfilEndpoints = api.injectEndpoints({
         url: `aplikasi`,
         method: 'GET',
       }),
+      providesTags: ['profil'],
     }),
     getIdentitas: builder.query<Res<GetIdentitasType>, void>({
       query: () => ({
         url: `identitas`,
         method: 'GET',
       }),
+      providesTags: ['profil'],
     }),
     getInstitusi: builder.query<Res<GetInstitusiType>, void>({
       query: () => ({
         url: `institusi`,
         method: 'GET',
       }),
+      providesTags: ['profil'],
     }),
     getProfil: builder.query<Res<GetProfilType>, void>({
       query: () => ({

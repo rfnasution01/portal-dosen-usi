@@ -8,6 +8,7 @@ export const KataMutiaraEndpoints = api.injectEndpoints({
         url: `kata_mutiara`,
         method: 'GET',
       }),
+      providesTags: ['dan-lain-lain'],
     }),
   }),
 })

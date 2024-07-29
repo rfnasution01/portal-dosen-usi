@@ -14,6 +14,7 @@ export const DosenEndpoints = api.injectEndpoints({
           id: id,
         },
       }),
+      providesTags: ['dan-lain-lain'],
     }),
     getDosenDetail: builder.query<Res<GetDosenDetailType>, { id: string }>({
       query: ({ id }) => ({
@@ -23,6 +24,7 @@ export const DosenEndpoints = api.injectEndpoints({
           id: id,
         },
       }),
+      providesTags: ['dan-lain-lain'],
     }),
   }),
 })

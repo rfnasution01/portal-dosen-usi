@@ -18,12 +18,14 @@ export const JadwalKuliahEndpoints = api.injectEndpoints({
         url: `jadwal_semester_ini`,
         method: 'GET',
       }),
+      providesTags: ['mahasiswa'],
     }),
     getJadwalMinggu: builder.query<Res<GetJadwalMingguType[]>, void>({
       query: () => ({
         url: `jadwal_minggu_ini`,
         method: 'GET',
       }),
+      providesTags: ['mahasiswa'],
     }),
     getJadwalMahasiswa: builder.query<
       Res<GetJadwalMahasiswaType[]>,
@@ -36,6 +38,7 @@ export const JadwalKuliahEndpoints = api.injectEndpoints({
           id_kelas_makul: id_kelas_makul,
         },
       }),
+      providesTags: ['mahasiswa'],
     }),
     getJadwalDetail: builder.query<
       Res<GetJadwalDetailType>,
@@ -48,13 +51,14 @@ export const JadwalKuliahEndpoints = api.injectEndpoints({
           id_kelas_makul: id_kelas_makul,
         },
       }),
-      providesTags: ['komposisi', 'nilai'],
+      providesTags: ['komposisi', 'nilai', 'mahasiswa'],
     }),
     getBobotNilai: builder.query<Res<GetBobotNilaiType[]>, void>({
       query: () => ({
         url: `bobot_nilai`,
         method: 'GET',
       }),
+      providesTags: ['mahasiswa'],
     }),
     getKomposisiNilai: builder.query<
       Res<GetKomposisiNilai[]>,
@@ -67,7 +71,7 @@ export const JadwalKuliahEndpoints = api.injectEndpoints({
           id_kelas_makul: id_kelas_makul,
         },
       }),
-      providesTags: ['komposisi'],
+      providesTags: ['komposisi', 'mahasiswa'],
     }),
     getJadwalNilai: builder.query<
       Res<GetJadwalNilaiType>,
@@ -80,7 +84,7 @@ export const JadwalKuliahEndpoints = api.injectEndpoints({
           id_kelas_makul: id_kelas_makul,
         },
       }),
-      providesTags: ['komposisi', 'nilai'],
+      providesTags: ['komposisi', 'nilai', 'mahasiswa'],
     }),
     updateKomposisiNilai: builder.mutation<void, { body: PostKomposisiBody }>({
       query: ({ body }) => ({

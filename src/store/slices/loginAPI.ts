@@ -12,6 +12,14 @@ export const LoginEndpoints = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: [
+        'akademik-tahun-aktif',
+        'profil',
+        'komposisi',
+        'nilai',
+        'mahasiswa',
+        'dan-lain-lain',
+      ],
     }),
   }),
 })

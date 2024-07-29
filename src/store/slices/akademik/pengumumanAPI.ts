@@ -19,6 +19,7 @@ export const PengumumanEndpoints = api.injectEndpoints({
           search: search,
         },
       }),
+      providesTags: ['dan-lain-lain'],
     }),
     getPengumumanDetail: builder.query<Res<GetPengumumanType>, { id: string }>({
       query: ({ id }) => ({
@@ -28,6 +29,7 @@ export const PengumumanEndpoints = api.injectEndpoints({
           id: id,
         },
       }),
+      providesTags: ['dan-lain-lain'],
     }),
   }),
 })

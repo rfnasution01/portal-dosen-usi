@@ -8,6 +8,7 @@ export const DokumenAkademikEndpoints = api.injectEndpoints({
         url: `dokumen_akademik`,
         method: 'GET',
       }),
+      providesTags: ['dan-lain-lain'],
     }),
   }),
 })

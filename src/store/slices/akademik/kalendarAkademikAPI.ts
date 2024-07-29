@@ -8,6 +8,7 @@ export const KalendarAkademikEndpoints = api.injectEndpoints({
         url: `kalender_akademik`,
         method: 'GET',
       }),
+      providesTags: ['dan-lain-lain'],
     }),
   }),
 })

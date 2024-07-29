@@ -11,6 +11,7 @@ export const ProdiEndpoints = api.injectEndpoints({
         url: `prodi`,
         method: 'GET',
       }),
+      providesTags: ['dan-lain-lain'],
     }),
     getProdiDetail: builder.query<Res<GetProdiDetailType>, { id: string }>({
       query: ({ id }) => ({
@@ -20,6 +21,7 @@ export const ProdiEndpoints = api.injectEndpoints({
           id: id,
         },
       }),
+      providesTags: ['dan-lain-lain'],
     }),
   }),
 })

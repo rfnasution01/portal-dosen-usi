@@ -11,6 +11,7 @@ export const PimpinanEndpoints = api.injectEndpoints({
         url: `pimpinan`,
         method: 'GET',
       }),
+      providesTags: ['dan-lain-lain'],
     }),
     getPimpinanDetail: builder.query<
       Res<GetPimpinanDetailType>,
@@ -23,6 +24,7 @@ export const PimpinanEndpoints = api.injectEndpoints({
           id: id,
         },
       }),
+      providesTags: ['dan-lain-lain'],
     }),
   }),
 })
