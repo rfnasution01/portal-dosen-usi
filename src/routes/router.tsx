@@ -6,6 +6,7 @@ import {
   ComingSoonPage,
   CommonLayout,
   EditTahunAkademikPage,
+  GantiPasswordPage,
   JadwalKuliahDetailPage,
   JadwalKuliahPage,
   JadwalMingguIniPage,
@@ -215,6 +216,10 @@ export const router = createBrowserRouter([
             element: <ComingSoonPage />,
           },
         ],
+      },
+      {
+        path: 'ubah-password',
+        element: <GantiPasswordPage />,
       },
     ],
   },

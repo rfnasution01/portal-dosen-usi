@@ -14,7 +14,7 @@ export function ValidasiKonfirmasi({
 }: {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
-  children: ReactNode
+  children?: ReactNode
   childrenButton: ReactNode
   isAuto?: boolean
 }) {

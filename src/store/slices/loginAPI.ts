@@ -1,5 +1,9 @@
 import { Res, api } from '../api'
-import { LoginResponseType, PostLoginParams } from '../type/loginType'
+import {
+  LoginResponseType,
+  PostLoginParams,
+  PostUbahPasswordType,
+} from '../type/loginType'
 
 export const LoginEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -21,7 +25,23 @@ export const LoginEndpoints = api.injectEndpoints({
         'dan-lain-lain',
       ],
     }),
+    updatePassword: builder.mutation<void, { data: PostUbahPasswordType }>({
+      query: ({ data }) => ({
+        url: `change_password`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: [
+        'akademik-tahun-aktif',
+        'profil',
+        'komposisi',
+        'nilai',
+        'mahasiswa',
+        'dan-lain-lain',
+      ],
+    }),
   }),
 })
 
-export const { usePostLoginMutation } = LoginEndpoints
+export const { usePostLoginMutation, useUpdatePasswordMutation } =
+  LoginEndpoints

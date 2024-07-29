@@ -94,3 +94,5 @@ export const JadwalMingguIniPage = loadable(
 export const AkademikUmumDetailPegawai = loadable(
   () => import('@/pages/akademik/umum/UmumDetailPegawai'),
 )
+
+export const GantiPasswordPage = loadable(() => import('@/pages/GantiPassword'))

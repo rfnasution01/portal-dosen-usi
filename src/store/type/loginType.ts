@@ -7,3 +7,8 @@ export type PostLoginParams = {
 export type LoginResponseType = {
   token: string
 }
+
+export type PostUbahPasswordType = {
+  old_password: string
+  new_password: string
+}

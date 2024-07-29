@@ -14,3 +14,14 @@ export const LoginSchema = zod.object({
     invalid_type_error: 'Format hasil tidak valid',
   }),
 })
+
+export const UbahPasswordSchema = zod.object({
+  old_password: zod.string({
+    required_error: 'Password harus di isi',
+    invalid_type_error: 'Format password tidak valid',
+  }),
+  new_password: zod.string({
+    required_error: 'Password harus di isi',
+    invalid_type_error: 'Format password tidak valid',
+  }),
+})
