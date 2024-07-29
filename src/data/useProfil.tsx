@@ -14,6 +14,11 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { Bounce, toast } from 'react-toastify'
+import { AkademikPhotoSchema } from '@/store/schema/akadamik/photoSchema'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
+import { useForm } from 'react-hook-form'
+import { useUpdatePhotoMutation } from '@/store/slices/photoAPI'
 
 export function useProfil() {
   const navigate = useNavigate()
@@ -28,6 +33,13 @@ export function useProfil() {
     isError: isErrorProfil,
     error: errorProfil,
   } = useGetIdentitasQuery()
+
+  const [isShowPhoto, setIsShowPhoto] = useState<boolean>(false)
+
+  const formPhoto = useForm<zod.infer<typeof AkademikPhotoSchema>>({
+    resolver: zodResolver(AkademikPhotoSchema),
+    defaultValues: {},
+  })
 
   useEffect(() => {
     if (isErrorProfil) {
@@ -113,6 +125,81 @@ export function useProfil() {
 
   const loadingAplikasi = isLoadingAplikasi || isFetchingAplikasi
 
+  const [
+    uploadFileMutation,
+    {
+      isSuccess: successFile,
+      isError: isErrorFile,
+      error: errorFile,
+      isLoading: loadingFile,
+    },
+  ] = useUpdatePhotoMutation()
+
+  const handleUploadFoto = async (file: File) => {
+    const formatData = new FormData()
+    formatData.append('file', file)
+
+    try {
+      await uploadFileMutation(formatData)
+    } catch (e) {
+      console.error(e)
+      toast.error(`Data gagal disimpan`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (successFile) {
+      toast.success('Berhasil unggah photo!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      setIsShowPhoto(false)
+      formPhoto.reset()
+    }
+  }, [successFile])
+
+  useEffect(() => {
+    if (isErrorFile) {
+      const errorMsg = errorFile as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      setIsShowPhoto(false)
+    }
+  }, [isErrorFile, errorFile])
+
+  useEffect(() => {
+    if (dataProfil) {
+      formPhoto.setValue('photo', dataProfil?.header_profil?.photo)
+    }
+  }, [dataProfil])
+
   return {
     dataIdentitas,
     loadingIdentitas,
@@ -122,5 +209,10 @@ export function useProfil() {
     loadingInstitusi,
     dataAplikasi,
     loadingAplikasi,
+    isShowPhoto,
+    setIsShowPhoto,
+    formPhoto,
+    handleUploadFoto,
+    loadingFile,
   }
 }

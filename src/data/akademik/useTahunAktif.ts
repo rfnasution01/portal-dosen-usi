@@ -81,9 +81,9 @@ export function useAkademikTahunAktif() {
         theme: 'light',
         transition: Bounce,
       })
+      setIsShow(false)
+      setIsSubmit(false)
       setTimeout(() => {
-        setIsShow(false)
-        setIsSubmit(false)
         form.reset()
         navigate(-1)
       }, 3000)

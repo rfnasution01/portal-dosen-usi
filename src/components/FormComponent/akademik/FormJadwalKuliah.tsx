@@ -1,9 +1,9 @@
 import { UseFormReturn } from 'react-hook-form'
+import { Form } from '@/components/Form'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FormInputText } from '@/components/InputComponent'
 import { useEffect, useState } from 'react'
-import { Form } from '@/components/Form'
 
 export type rowType = {
   idm: string
@@ -23,12 +23,10 @@ export default function FormJadwalKuliah({
   handleSubmit,
   row,
   setLoading,
-  isNotDraft,
   editID,
   keyString,
 }: {
   form: UseFormReturn
-  isNotDraft: boolean
   isLoading: boolean
   handleSubmit: (idm: string) => Promise<void>
   row: rowType
@@ -38,9 +36,9 @@ export default function FormJadwalKuliah({
   isSuccessEditNilai: boolean
 }) {
   const onSubmit = async () => {
-    setLoading(row.idm, true)
-    await handleSubmit(row?.idm)
-    setLoading(row.idm, false)
+    setLoading(row.id_mk, true)
+    await handleSubmit(row?.id_mk)
+    setLoading(row.id_mk, false)
   }
 
   // useEffect(() => {
@@ -85,7 +83,7 @@ export default function FormJadwalKuliah({
       form.reset()
       setPrevEditID(editID)
     } else if (keyString && editID && row) {
-      const fieldName = `nilai_${row?.idm}_${editID}`
+      const fieldName = `nilai_${row?.id_mk}_${editID}`
       const currentFormValue = form.getValues(fieldName)
       const newValue = row[keyString]
 
@@ -110,17 +108,16 @@ export default function FormJadwalKuliah({
       <Form {...form}>
         <form className="flex gap-32" onSubmit={form.handleSubmit(onSubmit)}>
           <FormInputText
-            name={`nilai_${row?.idm}_${editID}`}
+            name={`nilai_${row?.id_mk}_${editID}`}
             form={form}
             placeholder="Nilai"
             className="text-black-200"
             type="text"
-            isDisabled={isLoading || isNotDraft}
+            isDisabled={isLoading}
             isFloat
           />
           <button
             type="submit"
-            disabled={isNotDraft}
             className="flex items-center justify-center gap-12 rounded-2xl bg-success px-16 py-12 text-white disabled:cursor-not-allowed"
           >
             {isLoading ? (

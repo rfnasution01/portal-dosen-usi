@@ -4,6 +4,12 @@ import { Dispatch, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { useProfil } from '@/data/useProfil'
 import { MainMenu } from './mainMenu'
+import { ValidasiUpdateForm } from '@/components/DialogComponent/ValidasiUpdateForm'
+import { FormUpdatePhoto } from '@/components/FormComponent/akademik/FormUpdatePhoto'
+
+interface EditButtonProps {
+  onClick: () => void
+}
 
 export function MainAside({
   isOpen,
@@ -12,7 +18,15 @@ export function MainAside({
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }) {
-  const { dataProfil, loadingProfil } = useProfil()
+  const {
+    dataProfil,
+    loadingProfil,
+    isShowPhoto,
+    setIsShowPhoto,
+    formPhoto,
+    handleUploadFoto,
+    loadingFile,
+  } = useProfil()
 
   return (
     <div
@@ -36,12 +50,22 @@ export function MainAside({
                     loading="lazy"
                     alt={dataProfil?.header_profil?.photo}
                   />
+                  <EditButton
+                    onClick={() => {
+                      setIsShowPhoto(true)
+                    }}
+                  />
                 </>
               ) : (
                 <div className="relative flex h-[16rem] w-[14rem] items-center justify-center rounded-2xl bg-background-secondary text-black-200">
                   <p className="text-[3.2rem]">
                     {getInitials(dataProfil?.header_profil?.nama)}
                   </p>
+                  <EditButton
+                    onClick={() => {
+                      setIsShowPhoto(true)
+                    }}
+                  />
                 </div>
               )}
             </div>
@@ -57,6 +81,31 @@ export function MainAside({
       </div>
       {/* --- Menu --- */}
       <MainMenu setIsOpen={setIsOpen} />
+
+      <ValidasiUpdateForm
+        isOpen={isShowPhoto}
+        setIsOpen={setIsShowPhoto}
+        title="Form Update Profil"
+        child={
+          <div className="flex gap-32">
+            <FormUpdatePhoto
+              formPhoto={formPhoto}
+              handleUploadFoto={handleUploadFoto}
+              loadingFile={loadingFile}
+            />
+          </div>
+        }
+      />
     </div>
   )
 }
+
+const EditButton: React.FC<EditButtonProps> = ({ onClick }) => (
+  <button
+    onClick={onClick}
+    className="absolute right-8 top-8 rounded-2xl text-[2.8rem] hover:bg-opacity-80"
+    aria-label="Edit"
+  >
+    🎦
+  </button>
+)

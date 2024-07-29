@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import FormJadwalKuliah, {
   rowType,
-} from '../FormComponent/siakad/FormJadwalKuliah'
+} from '../FormComponent/akademik/FormJadwalKuliah'
 import LoadingGif from '@/assets/imgs/loading.gif'
 import { UseFormReturn } from 'react-hook-form'
 import clsx from 'clsx'

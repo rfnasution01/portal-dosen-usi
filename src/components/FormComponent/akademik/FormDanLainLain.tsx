@@ -76,9 +76,6 @@ export function FormAkademikDanLain({
         />
         <div className="w-1/2 phones:hidden" />
       </div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24"></div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24"></div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24"></div>
     </>
   )
 }
