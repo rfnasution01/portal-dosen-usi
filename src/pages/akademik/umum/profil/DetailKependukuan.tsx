@@ -4,12 +4,12 @@ import { Form } from '@/components/Form'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ButtonGroup, UmumTabs } from '@/features/akademik/umum'
-import { useAkademikRekening } from '@/data/akademik/profil'
+import { useAkademikKependudukan } from '@/data/akademik/profil'
 import { usePathname } from '@/utils/usePathname'
 import { Dispatch, SetStateAction } from 'react'
-import { FormAkademikRekeningBank } from '@/components/FormComponent/akademik'
+import { FormAkademikKependudukan } from '@/components/FormComponent/akademik'
 
-export default function AkademikDetailRekening({
+export default function AkademikDetailKependudukan({
   menu,
   setMenu,
   tabs,
@@ -20,23 +20,23 @@ export default function AkademikDetailRekening({
 }) {
   const { lastPathname } = usePathname()
   const {
-    isShow: isShowRekening,
-    isSubmit: isSubmitRekening,
-    setIsShow: setIsShowRekening,
-    setIsSubmit: setIsSubmitRekening,
-    loadingUpdate: loadingUpdateRekening,
-    handleSubmit: handleSubmitRekening,
-    form: formRekening,
-    isEdit: isEditRekening,
-    setIsEdit: setIsEditRekening,
-  } = useAkademikRekening()
+    isShow: isShowKependudukan,
+    isSubmit: isSubmitKependudukan,
+    setIsShow: setIsShowKependudukan,
+    setIsSubmit: setIsSubmitKependudukan,
+    loadingUpdate: loadingUpdateKependudukan,
+    handleSubmit: handleSubmitKependudukan,
+    form: formKependudukan,
+    isEdit: isEditKependudukan,
+    setIsEdit: setIsEditKependudukan,
+  } = useAkademikKependudukan()
 
   return (
     <>
-      <Form {...formRekening}>
+      <Form {...formKependudukan}>
         <form
           className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto"
-          onSubmit={formRekening.handleSubmit(handleSubmitRekening)}
+          onSubmit={formKependudukan.handleSubmit(handleSubmitKependudukan)}
         >
           <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto">
             <div className="flex items-center justify-between gap-32 border-b border-[#9c9c9c] pb-8">
@@ -44,15 +44,15 @@ export default function AkademikDetailRekening({
                 {convertSlugToText(lastPathname)}
               </p>
               <ButtonGroup
-                isEdit={isEditRekening}
-                setIsEdit={setIsEditRekening}
-                isLoading={loadingUpdateRekening}
-                isShow={isShowRekening}
-                isSubmit={isSubmitRekening}
-                setIsShow={setIsShowRekening}
-                setIsSubmit={setIsSubmitRekening}
-                form={formRekening}
-                handleSubmit={handleSubmitRekening}
+                isEdit={isEditKependudukan}
+                setIsEdit={setIsEditKependudukan}
+                isLoading={loadingUpdateKependudukan}
+                isShow={isShowKependudukan}
+                isSubmit={isSubmitKependudukan}
+                setIsShow={setIsShowKependudukan}
+                setIsSubmit={setIsSubmitKependudukan}
+                form={formKependudukan}
+                handleSubmit={handleSubmitKependudukan}
                 menu={menu}
               />
             </div>
@@ -61,10 +61,10 @@ export default function AkademikDetailRekening({
               <div className="flex">
                 <UmumTabs menu={menu} setMenu={setMenu} menuList={tabs} />
               </div>
-              <FormAkademikRekeningBank
-                form={formRekening}
-                isLoading={loadingUpdateRekening}
-                isEdit={isEditRekening}
+              <FormAkademikKependudukan
+                form={formKependudukan}
+                isLoading={loadingUpdateKependudukan}
+                isEdit={isEditKependudukan}
               />
             </div>
           </div>

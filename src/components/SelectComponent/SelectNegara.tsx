@@ -5,22 +5,24 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Form'
+
 import { cn } from '@/utils/cn'
-import { useEffect, useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import Select, { components } from 'react-select'
 import { customStyles } from '@/store/type/selectType'
-import { GetReferensiType } from '@/store/type/referensiType'
-import { useGetReferensiProvinsiQuery } from '@/store/slices/referensiAPI'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { GetReferensiNegaraType } from '@/store/type/referensiType'
+import { useGetReferensiNegaraQuery } from '@/store/slices/referensiAPI'
 import clsx from 'clsx'
 
 type inputProps = {
   placeholder: string
   isDisabled?: boolean
   name: string
-  headerLabel: string
+  headerLabel?: string
   useFormReturn: UseFormReturn
   className?: string
+  setIdKategori?: Dispatch<SetStateAction<string>>
   level1?: boolean
   level2?: boolean
   level3?: boolean
@@ -29,13 +31,14 @@ type inputProps = {
   isRow?: boolean
 }
 
-export function SelectListProvinsi({
+export function SelectListNegara({
   name,
   headerLabel,
   placeholder,
   isDisabled,
   useFormReturn,
   className,
+  setIdKategori,
   level1,
   level2,
   level3,
@@ -44,23 +47,24 @@ export function SelectListProvinsi({
   isRow,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
-  const [listProvinsi, setListProvinsi] = useState<GetReferensiType[]>([])
+  const [listKonten, setListKonten] = useState<GetReferensiNegaraType[]>([])
+
   const { data, isSuccess, isLoading, isFetching } =
-    useGetReferensiProvinsiQuery()
+    useGetReferensiNegaraQuery()
 
   useEffect(() => {
     if (!isFetching) {
       if (data?.meta?.page > 1) {
-        setListProvinsi((prevData) => [...prevData, ...(data?.data ?? [])])
+        setListKonten((prevData) => [...prevData, ...(data?.data ?? [])])
       } else {
-        setListProvinsi([...(data?.data ?? [])])
+        setListKonten([...(data?.data ?? [])])
       }
     }
   }, [data])
 
-  let provinsiOption = []
-  if (isSuccess) {
-    provinsiOption = listProvinsi.map((item) => {
+  let KontenOption = []
+  if (listKonten && isSuccess) {
+    KontenOption = listKonten.map((item) => {
       return {
         value: item?.id,
         label: item?.nama,
@@ -78,7 +82,9 @@ export function SelectListProvinsi({
     return (
       <components.Option {...props}>
         <div ref={props.innerRef}>
-          <div className="text-[12px]">{props.label}</div>
+          <div className="flex flex-col gap-4">
+            <p className="text-[2rem] font-bold">{props?.label ?? '-'}</p>
+          </div>
         </div>
       </components.Option>
     )
@@ -92,14 +98,14 @@ export function SelectListProvinsi({
         return (
           <FormItem
             className={cn(
-              `${level1 ? 'z-50' : level2 ? 'z-40' : level3 ? 'z-30' : level4 ? 'z-20' : level5 ? 'z-10' : 'z-0'} flex w-full text-primary-100 ${isRow ? 'flex-row items-center gap-32' : 'flex-col gap-12'} text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]`,
+              `${level1 ? 'z-50' : level2 ? 'z-40' : level3 ? 'z-30' : level4 ? 'z-20' : level5 ? 'z-10' : 'z-0'} flex w-full ${isRow ? 'flex-row items-center gap-32' : 'flex-col gap-12'} text-[2rem] text-primary-100 phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]`,
               className,
             )}
           >
             {headerLabel && (
               <div
                 className={clsx('text-primary-100 phones:text-left', {
-                  'w-1/3 phones:w-full ': isRow,
+                  'w-1/3 phones:w-full': isRow,
                   'w-full phones:w-full': !isRow,
                 })}
               >
@@ -119,16 +125,17 @@ export function SelectListProvinsi({
                     ...customStyles,
                     singleValue: (provided) => ({
                       ...provided,
-                      color: 'grey',
+                      color: '#1F475C',
+                      textTransform: 'uppercase',
                     }),
                     input: (provided) => ({
                       ...provided,
-                      color: 'grey',
+                      color: '#1F475C',
                     }),
                     menuList: (provided) => ({
                       ...provided,
                       padding: 0,
-                      maxHeight: '50vh',
+                      maxHeight: '27vh',
                       overflowY: 'auto',
                       '&::-webkit-scrollbar': {
                         width: 0,
@@ -155,7 +162,7 @@ export function SelectListProvinsi({
                       ...provided,
                       backgroundColor:
                         'rgb(255 255 255 / var(--tw-bg-opacity))',
-                      color: 'rgb(32 34 35 / var(--tw-bg-opacity))',
+                      color: '#1F475C',
                       cursor: isDisabled ? 'not-allowed' : 'default',
                       ':hover': {
                         cursor: 'pointer',
@@ -165,22 +172,21 @@ export function SelectListProvinsi({
                     }),
                   }}
                   className={`${level1 ? 'z-50' : level2 ? 'z-40' : level3 ? 'z-30' : level4 ? 'z-20' : level5 ? 'z-10' : 'z-0'} text-[2rem]`}
-                  options={provinsiOption}
+                  options={KontenOption}
                   value={
-                    provinsiOption.filter(
-                      (item) => item.value === field.value,
-                    )[0]
+                    KontenOption.filter((item) => item.value === field.value)[0]
                   }
                   placeholder={placeholder ?? 'Pilih'}
                   onInputChange={search}
                   onChange={(optionSelected) => {
-                    field.onChange(optionSelected.value)
-                    useFormReturn.setValue('provinsi', optionSelected.value)
-                    useFormReturn.setValue('kabupaten', null)
-                    useFormReturn.setValue('kecamatan', null)
-                    useFormReturn.setValue('desa', null)
-                    useFormReturn.setValue('dusun', null)
-                    useFormReturn.setValue('provinsi', optionSelected?.label)
+                    field.onChange(optionSelected?.value)
+                    useFormReturn.setValue(
+                      `nama_kategori_${name}`,
+                      optionSelected?.label,
+                    )
+                    if (setIdKategori) {
+                      setIdKategori(optionSelected?.value)
+                    }
                   }}
                   isDisabled={isDisabled}
                   isLoading={isFetching || isLoading}

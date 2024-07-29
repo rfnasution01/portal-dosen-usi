@@ -112,7 +112,7 @@ type DataLain = {
   golongan_darah: string
   tinggi_badan: string
   berat_badan: string
-  hobby: string
+  Hobby: string
   file_tanda_tangan: string
   id_hobby: string
   id_golongan_darah: string

@@ -35,39 +35,37 @@ export default function AkademikDetailDomisili({
     <>
       <Form {...formDomisili}>
         <form
-          className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto p-32"
+          className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto"
           onSubmit={formDomisili.handleSubmit(handleSubmitDomisili)}
         >
-          <div className="">
-            <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto">
-              <div className="flex items-center justify-between gap-32 border-b border-[#9c9c9c] pb-8">
-                <p className="font-roboto text-[3.2rem]">
-                  {convertSlugToText(lastPathname)}
-                </p>
-                <ButtonGroup
-                  isEdit={isEditDomisili}
-                  setIsEdit={setIsEditDomisili}
-                  isLoading={loadingUpdateDomisili}
-                  isShow={isShowDomisili}
-                  isSubmit={isSubmitDomisili}
-                  setIsShow={setIsShowDomisili}
-                  setIsSubmit={setIsSubmitDomisili}
-                  form={formDomisili}
-                  handleSubmit={handleSubmitDomisili}
-                  menu={menu}
-                />
+          <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto">
+            <div className="flex items-center justify-between gap-32 border-b border-[#9c9c9c] pb-8">
+              <p className="font-roboto text-[3.2rem]">
+                {convertSlugToText(lastPathname)}
+              </p>
+              <ButtonGroup
+                isEdit={isEditDomisili}
+                setIsEdit={setIsEditDomisili}
+                isLoading={loadingUpdateDomisili}
+                isShow={isShowDomisili}
+                isSubmit={isSubmitDomisili}
+                setIsShow={setIsShowDomisili}
+                setIsSubmit={setIsSubmitDomisili}
+                form={formDomisili}
+                handleSubmit={handleSubmitDomisili}
+                menu={menu}
+              />
+            </div>
+            <div className="scrollbar flex h-full flex-1 flex-col gap-32 overflow-y-auto">
+              <JadwalKuliahInfo />
+              <div className="flex">
+                <UmumTabs menu={menu} setMenu={setMenu} menuList={tabs} />
               </div>
-              <div className="scrollbar flex h-full flex-1 flex-col gap-32 overflow-y-auto">
-                <JadwalKuliahInfo />
-                <div className="flex">
-                  <UmumTabs menu={menu} setMenu={setMenu} menuList={tabs} />
-                </div>
-                <FormAkademikAlamat
-                  form={formDomisili}
-                  isLoading={loadingUpdateDomisili}
-                  isEdit={isEditDomisili}
-                />
-              </div>
+              <FormAkademikAlamat
+                form={formDomisili}
+                isLoading={loadingUpdateDomisili}
+                isEdit={isEditDomisili}
+              />
             </div>
           </div>
         </form>

@@ -11,8 +11,13 @@ import {
   GetProfilType,
 } from '@/store/type/identitasType'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
+import { Bounce, toast } from 'react-toastify'
 
 export function useProfil() {
+  const navigate = useNavigate()
+
   // --- Identitas ---
   const [dataIdentitas, setDataIdentitas] = useState<GetIdentitasType>()
 
@@ -20,7 +25,34 @@ export function useProfil() {
     data: identitas,
     isLoading: isLoadingIdentitas,
     isFetching: isFetchingIdentitas,
+    isError: isErrorProfil,
+    error: errorProfil,
   } = useGetIdentitasQuery()
+
+  useEffect(() => {
+    if (isErrorProfil) {
+      const errorMsg = errorProfil as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+
+      if (errorMsg?.data?.message?.includes('Token')) {
+        setTimeout(() => {
+          Cookies.remove('token')
+          navigate(`/`)
+        }, 3000)
+      }
+    }
+  }, [isErrorProfil, errorProfil])
 
   useEffect(() => {
     if (identitas) {

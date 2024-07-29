@@ -31,7 +31,7 @@ export function MainAplikasi({
               to={`/${convertToSlug(item?.route)}`}
               key={idx}
               className={clsx(
-                'col-span-4 flex items-center justify-center rounded-2x border border-primary-50 bg-white p-24 text-center hover:cursor-pointer hover:border-primary-100 hover:bg-primary-50 phones:col-span-6',
+                'col-span-4 flex items-center justify-center rounded-2x border border-primary-50 bg-white py-64 text-center hover:cursor-pointer hover:border-primary-100 hover:bg-primary-50 phones:col-span-6',
               )}
               onMouseEnter={() => setFitur(item?.nama_aplikasi)}
             >

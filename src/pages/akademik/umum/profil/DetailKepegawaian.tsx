@@ -35,39 +35,37 @@ export default function AkademikDetailKepegawaian({
     <>
       <Form {...formKepegawaian}>
         <form
-          className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto p-32"
+          className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto"
           onSubmit={formKepegawaian.handleSubmit(handleSubmitKepegawaian)}
         >
-          <div className="">
-            <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto">
-              <div className="flex items-center justify-between gap-32 border-b border-[#9c9c9c] pb-8">
-                <p className="font-roboto text-[3.2rem]">
-                  {convertSlugToText(lastPathname)}
-                </p>
-                <ButtonGroup
-                  isEdit={isEditKepegawaian}
-                  setIsEdit={setIsEditKepegawaian}
-                  isLoading={loadingUpdateKepegawaian}
-                  isShow={isShowKepegawaian}
-                  isSubmit={isSubmitKepegawaian}
-                  setIsShow={setIsShowKepegawaian}
-                  setIsSubmit={setIsSubmitKepegawaian}
-                  form={formKepegawaian}
-                  handleSubmit={handleSubmitKepegawaian}
-                  menu={menu}
-                />
+          <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto">
+            <div className="flex items-center justify-between gap-32 border-b border-[#9c9c9c] pb-8">
+              <p className="font-roboto text-[3.2rem]">
+                {convertSlugToText(lastPathname)}
+              </p>
+              <ButtonGroup
+                isEdit={isEditKepegawaian}
+                setIsEdit={setIsEditKepegawaian}
+                isLoading={loadingUpdateKepegawaian}
+                isShow={isShowKepegawaian}
+                isSubmit={isSubmitKepegawaian}
+                setIsShow={setIsShowKepegawaian}
+                setIsSubmit={setIsSubmitKepegawaian}
+                form={formKepegawaian}
+                handleSubmit={handleSubmitKepegawaian}
+                menu={menu}
+              />
+            </div>
+            <div className="scrollbar flex h-full flex-1 flex-col gap-32 overflow-y-auto">
+              <JadwalKuliahInfo />
+              <div className="flex">
+                <UmumTabs menu={menu} setMenu={setMenu} menuList={tabs} />
               </div>
-              <div className="scrollbar flex h-full flex-1 flex-col gap-32 overflow-y-auto">
-                <JadwalKuliahInfo />
-                <div className="flex">
-                  <UmumTabs menu={menu} setMenu={setMenu} menuList={tabs} />
-                </div>
-                <FormAkademikKepegawaian
-                  form={formKepegawaian}
-                  isLoading={loadingUpdateKepegawaian}
-                  isEdit={isEditKepegawaian}
-                />
-              </div>
+              <FormAkademikKepegawaian
+                form={formKepegawaian}
+                isLoading={loadingUpdateKepegawaian}
+                isEdit={isEditKepegawaian}
+              />
             </div>
           </div>
         </form>

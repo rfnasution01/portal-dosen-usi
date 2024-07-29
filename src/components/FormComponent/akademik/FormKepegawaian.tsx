@@ -28,9 +28,6 @@ export function FormAkademikKepegawaian({
           isDisabled={disabled}
           isRow
         />
-        <div className="w-1/2 phones:hidden" />
-      </div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="gelar_depan"
           form={form}
@@ -41,6 +38,8 @@ export function FormAkademikKepegawaian({
           isDisabled={disabled}
           isRow
         />
+      </div>
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="gelar_belakang"
           form={form}
@@ -49,6 +48,17 @@ export function FormAkademikKepegawaian({
           className="w-1/2 text-primary-100 phones:w-full"
           type="text"
           isDisabled={disabled}
+          isRow
+        />
+        <SelectListReferensi
+          useFormReturn={form}
+          className="w-1/2 text-primary-100 phones:w-full"
+          name="id_agama"
+          placeholder="Pilih"
+          headerLabel="Agama"
+          isDisabled={disabled}
+          q="agama"
+          level1
           isRow
         />
       </div>
@@ -60,21 +70,9 @@ export function FormAkademikKepegawaian({
           headerLabel="Jenis Kelamin"
           isDisabled={disabled}
           q="jenis_kelamin"
-          level1
-          isRow
-        />
-        <SelectListReferensi
-          useFormReturn={form}
-          name="id_agama"
-          placeholder="Pilih"
-          headerLabel="Agama"
-          isDisabled={disabled}
-          q="agama"
           level2
           isRow
         />
-      </div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="tempat_lahir"
           form={form}
@@ -85,6 +83,8 @@ export function FormAkademikKepegawaian({
           isDisabled={disabled}
           isRow
         />
+      </div>
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="tanggal_lahir"
           form={form}
@@ -95,8 +95,6 @@ export function FormAkademikKepegawaian({
           isDisabled={disabled}
           isRow
         />
-      </div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <SelectListReferensi
           useFormReturn={form}
           name="id_status_nikah"
@@ -107,6 +105,8 @@ export function FormAkademikKepegawaian({
           level3
           isRow
         />
+      </div>
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <SelectListReferensi
           useFormReturn={form}
           name="id_unit_kerja"
@@ -117,8 +117,6 @@ export function FormAkademikKepegawaian({
           level4
           isRow
         />
-      </div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="email_perguruan_tinggi"
           form={form}
@@ -129,18 +127,18 @@ export function FormAkademikKepegawaian({
           isDisabled={disabled}
           isRow
         />
+      </div>
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="no_akun_finger"
           form={form}
           placeholder="No Akun Finger"
           label="No Akun Finger"
-          className="text-primary-100"
+          className="w-1/2 text-primary-100 phones:w-full"
           type="text"
           isDisabled={disabled}
           isRow
         />
-      </div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <SelectListReferensi
           useFormReturn={form}
           name="id_jabatan_akademik"
@@ -152,7 +150,6 @@ export function FormAkademikKepegawaian({
           level5
           isRow
         />
-        <div className="w-1/2 phones:hidden" />
       </div>
     </>
   )

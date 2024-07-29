@@ -5,15 +5,16 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
 import { AkademikKependudukanSchema } from '@/store/schema/akadamik/umumSchema'
+import { useProfil } from '@/data/useProfil'
 
 export function useAkademikKependudukan() {
+  const { dataProfil } = useProfil()
+
   const [isShow, setIsShow] = useState<boolean>(false)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  const formKependudukan = useForm<
-    zod.infer<typeof AkademikKependudukanSchema>
-  >({
+  const form = useForm<zod.infer<typeof AkademikKependudukanSchema>>({
     resolver: zodResolver(AkademikKependudukanSchema),
     defaultValues: {},
   })
@@ -22,29 +23,30 @@ export function useAkademikKependudukan() {
   const [
     updateKependudukan,
     {
-      isSuccess: successUpdateKependudukan,
-      isError: isErrorUpdateKependudukan,
-      error: errorUpdateKependudukan,
-      isLoading: loadingUpdateKependudukan,
+      isSuccess: successUpdate,
+      isError: isErrorUpdate,
+      error: errorUpdate,
+      isLoading: loadingUpdate,
     },
   ] = useUpdateKependudukanMutation()
 
-  const handleSubmitKependudukan = async (values) => {
+  const handleSubmit = async () => {
+    const values = form.watch()
     const formData = new FormData()
 
-    formData.append('nomor_ktp', values?.nomor_ktp)
-    formData.append('nomor_kk', values?.nomor_kk)
-    formData.append('alamat', values?.alamat)
-    formData.append('kode_pos', values?.kode_pos)
-    formData.append('id_suku', values?.id_suku)
-    formData.append('id_negara', values?.id_negara)
-    formData.append('id_provinsi', values?.id_provinsi)
-    formData.append('id_kabupaten', values?.id_kabupaten)
-    formData.append('id_kecamatan', values?.id_kecamatan)
-    formData.append('file_ktp', values?.file_ktp)
-    formData.append('file_kk', values?.file_kk)
+    formData.append('nomor_ktp', values?.nomor_ktp ?? '-')
+    formData.append('nomor_kk', values?.nomor_kk ?? '-')
+    formData.append('alamat', values?.alamat ?? '-')
+    formData.append('kode_pos', values?.kode_pos ?? '-')
+    formData.append('id_suku', values?.id_suku ?? '-')
+    formData.append('id_negara', values?.id_negara ?? '-')
+    formData.append('id_provinsi', values?.id_provinsi ?? '-')
+    formData.append('id_kabupaten', values?.id_kabupaten ?? '-')
+    formData.append('id_kecamatan', values?.id_kecamatan ?? '-')
+    formData.append('file_ktp', values?.file_ktp ?? '-')
+    formData.append('file_kk', values?.file_kk ?? '-')
 
-    if (isEdit) {
+    if (isEdit && isShow && isSubmit) {
       try {
         await updateKependudukan({ data: formData })
       } catch (error) {
@@ -54,7 +56,7 @@ export function useAkademikKependudukan() {
   }
 
   useEffect(() => {
-    if (successUpdateKependudukan) {
+    if (successUpdate) {
       toast.success('Berhasil update data!', {
         position: 'bottom-right',
         autoClose: 3000,
@@ -66,14 +68,15 @@ export function useAkademikKependudukan() {
         theme: 'light',
         transition: Bounce,
       })
+      setIsEdit(false)
       setIsShow(false)
       setIsSubmit(false)
     }
-  }, [successUpdateKependudukan])
+  }, [successUpdate])
 
   useEffect(() => {
-    if (isErrorUpdateKependudukan) {
-      const errorMsg = errorUpdateKependudukan as {
+    if (isErrorUpdate) {
+      const errorMsg = errorUpdate as {
         data?: { message?: string }
       }
 
@@ -88,19 +91,43 @@ export function useAkademikKependudukan() {
         theme: 'light',
         transition: Bounce,
       })
+      setIsEdit(false)
       setIsShow(false)
       setIsSubmit(false)
     }
-  }, [isErrorUpdateKependudukan, errorUpdateKependudukan])
+  }, [isErrorUpdate, errorUpdate])
+
+  useEffect(() => {
+    if (dataProfil) {
+      const data = dataProfil?.kependudukan
+
+      form.setValue('alamat', data?.alamat)
+      form.setValue('file_kk', data?.file_kk)
+      form.setValue('file_ktp', data?.file_kk)
+      form.setValue('id_kabupaten', data?.id_kabupaten)
+      form.setValue('id_kecamatan', data?.id_kecamatan)
+      form.setValue('id_negara', data?.id_negara)
+      form.setValue('id_provinsi', data?.id_provinsi)
+      form.setValue('id_suku', data?.id_suku)
+      form.setValue('kabupaten', data?.kabupaten)
+      form.setValue('kecamatan', data?.kecamatan)
+      form.setValue('kode_pos', data?.kode_pos)
+      form.setValue('negara', data?.negara)
+      form.setValue('nomor_kk', data?.nomor_kk)
+      form.setValue('nomor_ktp', data?.nomor_ktp)
+      form.setValue('provinsi', data?.provinsi)
+      form.setValue('suku', data?.suku)
+    }
+  }, [dataProfil])
 
   return {
     isShow,
     isSubmit,
     setIsShow,
     setIsSubmit,
-    loadingUpdateKependudukan,
-    handleSubmitKependudukan,
-    formKependudukan,
+    loadingUpdate,
+    handleSubmit,
+    form,
     isEdit,
     setIsEdit,
   }

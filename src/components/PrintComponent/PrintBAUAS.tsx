@@ -1,7 +1,31 @@
 import { useRef } from 'react'
 import printJS from 'print-js'
+import {
+  GetBobotNilaiType,
+  GetJadwalDetailType,
+  GetJadwalNilaiType,
+} from '@/store/type/akademik/jadwalKuliahType'
+import {
+  GetIdentitasType,
+  GetInstitusiType,
+  GetProfilType,
+} from '@/store/type/identitasType'
 
-export function PrintBAUAS() {
+export function PrintBAUAS({
+  response,
+  jadwalKuliahDetail,
+  identitas,
+  profil,
+  bobot,
+  institusi,
+}: {
+  response: GetJadwalNilaiType
+  jadwalKuliahDetail: GetJadwalDetailType
+  identitas: GetIdentitasType
+  profil: GetProfilType
+  bobot: GetBobotNilaiType[]
+  institusi: GetInstitusiType
+}) {
   const printRef = useRef<HTMLDivElement>(null)
   // const totalPage = Math.ceil((profil?.length + 2) / 15)
 
@@ -195,7 +219,16 @@ export function PrintBAUAS() {
               }
               .wa-23{
                 width: 30%;
-              }            
+              }        
+              .new-table {
+                display: flex;
+                flex-direction: column;    
+                gap: 4px;
+              }
+              .new-table p {
+                padding: 0;
+                margin: 0;
+              }    
             }
         `,
       })
@@ -205,29 +238,33 @@ export function PrintBAUAS() {
   return (
     <>
       <div ref={printRef} style={{ display: 'none' }}>
-        {/* <table>
+        <table>
           <thead>
             <tr>
               <td>
                 <div className="header-utama">
                   <div className="kop">
-                    <img src="/logo.png" alt="Logo" />
+                    <img
+                      src="https://administrator.universitassimalungun.ac.id/assets/img/aplikasi/logo-usi_(1).png"
+                      alt="Logo"
+                    />
                     <div className="kop-title">
                       <p className="text-besar">
                         Kementrian Pendidikan Dan Kebudayaan
                       </p>
                       <p className="text-besar text-bold">
-                        {identitas?.nama_pt}
+                        {identitas?.instansi}
                       </p>
                       <p className="text-besar text-bold">
-                        {profil?.akademik?.fakultas}
+                        {jadwalKuliahDetail?.fakultas}
                       </p>
                       <p className="text-besar text-bold">
                         {jadwalKuliahDetail?.prodi}
                       </p>
                       <p className="text-kecil">{identitas?.alamat}</p>
                       <p className="text-kecil">
-                        Telp/Fax: {identitas?.fax}. Email: {identitas?.email}
+                        Telp/Fax: {institusi?.telepon}. Email:{' '}
+                        {identitas?.email}
                       </p>
                     </div>
                   </div>
@@ -258,7 +295,7 @@ export function PrintBAUAS() {
                           Kode Mata Kuliah
                         </th>
                         <td className="table-border width-value">
-                          : {jadwalKuliahDetail?.kode_mk}
+                          : {jadwalKuliahDetail?.kode_makul}
                         </td>
                       </tr>
                       <tr>
@@ -266,7 +303,7 @@ export function PrintBAUAS() {
                           Nama Mata Kuliah
                         </th>
                         <td className="table-border width-value">
-                          : {jadwalKuliahDetail?.nama_mk}
+                          : {jadwalKuliahDetail?.nama_makul}
                         </td>
                       </tr>
                       <tr>
@@ -274,7 +311,7 @@ export function PrintBAUAS() {
                           Dosen Penguji
                         </th>
                         <td className="table-border width-value">
-                          : {profil?.identitas?.nama}
+                          : {profil?.header_profil?.nama}
                         </td>
                       </tr>
                       <tr>
@@ -298,7 +335,17 @@ export function PrintBAUAS() {
                           Ruangan Ujian
                         </th>
                         <td className="table-border width-value">
-                          : {jadwalKuliahDetail?.ruangan}
+                          <div className="text-width4">
+                            <div className="new-table">
+                              {jadwalKuliahDetail?.jadwal_kuliah?.map(
+                                (item, idx) => (
+                                  <p key={idx} style={{ lineHeight: '130%' }}>
+                                    : {item?.ruangan}
+                                  </p>
+                                ),
+                              )}
+                            </div>
+                          </div>
                         </td>
                       </tr>
                       <tr>
@@ -331,7 +378,9 @@ export function PrintBAUAS() {
                   <div className="penguji">
                     <div className="penguji-child border-left border-top border-bottom">
                       <p className="text-center">Dosen Penguji</p>
-                      <p className="text-center">{profil?.identitas?.nama}</p>
+                      <p className="text-center">
+                        {profil?.header_profil?.nama}
+                      </p>
                     </div>
                     <div className="penguji-child border-left border-top border-bottom">
                       <p className="text-center">Pengawas Ujian 1</p>
@@ -351,14 +400,14 @@ export function PrintBAUAS() {
                         <p>Diketahui</p>
                         <p>Ketua Program Studi</p>
                       </div>
-                      <p>{profil?.akademik?.ketua_prodi}</p>
+                      <p>-</p>
                     </div>
                     <div className="penguji-child border-left border-top border-bottom border-right">
                       <div className="diketahui">
                         <p>Diketahui</p>
                         <p>Dekan</p>
                       </div>
-                      <p>{profil?.akademik?.dekan}</p>
+                      <p>-</p>
                     </div>
                   </div>
 
@@ -368,14 +417,14 @@ export function PrintBAUAS() {
 
                       {response?.aspek_nilai?.map((item, idx) => (
                         <div className="penjelasan-lanjutan" key={idx}>
-                          <p className="w-13">{item?.nama}</p>
+                          <p className="w-13">{item?.jenis_nilai}</p>
                           <p className="w-23">
                             = Nilai{' '}
-                            {item?.nama === 'UAS'
+                            {item?.jenis_nilai === 'UAS'
                               ? 'Ujian Akhir Semester'
-                              : item?.nama === 'UTS'
+                              : item?.jenis_nilai === 'UTS'
                                 ? 'Ujian Tengah Semester'
-                                : item?.nama}
+                                : item?.jenis_nilai}
                           </p>
                         </div>
                       ))}
@@ -417,7 +466,7 @@ export function PrintBAUAS() {
               </td>
             </tr>
           </tfoot>
-        </table> */}
+        </table>
       </div>
 
       <button

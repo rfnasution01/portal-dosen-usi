@@ -36,9 +36,6 @@ export function FormAkademikAlamat({
           isRow
         />
 
-        <div className="w-full phones:hidden" />
-      </div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <SelectListKabupaten
           key={`id_kabupaten-${provinsi}-${kabupaten}`}
           name="id_kabupaten"
@@ -50,18 +47,19 @@ export function FormAkademikAlamat({
           level2
           isRow
         />
+      </div>
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <SelectListKecamatan
           key={`id_kecamatan-${provinsi}-${kabupaten}-${kecamatan}`}
           name="id_kecamatan"
           useFormReturn={form}
           headerLabel="Kecamatan"
+          className="w-1/2 text-primary-100 phones:w-full"
           placeholder="Pilih"
           isDisabled={!provinsi || !kabupaten || isLoading || disabled}
           level3
           isRow
         />
-      </div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name={`alamat_lengkap`}
           form={form}
@@ -72,22 +70,8 @@ export function FormAkademikAlamat({
           isDisabled={disabled}
           isRow
         />
-
-        <div className="w-1/2 phones:hidden" />
       </div>
-
       <div className="flex gap-64 phones:flex-col phones:gap-24">
-        <FormInputText
-          name={`jarak_rumah_kantor`}
-          form={form}
-          label="Jarak Rumah Kantor"
-          placeholder="Jarak Rumah Kantor"
-          className="w-1/2 text-primary-100 phones:w-full"
-          type="text"
-          isDisabled={disabled}
-          isRow
-        />
-
         <FormInputText
           name={`kode_pos`}
           form={form}
@@ -98,7 +82,18 @@ export function FormAkademikAlamat({
           isDisabled={disabled}
           isRow
         />
+        <FormInputText
+          name={`jarak_rumah_kantor`}
+          form={form}
+          label="Jarak Rumah Kantor"
+          placeholder="Jarak Rumah Kantor"
+          className="w-1/2 text-primary-100 phones:w-full"
+          type="text"
+          isDisabled={disabled}
+          isRow
+        />
       </div>
+
       <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name={`nomor_telepon`}

@@ -12,16 +12,10 @@ export const ReferensiEndpoints = api.injectEndpoints({
         },
       }),
     }),
-    getReferensiNegara: builder.query<
-      Res<GetReferensiNegaraType[]>,
-      { q: string }
-    >({
-      query: ({ q }) => ({
+    getReferensiNegara: builder.query<Res<GetReferensiNegaraType[]>, void>({
+      query: () => ({
         url: `ref_negara`,
         method: 'GET',
-        params: {
-          q: q,
-        },
       }),
     }),
     getReferensiProvinsi: builder.query<Res<GetReferensiType[]>, void>({

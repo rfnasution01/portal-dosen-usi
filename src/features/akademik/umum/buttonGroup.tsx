@@ -5,16 +5,18 @@ import {
   faPencil,
   faSave,
   faSpinner,
-  faTrash,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dispatch, SetStateAction } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import {
+  AkademikPreviewDanLainLain,
+  AkademikPreviewDokumen,
   AkademikPreviewDomisili,
   AkademikPreviewDosen,
   AkademikPreviewKepegawaian,
+  AkademikPreviewKependudukan,
   AkademikPreviewRekening,
 } from '../preview'
 
@@ -63,14 +65,21 @@ export function ButtonGroup({
         {isEdit ? 'Simpan' : 'Edit'}
       </button>
 
-      <button className="flex items-center gap-12 rounded-2xl bg-warning px-24 py-12 text-white">
-        <FontAwesomeIcon icon={faXmark} />
-        Batal
-      </button>
-      <button className="flex items-center gap-12 rounded-2xl bg-danger px-24 py-12 text-white">
+      {isEdit && (
+        <button
+          onClick={() => {
+            setIsEdit(false)
+          }}
+          className="flex items-center gap-12 rounded-2xl bg-warning px-24 py-12 text-white"
+        >
+          <FontAwesomeIcon icon={faXmark} />
+          Batal
+        </button>
+      )}
+      {/* <button className="flex items-center gap-12 rounded-2xl bg-danger px-24 py-12 text-white">
         <FontAwesomeIcon icon={faTrash} />
         Hapus
-      </button>
+      </button> */}
       <ValidasiKonfirmasi
         isOpen={isShow}
         setIsOpen={setIsShow}
@@ -122,6 +131,32 @@ export function ButtonGroup({
                 nama_rekening={form.watch('nama_rekening')}
                 cabang_bank={form.watch('cabang_bank')}
                 file={form.watch('file')}
+              />
+            ) : menu === 'Dokumen' ? (
+              <AkademikPreviewDokumen
+                nomor_karpeg={form.watch('nomor_karpeg')}
+                npwp={form.watch('npwp')}
+                nomor_bpjs={form.watch('nomor_bpjs')}
+                nomor_bpjs_ketenagakerjaan={form.watch(
+                  'nomor_bpjs_ketenagakerjaan',
+                )}
+              />
+            ) : menu === 'Lain-lain' ? (
+              <AkademikPreviewDanLainLain
+                tinggi_badan={form.watch('tinggi_badan')}
+                berat_badan={form.watch('berat_badan')}
+                golongan_darah={form.watch('golongan_darah')}
+                hobby={form.watch('hobby')}
+              />
+            ) : menu === 'Kependudukan' ? (
+              <AkademikPreviewKependudukan
+                nomor_ktp={form.watch('nomor_ktp')}
+                nomor_kk={form.watch('nomor_kk')}
+                alamat_lengkap={form.watch('alamat')}
+                kode_pos={form.watch('kode_pos')}
+                provinsi={form.watch('provinsi')}
+                kabupaten={form.watch('kabupaten')}
+                kecamatan={form.watch('kecamatan')}
               />
             ) : (
               ''

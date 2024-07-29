@@ -1,7 +1,29 @@
-import { useRef } from 'react'
+import { Fragment, useRef } from 'react'
 import printJS from 'print-js'
+import {
+  GetJadwalDetailType,
+  GetJadwalNilaiType,
+} from '@/store/type/akademik/jadwalKuliahType'
+import {
+  GetIdentitasType,
+  GetInstitusiType,
+  GetProfilType,
+} from '@/store/type/identitasType'
+import { getDayName } from '@/utils/formatText'
 
-export function PrintHasil() {
+export function PrintHasil({
+  response,
+  jadwalKuliahDetail,
+  identitas,
+  profil,
+  institusi,
+}: {
+  response: GetJadwalNilaiType
+  jadwalKuliahDetail: GetJadwalDetailType
+  identitas: GetIdentitasType
+  profil: GetProfilType
+  institusi: GetInstitusiType
+}) {
   const printRef = useRef<HTMLDivElement>(null)
   // const totalPage = Math.ceil((profil?.length + 2) / 15)
 
@@ -215,66 +237,77 @@ export function PrintHasil() {
                 padding: 0;
                 margin: 0;
               }
+              .new-table {
+                display: flex;
+                flex-direction: column;    
+                gap: 4px;
+              }
+              .new-table p {
+                padding: 0;
+                margin: 0;
+              }
             }
         `,
       })
     }
   }
 
-  // const transformResponse = (
-  //   response: GetSiakadJadwalKuliahNilaiMahasiswaType,
-  // ) => {
-  //   return response?.data?.map((mahasiswa) => {
-  //     const transformedAspekNilai: { [key: string]: string | null } = {}
+  const transformResponse = (response: GetJadwalNilaiType) => {
+    return response?.data?.map((mahasiswa) => {
+      const transformedAspekNilai: { [key: string]: string | null } = {}
 
-  //     response?.aspek_nilai?.forEach((aspek) => {
-  //       const matchedAspek = mahasiswa?.nilai_aspek?.find(
-  //         (nilaiAspek) => nilaiAspek?.id === aspek?.id,
-  //       )
-  //       transformedAspekNilai[aspek?.nama as string] = matchedAspek
-  //         ? matchedAspek?.nilai
-  //         : null
-  //     })
+      response?.aspek_nilai?.forEach((aspek) => {
+        const matchedAspek = mahasiswa?.nilai_aspek?.find(
+          (nilaiAspek) => nilaiAspek?.id === aspek?.id,
+        )
+        transformedAspekNilai[aspek?.jenis_nilai as string] = matchedAspek
+          ? matchedAspek?.nilai
+          : null
+      })
 
-  //     return {
-  //       idm: mahasiswa?.idm,
-  //       nim: mahasiswa?.nim,
-  //       nama: mahasiswa?.nama,
-  //       nilai_akhir: mahasiswa?.nilai_akhir,
-  //       huruf: mahasiswa?.huruf,
-  //       sks: mahasiswa?.sks,
-  //       mutu: mahasiswa?.mutu,
-  //       ...transformedAspekNilai,
-  //     }
-  //   })
-  // }
+      return {
+        idm: mahasiswa?.id_mahasiswa,
+        nim: mahasiswa?.nim,
+        nama: mahasiswa?.nama,
+        nilai_akhir: mahasiswa?.nilai_akhir,
+        huruf: mahasiswa?.huruf,
+        sks: mahasiswa?.sks,
+        mutu: mahasiswa?.mutu,
+        ...transformedAspekNilai,
+      }
+    })
+  }
 
   return (
     <>
       <div ref={printRef} style={{ display: 'none' }}>
-        {/* <table>
+        <table>
           <thead>
             <tr>
               <td>
                 <div className="header-utama">
                   <div className="kop">
-                    <img src="/logo.png" alt="Logo" />
+                    <img
+                      src="https://administrator.universitassimalungun.ac.id/assets/img/aplikasi/logo-usi_(1).png"
+                      alt="Logo"
+                    />
                     <div className="kop-title">
                       <p className="text-besar">
                         Kementrian Pendidikan Dan Kebudayaan
                       </p>
                       <p className="text-besar text-bold">
-                        {identitas?.nama_pt}
+                        {identitas?.instansi}
                       </p>
                       <p className="text-besar text-bold">
-                        {profil?.akademik?.fakultas}
+                        {jadwalKuliahDetail?.fakultas}
                       </p>
                       <p className="text-besar text-bold">
                         {jadwalKuliahDetail?.prodi}
                       </p>
                       <p className="text-kecil">{identitas?.alamat}</p>
                       <p className="text-kecil">
-                        Telp/Fax: {identitas?.fax}. Email: {identitas?.email}
+                        Telp/Fax: {institusi?.telepon}. Email:{' '}
+                        {identitas?.email}
                       </p>
                     </div>
                   </div>
@@ -286,14 +319,13 @@ export function PrintHasil() {
                       <div className="text-section">
                         <p className="text-width1">Mata Kuliah</p>
                         <p className="text-width2">
-                          : {jadwalKuliahDetail?.nama_mk}
+                          : {jadwalKuliahDetail?.nama_makul}
                         </p>
                       </div>
                       <div className="text-section">
                         <p className="text-width3">Tahun Ajaran/ Tahapan</p>
                         <p className="text-width4">
-                          : {jadwalKuliahDetail?.tahun}/{' '}
-                          {jadwalKuliahDetail?.tahap}
+                          : {jadwalKuliahDetail?.tahun_akademik}
                         </p>
                       </div>
                     </div>
@@ -320,25 +352,41 @@ export function PrintHasil() {
                       </div>
                       <div className="text-section">
                         <p className="text-width3">Ruangan</p>
-                        <p className="text-width4">
-                          : {jadwalKuliahDetail?.ruangan}
-                        </p>
+                        <div className="text-width4">
+                          <div className="new-table">
+                            {jadwalKuliahDetail?.jadwal_kuliah?.map(
+                              (item, idx) => (
+                                <p key={idx} style={{ lineHeight: '130%' }}>
+                                  : {item?.ruangan}
+                                </p>
+                              ),
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div className="text-parent">
                       <div className="text-section">
                         <p className="text-width1">Dosen</p>
                         <p className="text-width2">
-                          : {profil?.identitas?.nama}
+                          : {profil?.header_profil?.nama}
                         </p>
                       </div>
                       <div className="text-section">
                         <p className="text-width3">Hari / Sesi</p>
-                        <p className="text-width4">
-                          : {jadwalKuliahDetail?.hari ?? '-'} /{' '}
-                          {jadwalKuliahDetail?.jam_mulai} -{' '}
-                          {jadwalKuliahDetail?.jam_selesai}
-                        </p>
+                        <div className="text-width4">
+                          <div className="new-table">
+                            {jadwalKuliahDetail?.jadwal_kuliah?.map(
+                              (item, idx) => (
+                                <p key={idx} style={{ lineHeight: '130%' }}>
+                                  : {getDayName(Number(item?.hari))} /{' '}
+                                  {item?.jam_mulai.slice(0, 5)} -{' '}
+                                  {item?.jam_akhir?.slice(0, 5)}
+                                </p>
+                              ),
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -363,8 +411,8 @@ export function PrintHasil() {
                         {response?.aspek_nilai?.map((item, idx) => (
                           <th key={idx} className="table-border width-stable">
                             <div className="flex-col">
-                              <p>{item?.nama}</p>
-                              <p> {item?.persen}%</p>
+                              <p>{item?.jenis_nilai}</p>
+                              <p> {item?.persentase}%</p>
                             </div>
                           </th>
                         ))}
@@ -394,7 +442,7 @@ export function PrintHasil() {
                                 key={idx}
                                 className="table-border text-center"
                               >
-                                <p>{row[aspek.nama] ?? '-'}</p>
+                                <p>{row[aspek.jenis_nilai] ?? '-'}</p>
                               </td>
                             ))}
                             <td className="table-border text-center">
@@ -433,7 +481,7 @@ export function PrintHasil() {
                     </div>
                     <div className="kaprodi">
                       <p>Ketua Program Studi</p>
-                      <p>{profil?.akademik?.ketua_prodi}</p>
+                      <p>-</p>
                     </div>
                   </div>
                 </div>
@@ -449,7 +497,7 @@ export function PrintHasil() {
               </td>
             </tr>
           </tfoot>
-        </table> */}
+        </table>
       </div>
 
       <button

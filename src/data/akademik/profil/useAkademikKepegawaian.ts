@@ -101,6 +101,10 @@ export function useAkademikKepegawaian() {
       const data = dataProfil?.kepegawaian
       const datax = dataProfil?.header_profil
 
+      const tglLahir = datax?.tanggal_lahir
+      const tglSplit = tglLahir?.split('-')
+      const newTglLahir = `${tglSplit?.[0]}-${tglSplit?.[1]}-${tglSplit?.[2]}`
+
       form.setValue('agama', datax?.agama)
       form.setValue('email_perguruan_tinggi', data?.email_perguruan_tinggi)
       form.setValue('gelar_belakang', datax?.gelar_belakang)
@@ -115,7 +119,7 @@ export function useAkademikKepegawaian() {
       form.setValue('nama', datax?.nama)
       form.setValue('no_akun_finger', data?.no_akun_finger)
       form.setValue('status_nikah', datax?.status_nikah)
-      form.setValue('tanggal_lahir', datax?.tanggal_lahir)
+      form.setValue('tanggal_lahir', newTglLahir)
       form.setValue('tempat_lahir', datax?.tempat_lahir)
       form.setValue('unit_kerja', data?.unit_kerja)
     }

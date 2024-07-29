@@ -100,17 +100,20 @@ export default function AkademikJadwalKuliahLayout() {
             </div>
           )}
 
-          <div>
-            {loadingJadwalNilai ? (
-              <SkeletonText lines={1} className="w-1/4 phones:w-1/2" />
-            ) : (
-              <AkademikNilaiMahasiswaMenu
-                aspekNilai={dataJadwalNilai?.aspek_nilai}
-              />
-            )}
-          </div>
+          {dataJadwalNilai?.aspek_nilai?.length > 0 && (
+            <div>
+              {loadingJadwalNilai ? (
+                <SkeletonText lines={1} className="w-1/4 phones:w-1/2" />
+              ) : (
+                <AkademikNilaiMahasiswaMenu
+                  aspekNilai={dataJadwalNilai?.aspek_nilai}
+                />
+              )}
+            </div>
+          )}
 
-          {isLoading ? <Loading /> : <Outlet />}
+          {dataJadwalNilai?.aspek_nilai?.length > 0 &&
+            (isLoading ? <Loading /> : <Outlet />)}
         </div>
       </div>
       <DialogSetKomposisi

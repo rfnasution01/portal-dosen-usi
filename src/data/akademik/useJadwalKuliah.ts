@@ -29,8 +29,12 @@ import {
 } from '@/store/schema/akadamik/jadwalKuliahSchema'
 import { Bounce, toast } from 'react-toastify'
 import { rowType } from '@/components/FormComponent/akademik'
+import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 export function useAkademikJadwalKuliah() {
+  const navigate = useNavigate()
+
   const id = localStorage.getItem('jadwalID') ?? ''
   const editID = localStorage?.getItem('editID') ?? ''
   const [isShowKomposisi, setIsShowKomposisi] = useState<boolean>(false)
@@ -105,6 +109,8 @@ export function useAkademikJadwalKuliah() {
     data: JadwalDetail,
     isLoading: isLoadingJadwalDetail,
     isFetching: isFetchingJadwalDetail,
+    isError: isErrorJadwalDetaail,
+    error: errroJaadwalDetail,
   } = useGetJadwalDetailQuery(
     {
       id_kelas_makul: id,
@@ -117,6 +123,31 @@ export function useAkademikJadwalKuliah() {
       setDataJadwalDetail(JadwalDetail?.data)
     }
   }, [JadwalDetail])
+
+  useEffect(() => {
+    if (isErrorJadwalDetaail) {
+      const errorMsg = errroJaadwalDetail as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+
+      if (errorMsg?.data?.message?.includes('Token')) {
+        setTimeout(() => {
+          Cookies.remove('token')
+          navigate(`/login`)
+        }, 3000)
+      }
+    }
+  }, [isErrorJadwalDetaail, errroJaadwalDetail])
 
   const loadingJadwalDetail = isLoadingJadwalDetail || isFetchingJadwalDetail
 

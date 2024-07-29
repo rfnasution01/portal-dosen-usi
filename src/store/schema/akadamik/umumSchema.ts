@@ -89,6 +89,7 @@ export const AkademikDokumenSchema = zod.object({
   file_bpjs: zod.string().nullable().nullish().optional(),
   file_bpjs_ketenagakerjaan: zod.string().nullable().nullish().optional(),
   file_bpjs_pensiun: zod.string().nullable().nullish().optional(),
+  file_karpeg: zod.string().nullable().nullish().optional(),
 })
 
 export const AkademikDataLainSchema = zod.object({
@@ -97,6 +98,7 @@ export const AkademikDataLainSchema = zod.object({
   tinggi_badan: zod.string().nullable().nullish().optional(),
   berat_badan: zod.string().nullable().nullish().optional(),
   id_hobby: zod.string().nullable().nullish().optional(),
+  hobby: zod.string().nullable().nullish().optional(),
   file: zod.string().nullable().nullish().optional(),
 })
 

@@ -28,9 +28,6 @@ export function FormAkademikRekeningBank({
           isRow
           className="w-1/2 text-primary-100 phones:w-full"
         />
-        <div className="w-1/2 phones:hidden" />
-      </div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="nomor_rekening"
           form={form}
@@ -41,6 +38,8 @@ export function FormAkademikRekeningBank({
           isDisabled={disabled}
           isRow
         />
+      </div>
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="nama_rekening"
           form={form}
@@ -51,8 +50,6 @@ export function FormAkademikRekeningBank({
           isDisabled={disabled}
           isRow
         />
-      </div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="cabang_bank"
           form={form}
@@ -63,13 +60,20 @@ export function FormAkademikRekeningBank({
           isDisabled={disabled}
           isRow
         />
-
+      </div>
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
+        <FormInputText
+          name="file_rekening"
+          form={form}
+          placeholder="File Rekening"
+          label="File Rekening"
+          className="w-1/2 text-black-200 phones:w-full"
+          type="file"
+          isDisabled={disabled}
+          isRow
+        />
         <div className="w-1/2 phones:hidden" />
       </div>
-      {/* <div className="flex gap-64 phones:flex-col phones:gap-24">
-        <FormInputFileAppend form={form} name="file" isLoading={disabled} />
-        <div className="w-1/2 phones:hidden" />
-      </div> */}
     </>
   )
 }

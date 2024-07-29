@@ -18,7 +18,7 @@ export default function AkademikDashboard() {
         Selamat Datang,{' '}
         {dataProfil?.header_profil?.jenis_kelamin === 'Perempuan'
           ? 'Bu'
-          : 'Pak'}
+          : 'Pak'}{' '}
         {dataProfil?.header_profil?.nama}
       </p>
       <div className="flex flex-col rounded-2xl border bg-neutral-secondary p-32 font-mono text-[2.2rem] text-neutral-black">
