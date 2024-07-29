@@ -32,7 +32,7 @@ export default function FormUpdateTahunAkademik({
     <div>
       <Form {...form}>
         <form
-          className="flex flex-col gap-32"
+          className="flex flex-col gap-16"
           onSubmit={form.handleSubmit(handleSubmit)}
         >
           {/* --- Field --- */}
@@ -44,7 +44,6 @@ export default function FormUpdateTahunAkademik({
             isDisabled={isLoading}
             q="tahun_akademik"
             level1
-            isRow
           />
           <SelectListReferensi
             useFormReturn={form}
@@ -54,7 +53,6 @@ export default function FormUpdateTahunAkademik({
             isDisabled={isLoading}
             q="tahapan"
             level2
-            isRow
           />
           <SelectListReferensi
             useFormReturn={form}
@@ -64,7 +62,6 @@ export default function FormUpdateTahunAkademik({
             isDisabled={isLoading}
             q="prodi"
             level3
-            isRow
           />
           {/* --- Button Group --- */}
           <div className="flex items-center justify-end gap-32">
