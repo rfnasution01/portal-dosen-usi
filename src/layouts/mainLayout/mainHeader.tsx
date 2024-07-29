@@ -1,14 +1,19 @@
 import { IconDashboard } from '@/assets/icon'
 import SkeletonText from '@/components/SkeletonComonent/SkeletonText'
-import { faAlignJustify, faClose } from '@fortawesome/free-solid-svg-icons'
+import {
+  faAlignJustify,
+  faClose,
+  faHome,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
-import Cookies from 'js-cookie'
 import { Dispatch, SetStateAction } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { MainMenu } from './mainMenu'
 import { useProfil } from '@/data/useProfil'
 import { useAkademikTahunAktif } from '@/data/akademik/useTahunAktif'
+import { ValidasiLogout } from '@/components/DialogComponent/ValidasiLogout'
+import { useLogout } from '@/data/useLogout'
 
 export function MainHeader({
   setIsOpen,
@@ -17,9 +22,9 @@ export function MainHeader({
   setIsOpen: Dispatch<SetStateAction<boolean>>
   isOpen: boolean
 }) {
-  const navigate = useNavigate()
   const { loadingProfil, dataProfil } = useProfil()
   const { dataTahunAktif, loadingTahunAktif } = useAkademikTahunAktif()
+  const { isShowLogout, setIsShowLogout, handleLogout } = useLogout()
 
   return (
     <div
@@ -55,24 +60,37 @@ export function MainHeader({
               </p>
               <p className="phones:hidden">|</p>
               <p className="phones:hidden">{dataTahunAktif?.prodi}</p>
-              <p className="phones:hidden">|</p>
-              <Link to={'edit-ta'}>
-                <span className="hover:cursor-pointer hover:text-white">
-                  <IconDashboard size={12} />
-                </span>
-              </Link>
-              <p>|</p>
-              <p>
-                <span
-                  className="text-danger hover:cursor-pointer hover:text-red-300"
-                  onClick={() => {
-                    Cookies.remove('token')
-                    navigate('/login')
-                  }}
-                >
-                  Logout
-                </span>
-              </p>
+              <div className="ml-16 flex items-center gap-32">
+                <Link to="/profil">
+                  <img
+                    src={dataProfil?.header_profil?.photo}
+                    alt={dataProfil?.header_profil?.nama}
+                    loading="lazy"
+                    className="h-[4rem] w-[4rem] rounded-full object-cover"
+                  />
+                </Link>
+                <Link to={'edit-ta'}>
+                  <span className="hover:cursor-pointer hover:text-white">
+                    <IconDashboard size={12} />
+                  </span>
+                </Link>
+                <Link to={'/'}>
+                  <span className="hover:cursor-pointer hover:text-white">
+                    <FontAwesomeIcon icon={faHome} />
+                  </span>
+                </Link>
+
+                <p>
+                  <span
+                    className="text-danger hover:cursor-pointer hover:text-red-300"
+                    onClick={() => {
+                      setIsShowLogout(true)
+                    }}
+                  >
+                    Logout
+                  </span>
+                </p>
+              </div>
               <span
                 onClick={() => setIsOpen(!isOpen)}
                 className="hidden phones:block"
@@ -94,6 +112,18 @@ export function MainHeader({
       >
         <MainMenu setIsOpen={setIsOpen} />
       </div>
+      <ValidasiLogout
+        isOpen={isShowLogout}
+        setIsOpen={setIsShowLogout}
+        child={
+          <button
+            onClick={handleLogout}
+            className="flex w-[10rem] items-center justify-center gap-12 rounded-2xl bg-success px-24 py-12 text-center text-white hover:bg-opacity-80"
+          >
+            <p>Ya</p>
+          </button>
+        }
+      />
     </div>
   )
 }

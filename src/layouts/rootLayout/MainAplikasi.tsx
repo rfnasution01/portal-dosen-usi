@@ -9,8 +9,10 @@ export function MainAplikasi({
   setFitur,
   aplikasi,
   loadingAplikasi,
+  fitur,
 }: {
   setFitur: Dispatch<SetStateAction<string>>
+  fitur: string
   aplikasi: GetAplikasiType[]
   loadingAplikasi: boolean
 }) {
@@ -31,7 +33,12 @@ export function MainAplikasi({
               to={`/${convertToSlug(item?.route)}`}
               key={idx}
               className={clsx(
-                'col-span-4 flex items-center justify-center rounded-2x border border-primary-50 bg-white py-64 text-center hover:cursor-pointer hover:border-primary-100 hover:bg-primary-50 phones:col-span-6',
+                'col-span-4 flex items-center justify-center rounded-2x border py-64 text-center hover:cursor-pointer hover:border-primary-100 hover:bg-primary-50 phones:col-span-6',
+                {
+                  'border-primary-100 bg-primary-50':
+                    item?.nama_aplikasi === fitur,
+                  'border-primary-50 bg-white ': item?.nama_aplikasi !== fitur,
+                },
               )}
               onMouseEnter={() => setFitur(item?.nama_aplikasi)}
             >

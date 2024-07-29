@@ -75,7 +75,7 @@ export function MainAside({
                 {formatBibliographyName(dataProfil?.header_profil?.nama)}
               </p>
             </div>
-            <p>{dataProfil?.dosen?.nidn}</p>
+            <p>{dataProfil?.kepegawaian?.jabatan_akademik}</p>
           </>
         )}
       </div>

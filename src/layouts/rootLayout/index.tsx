@@ -14,6 +14,7 @@ export default function RootLayout() {
     loadingAplikasi,
     loadingIdentitas,
     loadingInstitusi,
+    dataProfil,
   } = useProfil()
 
   const [fitur, setFitur] = useState<string>()
@@ -35,19 +36,28 @@ export default function RootLayout() {
               setFitur={setFitur}
               aplikasi={dataAplikasi}
               loadingAplikasi={loadingAplikasi}
+              fitur={fitur}
             />
           </div>
           <div className="w-1/3 bg-white p-48 phones:hidden phones:w-full">
-            <div className="flex flex-col gap-0">
-              <p className="text-warna-dark font-roboto text-[3.2rem]">
-                Keterangan
-              </p>
-              {fitur && (
-                <div
-                  dangerouslySetInnerHTML={{ __html: fitur }}
-                  className="article-content"
-                />
-              )}
+            <div className="flex flex-col gap-32">
+              <div className="flex flex-col gap-12">
+                <p className="text-warna-dark font-roboto text-[3.2rem]">
+                  Data Role
+                </p>
+                {fitur && (
+                  <div
+                    dangerouslySetInnerHTML={{ __html: fitur }}
+                    className="article-content"
+                  />
+                )}
+              </div>
+              <div className="flex flex-col gap-12 rounded-2xl p-32 shadow">
+                <p className="font-roboto text-[2.8rem]">
+                  {dataProfil?.kepegawaian?.hubungan_kerja}
+                </p>
+                <p>{dataProfil?.kepegawaian?.unit_kerja}</p>
+              </div>
             </div>
           </div>
         </div>
