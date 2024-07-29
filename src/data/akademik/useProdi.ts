@@ -7,8 +7,13 @@ import {
   GetProdiType,
 } from '@/store/type/akademik/prodiType'
 import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
+import { Bounce, toast } from 'react-toastify'
 
 export function useAkademikProdi() {
+  const navigate = useNavigate()
+
   const id = localStorage.getItem('prodiID') ?? ''
 
   //   --- Prodi ---
@@ -18,6 +23,8 @@ export function useAkademikProdi() {
     data: Prodi,
     isLoading: isLoadingProdi,
     isFetching: isFetchingProdi,
+    isError: isErrorProdi,
+    error: errorProdi,
   } = useGetProdiQuery()
 
   useEffect(() => {
@@ -44,6 +51,31 @@ export function useAkademikProdi() {
   }, [ProdiDetail])
 
   const loadingProdiDetail = isLoadingProdiDetail || isFetchingProdiDetail
+
+  useEffect(() => {
+    if (isErrorProdi) {
+      const errorMsg = errorProdi as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+
+      if (errorMsg?.data?.message?.includes('Token')) {
+        setTimeout(() => {
+          Cookies.remove('token')
+          navigate(`/login`)
+        }, 3000)
+      }
+    }
+  }, [isErrorProdi, errorProdi])
 
   return {
     dataProdi,

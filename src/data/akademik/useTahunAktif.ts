@@ -10,6 +10,7 @@ import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
 import { AkademikTahunAkademikSchema } from '@/store/schema/akadamik/tahunAkademikSchema'
 import { Bounce, toast } from 'react-toastify'
+import Cookies from 'js-cookie'
 
 export function useAkademikTahunAktif() {
   const navigate = useNavigate()
@@ -29,6 +30,8 @@ export function useAkademikTahunAktif() {
     data: TahunAktif,
     isLoading: isLoadingTahunAktif,
     isFetching: isFetchingTahunAktif,
+    isError: isErrorTa,
+    error: errorTa,
   } = useGetTahunAktifQuery()
 
   useEffect(() => {
@@ -119,6 +122,31 @@ export function useAkademikTahunAktif() {
       form.setValue('kode_prodi', dataTahunAktif?.prodi)
     }
   }, [dataTahunAktif])
+
+  useEffect(() => {
+    if (isErrorTa) {
+      const errorMsg = errorTa as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+
+      if (errorMsg?.data?.message?.includes('Token')) {
+        setTimeout(() => {
+          Cookies.remove('token')
+          navigate(`/login`)
+        }, 3000)
+      }
+    }
+  }, [isErrorTa, errorTa])
 
   return {
     dataTahunAktif,

@@ -48,6 +48,8 @@ export function useAkademikJadwalKuliah() {
     data: JadwalKuliah,
     isLoading: isLoadingJadwalKuliah,
     isFetching: isFetchingJadwalKuliah,
+    isError: isErrorJadwal,
+    error: errorJadwal,
   } = useGetJadwalSemesterQuery()
 
   useEffect(() => {
@@ -100,6 +102,31 @@ export function useAkademikJadwalKuliah() {
 
   const loadingJadwalMahasiswa =
     isLoadingJadwalMahasiswa || isFetchingJadwalMahasiswa
+
+  useEffect(() => {
+    if (isErrorJadwal) {
+      const errorMsg = errorJadwal as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+
+      if (errorMsg?.data?.message?.includes('Token')) {
+        setTimeout(() => {
+          Cookies.remove('token')
+          navigate(`/login`)
+        }, 3000)
+      }
+    }
+  }, [isErrorJadwal, errorJadwal])
 
   //   --- Jadwal Detail ---
   const [dataJadwalDetail, setDataJadwalDetail] =

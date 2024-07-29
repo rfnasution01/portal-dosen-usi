@@ -5,8 +5,13 @@ import {
 } from '@/store/slices/akademik/pengumumanAPI'
 import { GetPengumumanType } from '@/store/type/akademik/pengumumanType'
 import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
+import { Bounce, toast } from 'react-toastify'
 
 export function useAkademikPengumuman() {
+  const navigate = useNavigate()
+
   const id = localStorage.getItem('pengumumanID') ?? ''
 
   const [pageNumber, setPageNumber] = useState<number>(1)
@@ -21,6 +26,8 @@ export function useAkademikPengumuman() {
     data: Pengumuman,
     isLoading: isLoadingPengumuman,
     isFetching: isFetchingPengumuman,
+    isError: isErrorPengumuman,
+    error: errorPengumuman,
   } = useGetPengumumanQuery({
     page_number: pageNumber,
     page_size: pageNumber,
@@ -58,6 +65,31 @@ export function useAkademikPengumuman() {
 
   const loadingPengumumanDetail =
     isLoadingPengumumanDetail || isFetchingPengumumanDetail
+
+  useEffect(() => {
+    if (isErrorPengumuman) {
+      const errorMsg = errorPengumuman as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+
+      if (errorMsg?.data?.message?.includes('Token')) {
+        setTimeout(() => {
+          Cookies.remove('token')
+          navigate(`/login`)
+        }, 3000)
+      }
+    }
+  }, [isErrorPengumuman, errorPengumuman])
 
   return {
     dataPengumuman,

@@ -7,8 +7,13 @@ import {
   GetPimpinanType,
 } from '@/store/type/akademik/pimpinanType'
 import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
+import { Bounce, toast } from 'react-toastify'
 
 export function useAkademikPimpinan() {
+  const navigate = useNavigate()
+
   const id = localStorage.getItem('pimpinanID') ?? ''
 
   //   --- Pimpinan ---
@@ -18,6 +23,8 @@ export function useAkademikPimpinan() {
     data: Pimpinan,
     isLoading: isLoadingPimpinan,
     isFetching: isFetchingPimpinan,
+    isError: isErrorPimpinan,
+    error: errorPimpinan,
   } = useGetPimpinanQuery()
 
   useEffect(() => {
@@ -46,6 +53,31 @@ export function useAkademikPimpinan() {
 
   const loadingPimpinanDetail =
     isLoadingPimpinanDetail || isFetchingPimpinanDetail
+
+  useEffect(() => {
+    if (isErrorPimpinan) {
+      const errorMsg = errorPimpinan as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+
+      if (errorMsg?.data?.message?.includes('Token')) {
+        setTimeout(() => {
+          Cookies.remove('token')
+          navigate(`/login`)
+        }, 3000)
+      }
+    }
+  }, [isErrorPimpinan, errorPimpinan])
 
   return {
     dataPimpinan,
