@@ -16,7 +16,7 @@ export default function JadwalMingguIni() {
         {loadingJadwalKuliahMingguIni ? (
           <Loading />
         ) : (
-          <div className="flex flex-col gap-24 rounded-2x bg-white p-32 text-neutral-black shadow-md">
+          <div className="flex flex-col gap-24 rounded-2x bg-primary-50 p-32 text-primary-900 shadow-md">
             <div className="flex items-center justify-between gap-32">
               <p className="font-roboto text-[3.2rem]">Jadwal Minggu Ini</p>
             </div>

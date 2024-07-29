@@ -98,7 +98,7 @@ export default function AkademikJadwalKuliahLayout() {
               className="flex items-center gap-12 rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-80"
             >
               <FontAwesomeIcon icon={faPen} />
-              Set Komposisi Nilai
+              <p className="phones:hidden">Set Komposisi Nilai</p>
             </button>
           </div>
         </div>

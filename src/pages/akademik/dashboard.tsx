@@ -35,15 +35,17 @@ export default function AkademikDashboard() {
         Jadwal Perkuliahan
       </p>
 
-      <Table
-        data={dataJadwalKuliah}
-        columns={columnsListJadwalKuliah}
-        loading={loadingJadwalKuliah}
-        isNumber
-        currentPage={1}
-        pageSize={1000}
-        isAksi
-      />
+      <div className="scrollbar h-full flex-1 overflow-y-auto">
+        <Table
+          data={dataJadwalKuliah}
+          columns={columnsListJadwalKuliah}
+          loading={loadingJadwalKuliah}
+          isNumber
+          currentPage={1}
+          pageSize={1000}
+          isAksi
+        />
+      </div>
     </div>
   )
 }

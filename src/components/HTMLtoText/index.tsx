@@ -13,6 +13,7 @@ export function ConvertHTMLtoText({
       <div
         className="article-content"
         dangerouslySetInnerHTML={createMarkup(html)}
+        style={{ lineHeight: '130%' }}
       />
     </div>
   )

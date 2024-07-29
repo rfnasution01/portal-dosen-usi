@@ -22,7 +22,7 @@ export default function AkademikUmumPengumuman() {
 
   return (
     <div className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto">
-      <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-2x bg-white p-32">
+      <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-2x bg-primary-50 p-32 text-primary-900">
         <p className="font-sans text-[3.2rem] font-bold text-neutral-black">
           Daftar Pengumuman Dosen
         </p>

@@ -18,7 +18,7 @@ export default function AkademikUmumPimpinan() {
             <div className="flex flex-col gap-32">
               {dataPimpinan?.map((item, idx) => (
                 <div
-                  className="flex flex-col gap-24 rounded-2x bg-white p-32 shadow-md"
+                  className="flex flex-col gap-24 rounded-2x bg-primary-50 p-32 text-primary-900 shadow-md"
                   key={idx}
                 >
                   <LabelListColumn label="Nama Dosen" value={item?.nama} />

@@ -63,7 +63,7 @@ export const columnsListJadwalKuliah: Column<GetJadwalSemesterType>[] = [
     },
   },
   {
-    header: 'Status',
+    header: 'Keterangan',
     key: 'status',
     width: '!min-w-[12rem]',
     renderCell: (rowData) => {
@@ -97,7 +97,7 @@ export const columnsListJadwalKuliah: Column<GetJadwalSemesterType>[] = [
               )}
             </div>
           ) : (
-            '-'
+            <p className="text-center">-</p>
           )}
         </div>
       )
@@ -127,11 +127,11 @@ export const columnsListJadwalMahasiswa: Column<GetJadwalMahasiswaType>[] = [
             <img
               src={rowData?.foto}
               alt={rowData?.nama}
-              className="h-[4rem] w-[4rem] rounded-xl"
+              className="h-[4rem] w-[4rem] rounded-full"
               loading="lazy"
             />
           ) : (
-            <div className="flex h-[4rem] w-[4rem] items-center justify-center rounded-xl bg-[#D9D9D9] text-black-300">
+            <div className="flex h-[4rem] w-[4rem] items-center justify-center rounded-full bg-[#D9D9D9] text-[1.6rem] text-black-300">
               <p>{getInitials(rowData?.nama)}</p>
             </div>
           )}

@@ -22,7 +22,7 @@ export function MainHeader({
   setIsOpen: Dispatch<SetStateAction<boolean>>
   isOpen: boolean
 }) {
-  const { loadingProfil, dataProfil } = useProfil()
+  const { loadingProfil, dataProfil, dataIdentitas } = useProfil()
   const { dataTahunAktif, loadingTahunAktif } = useAkademikTahunAktif()
   const { isShowLogout, setIsShowLogout, handleLogout } = useLogout()
 
@@ -34,7 +34,7 @@ export function MainHeader({
       })}
     >
       <div className="flex items-center justify-between gap-32 bg-primary-900 px-64 py-12 text-neutral-white phones:px-32">
-        <div className="flex items-center gap-12">
+        <Link to={'/akademik'} className="flex items-center gap-12">
           <img
             src="https://administrator.universitassimalungun.ac.id/assets/img/aplikasi/logo-usi_(1).png"
             className="w-[6rem]"
@@ -42,9 +42,9 @@ export function MainHeader({
             alt="Logo"
           />
           <p className="font-sans text-[2.4rem] font-bold phones:hidden">
-            Portal Akademik Dosen
+            {dataIdentitas?.nama_aplikasi}
           </p>
-        </div>
+        </Link>
         {loadingProfil || loadingTahunAktif ? (
           <SkeletonText lines={1} className="w-1/3" />
         ) : (

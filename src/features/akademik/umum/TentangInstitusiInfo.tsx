@@ -5,7 +5,7 @@ import { useProfil } from '@/data/useProfil'
 export function AkademikTentangInstitusiInfo() {
   const { dataInstitusi, loadingInstitusi } = useProfil()
   return (
-    <div className="flex flex-col gap-12 rounded-2x bg-white p-32">
+    <div className="flex flex-col gap-12 rounded-2x bg-primary-50 p-32 font-mono text-primary-900">
       {loadingInstitusi ? (
         <Loading />
       ) : (

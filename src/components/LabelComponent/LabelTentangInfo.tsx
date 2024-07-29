@@ -14,7 +14,7 @@ export function LabelTentangInfo({
       <div className="flex w-1/2 gap-32 phones:w-full phones:gap-8">
         <div className="flex w-full flex-col gap-0 font-sans phones:flex-col phones:gap-0">
           <p
-            className="text-[1.8rem] text-[#6C6C6C] phones:w-full"
+            className="text-[2rem] text-[#6C6C6C] phones:w-full"
             style={{ lineHeight: '130%' }}
           >
             {label1}
@@ -31,7 +31,7 @@ export function LabelTentangInfo({
       <div className="flex w-1/2 gap-32 phones:w-full">
         <div className="flex w-full flex-col gap-0 phones:flex-col">
           <p
-            className="text-[1.8rem] text-[#6C6C6C] phones:w-full"
+            className="text-[2rem] text-[#6C6C6C] phones:w-full"
             style={{ lineHeight: '130%' }}
           >
             {label2}
