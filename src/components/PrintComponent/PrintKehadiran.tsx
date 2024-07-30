@@ -296,17 +296,11 @@ export function PrintKehadiran({
                       alt="Logo"
                     />
                     <div className="kop-title">
-                      <p className="text-besar">
-                        Kementrian Pendidikan Dan Kebudayaan
-                      </p>
-                      <p className="text-besar text-bold">
-                        {identitas?.instansi}
-                      </p>
-                      <p className="text-besar text-bold">
-                        {jadwalKuliahDetail?.fakultas}
-                      </p>
                       <p className="text-besar text-bold">
                         {jadwalKuliahDetail?.prodi}
+                      </p>
+                      <p className="text-besar text-bold">
+                        {jadwalKuliahDetail?.fakultas} {identitas?.instansi}
                       </p>
                       <p className="text-kecil">{identitas?.alamat}</p>
                       <p className="text-kecil">
