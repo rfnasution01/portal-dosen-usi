@@ -77,7 +77,7 @@ export function FormInputFile({
                   className="flex flex-col gap-12 font-roboto"
                   htmlFor="berkas"
                 >
-                  {label ?? 'Berkas'}
+                  <p className="text-primary-900">{label ?? 'Berkas'}</p>
                   <div className="flex">
                     <div
                       className={clsx(
@@ -113,6 +113,7 @@ export function FormInputFile({
                           alt="Gambar"
                           className={clsx('rounded-2x object-cover filter', {
                             'w-full': ratio === '3x4',
+                            'w-1/2': ratio !== '3x4',
                           })}
                           loading="lazy"
                         />

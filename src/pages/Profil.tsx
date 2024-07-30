@@ -8,10 +8,18 @@ import { ValidasiKonfirmasi } from '@/components/DialogComponent/ValidasiKonfirm
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faSave, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Form } from '@/components/Form'
+import { FormUpdatePhoto } from '@/components/FormComponent/akademik/FormUpdatePhoto'
 
 export default function Profil() {
-  const { dataIdentitas, dataInstitusi, loadingIdentitas, loadingInstitusi } =
-    useProfil()
+  const {
+    formPhoto,
+    handleUploadFoto,
+    loadingFile,
+    dataInstitusi,
+    dataIdentitas,
+    loadingIdentitas,
+    loadingInstitusi,
+  } = useProfil()
 
   const {
     form,
@@ -87,18 +95,16 @@ export default function Profil() {
                 </Form>
               </div>
             </div>
-            {/* <div className="flex w-1/2 flex-col gap-32 phones:w-full">
-              <p className="font-roboto text-[3.2rem]">Form Ubah Password</p>
-              <FormGantiPasswords
-                form={form}
-                isLoading={loadingUbahPassword}
-                handleSubmit={handleSubmit}
-                setIsShow={setIsShow}
-                setIsSubmit={setIsSubmit}
-                isShow={isShow}
-                isSubmit={isSubmit}
-              />
-            </div> */}
+            <div className="flex w-1/2 flex-col gap-32 phones:w-full">
+              <p className="font-roboto text-[3.2rem]">Form Ganti Photo</p>
+              <div className="flex w-1/2">
+                <FormUpdatePhoto
+                  formPhoto={formPhoto}
+                  handleUploadFoto={handleUploadFoto}
+                  loadingFile={loadingFile}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

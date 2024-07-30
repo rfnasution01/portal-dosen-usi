@@ -20,6 +20,16 @@ export const columnsListJadwalKuliah: Column<GetJadwalSemesterType>[] = [
   { header: 'Kelas', key: 'kelas', width: '!min-w-[12rem]' },
   { header: 'Ruang', key: 'ruangan', width: '!min-w-[12rem]' },
   {
+    header: 'Hari/Jam',
+    key: 'hari',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div>{`${rowData?.hari ?? '-'} / ${rowData?.mulai?.slice(0, 5) ?? '-'} - ${rowData?.akhir?.slice(0, 5) ?? '-'}`}</div>
+      )
+    },
+  },
+  {
     header: 'Status',
     key: 'status',
     width: '!min-w-[12rem]',
@@ -100,16 +110,6 @@ export const columnsListJadwalKuliah: Column<GetJadwalSemesterType>[] = [
             <p className="text-center">-</p>
           )}
         </div>
-      )
-    },
-  },
-  {
-    header: 'Hari/Jam',
-    key: 'hari',
-    width: '!min-w-[12rem]',
-    renderCell: (rowData) => {
-      return (
-        <div>{`${rowData?.hari ?? '-'} / ${rowData?.mulai?.slice(0, 5) ?? '-'} - ${rowData?.akhir?.slice(0, 5) ?? '-'}`}</div>
       )
     },
   },
