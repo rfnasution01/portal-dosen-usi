@@ -15,6 +15,9 @@ import {
   MainLayout,
   NilaiMahasiswaPage,
   NilaiMahasiswaPerAspekPage,
+  PembimbingAkademikPage,
+  PengajuanKRSDetailPage,
+  PengajuanKRSPage,
   ProfilPage,
   RootLayout,
   UmumDetailDosenPage,
@@ -93,6 +96,50 @@ export const router = createBrowserRouter([
                   {
                     path: ':aspek',
                     element: <NilaiMahasiswaPerAspekPage />,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: 'bimbingan',
+            element: <CommonLayout />,
+            children: [
+              {
+                path: '',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'konsultasi',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'pembimbing-akademik',
+                element: <PembimbingAkademikPage />,
+              },
+              {
+                path: 'proposal-tugas-akhir',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'daftar-tugas-akhir',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'kegiatan-pendukung',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'krs',
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <PengajuanKRSPage />,
+                  },
+                  {
+                    path: 'detail',
+                    element: <PengajuanKRSDetailPage />,
                   },
                 ],
               },

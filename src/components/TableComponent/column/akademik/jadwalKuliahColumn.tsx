@@ -74,7 +74,7 @@ export const columnsListJadwalKuliah: Column<GetJadwalSemesterType>[] = [
   },
   {
     header: 'Keterangan',
-    key: 'status',
+    key: 'id',
     width: '!min-w-[12rem]',
     renderCell: (rowData) => {
       const isShow = ['1', '2', '3', '4', '5', '6'].includes(rowData?.status)

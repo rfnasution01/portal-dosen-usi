@@ -97,3 +97,14 @@ export const AkademikUmumDetailPegawai = loadable(
 
 export const GantiPasswordPage = loadable(() => import('@/pages/GantiPassword'))
 export const ProfilPage = loadable(() => import('@/pages/Profil'))
+export const PembimbingAkademikPage = loadable(
+  () => import('@/pages/akademik/bimbingan/PembimbingAkademik'),
+)
+
+export const PengajuanKRSPage = loadable(
+  () => import('@/pages/akademik/bimbingan/PengajuanKRS'),
+)
+
+export const PengajuanKRSDetailPage = loadable(
+  () => import('@/pages/akademik/bimbingan/PengajuanKRSDetail'),
+)

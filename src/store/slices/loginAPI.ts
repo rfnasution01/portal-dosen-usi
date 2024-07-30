@@ -24,6 +24,8 @@ export const LoginEndpoints = api.injectEndpoints({
         'nilai',
         'mahasiswa',
         'dan-lain-lain',
+        'bimbingan',
+        'krs',
       ],
     }),
     updatePassword: builder.mutation<void, { data: PostUbahPasswordType }>({

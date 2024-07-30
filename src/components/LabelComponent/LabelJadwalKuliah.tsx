@@ -12,7 +12,7 @@ export function LabelJadwalKuliah({
   label1?: string
   value1?: string
   label2?: string
-  value2?: string
+  value2?: string | number
   dosen?: string[]
   jadwal?: JadwalKuliahType[]
 }) {

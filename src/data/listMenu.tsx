@@ -2,6 +2,7 @@ import {
   faCalendarDays,
   faCalendarWeek,
   faExclamationCircle,
+  faPeopleGroup,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -31,6 +32,17 @@ export const ListMenu: ListMenuType[] = [
     nama: 'Jadwal Perkuliahan',
     icon: <FontAwesomeIcon icon={faCalendarWeek} />,
     children: [],
+  },
+  {
+    nama: 'Bimbingan',
+    icon: <FontAwesomeIcon icon={faPeopleGroup} />,
+    children: [
+      'Konsultasi',
+      'Pembimbing Akademik',
+      'Proposal Tugas Akhir',
+      'Daftar Tugas Akhir',
+      'Kegiatan Pendukung',
+    ],
   },
   {
     nama: 'Kalender',

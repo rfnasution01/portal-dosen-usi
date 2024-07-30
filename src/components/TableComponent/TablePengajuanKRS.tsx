@@ -1,15 +1,18 @@
-import { Fragment, useState } from 'react'
+import { Dispatch, Fragment, SetStateAction, useState } from 'react'
 import clsx from 'clsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCaretDown,
+  faCheck,
   faCircleExclamation,
   faDownload,
   faFolder,
   faUser,
+  faX,
 } from '@fortawesome/free-solid-svg-icons'
 import { Loading } from '../Loading'
 import { Link } from 'react-router-dom'
+import { ValidasiKonfirmasi } from '../DialogComponent/ValidasiKonfirmasi'
 
 export type Column<T> = {
   header: string
@@ -43,9 +46,14 @@ type Props<T extends ItemTable, P> = {
   isPimpin?: boolean
   isDokumen?: boolean
   isKRS?: boolean
+  isShow?: boolean
+  setIsShow: Dispatch<SetStateAction<boolean>>
+  setkrs: Dispatch<SetStateAction<{ id: string; status: string }>>
+  handleSubmit: () => Promise<void>
+  isLoading?: boolean
 }
 
-export function Table<T extends ItemTable, P>({
+export function TablePengajuanKRS<T extends ItemTable, P>({
   data,
   columns,
   containerClasses = '',
@@ -63,8 +71,15 @@ export function Table<T extends ItemTable, P>({
   isPimpin,
   isDokumen,
   isKRS,
+  setIsShow,
+  isShow,
+  setkrs,
+  handleSubmit,
+  isLoading,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
+  const [id, setId] = useState<number>()
+  const [isCheck, setIsCheck] = useState<string>()
 
   const columnArray =
     typeof columns === 'function' ? columns(columnProps as P) : columns
@@ -223,18 +238,38 @@ export function Table<T extends ItemTable, P>({
                               </Link>
                             )}
                             {isKRS && (
-                              <Link
-                                to={'/akademik/bimbingan/krs/detail'}
-                                onClick={() => {
-                                  localStorage.setItem(
-                                    'mahasiswaID',
-                                    row?.id_mahasiswa,
-                                  )
-                                }}
-                                className="flex items-center gap-12 rounded-lg text-primary-200 hover:text-primary-active"
-                              >
-                                <p>Tindak Lanjuti</p>
-                              </Link>
+                              <div className="flex items-center gap-32">
+                                <div
+                                  onClick={() => {
+                                    setId(rowIndex)
+                                    setIsCheck('Disetujui')
+                                    setIsShow(true)
+                                    setkrs({
+                                      id: row?.id,
+                                      status: 'Disetujui',
+                                    })
+                                  }}
+                                  className="flex items-center gap-12 text-primary-active"
+                                >
+                                  <FontAwesomeIcon icon={faCheck} />
+                                  <p>Setujui</p>
+                                </div>
+                                <div
+                                  className="flex items-center gap-12 text-danger"
+                                  onClick={() => {
+                                    setId(rowIndex)
+                                    setIsCheck('Ditolak')
+                                    setIsShow(true)
+                                    setkrs({
+                                      id: row?.id,
+                                      status: 'Ditolak',
+                                    })
+                                  }}
+                                >
+                                  <FontAwesomeIcon icon={faX} />
+                                  <p>Tolak</p>
+                                </div>
+                              </div>
                             )}
                           </div>
                         </td>
@@ -287,6 +322,31 @@ export function Table<T extends ItemTable, P>({
                           </div>
                         </td>
                       </tr>
+                    )}
+                    {id === rowIndex && (
+                      <ValidasiKonfirmasi
+                        isOpen={isShow}
+                        setIsOpen={setIsShow}
+                        cancelString="Kembali"
+                        isAuto
+                        title={
+                          isCheck === 'Disetujui'
+                            ? 'Apakah yakin menyetujui krs ini?'
+                            : 'Apakah yakin menolak krs ini?'
+                        }
+                        childrenButton={
+                          <button
+                            type="button"
+                            disabled={isLoading}
+                            onClick={() => handleSubmit()}
+                            className={clsx(
+                              'flex items-center gap-12 rounded-2xl bg-primary-100 px-24 py-12 text-white hover:bg-opacity-80',
+                            )}
+                          >
+                            Ya
+                          </button>
+                        }
+                      />
                     )}
                   </Fragment>
                 ))}
