@@ -184,6 +184,7 @@ export const columnsListJadwalMahasiswa: Column<GetJadwalMahasiswaType>[] = [
       )
     },
   },
+  { header: 'Dosen PA', key: 'dosen_pa', width: '!min-w-[12rem]' },
 ]
 
 export const columnsListJadwalKuliahMingguIni: Column<JadwalType>[] = [

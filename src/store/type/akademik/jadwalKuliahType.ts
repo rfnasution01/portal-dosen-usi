@@ -68,6 +68,7 @@ export type GetJadwalMahasiswaType = {
   jenis_kelamin: string
   foto: string
   status_krs: string
+  dosen_pa: string
 }
 
 export type GetBobotNilaiType = {
