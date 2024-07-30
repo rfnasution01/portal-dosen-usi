@@ -1,5 +1,6 @@
 import {
   GetMataKuliahDetail,
+  ResBimbinganAkademik,
   ResPengajuanKRS,
 } from '@/store/type/akademik/bimbinganAkademikType'
 import { Column } from '../..'
@@ -51,4 +52,15 @@ export const columnsListPengajuanKRSDetail: Column<GetMataKuliahDetail>[] = [
       )
     },
   },
+]
+
+export const columnsListBimbinganAkademik: Column<ResBimbinganAkademik>[] = [
+  {
+    header: 'Angkatan',
+    key: 'angkatan',
+    width: '!min-w-[12rem]',
+  },
+  { header: 'NIM/NPM', key: 'nim', width: '!min-w-[12rem]' },
+  { header: 'Nama Mahasiswa/i', key: 'nama', width: '!min-w-[12rem]' },
+  { header: 'Prodi', key: 'prodi', width: '!min-w-[12rem]' },
 ]

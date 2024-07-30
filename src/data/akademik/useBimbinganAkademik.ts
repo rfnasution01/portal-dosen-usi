@@ -79,6 +79,8 @@ export function useAkademikBimbinganAkademik() {
 
   const adaDataPengajuanKrs = dataKRS?.length > 0
   const tindakLanjutiPengajuan = pathname === '/akademik/bimbingan/krs/detail'
+  const bimbinganAkademik =
+    pathname === '/akademik/bimbingan/pembimbing-akademik'
 
   // --- Create KRS ---
   const [
@@ -158,5 +160,6 @@ export function useAkademikBimbinganAkademik() {
     setkrs,
     handleSubmit,
     isLoadingCreateKRS,
+    bimbinganAkademik,
   }
 }

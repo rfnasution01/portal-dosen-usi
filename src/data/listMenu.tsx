@@ -42,6 +42,7 @@ export const ListMenu: ListMenuType[] = [
       'Proposal Tugas Akhir',
       'Daftar Tugas Akhir',
       'Kegiatan Pendukung',
+      'KRS',
     ],
   },
   {

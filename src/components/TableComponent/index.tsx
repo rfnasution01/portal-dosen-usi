@@ -43,6 +43,7 @@ type Props<T extends ItemTable, P> = {
   isPimpin?: boolean
   isDokumen?: boolean
   isKRS?: boolean
+  isBimbingan?: boolean
 }
 
 export function Table<T extends ItemTable, P>({
@@ -63,6 +64,7 @@ export function Table<T extends ItemTable, P>({
   isPimpin,
   isDokumen,
   isKRS,
+  isBimbingan,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
 
@@ -158,34 +160,42 @@ export function Table<T extends ItemTable, P>({
                       {isAksi && (
                         <td className="px-24 py-12 align-top leading-medium">
                           <div className="flex items-center justify-center gap-12">
-                            {!isDosen && !isPimpin && !isDokumen && !isKRS && (
-                              <Link
-                                to={'/akademik/jadwal-perkuliahan/detail'}
-                                onClick={() => {
-                                  localStorage.setItem(
-                                    'jadwalID',
-                                    row?.id_kelas_makul,
-                                  )
-                                }}
-                                className="rounded-lg bg-info px-12 py-4 text-neutral-white"
-                              >
-                                <FontAwesomeIcon icon={faUser} />
-                              </Link>
-                            )}
-                            {!isDosen && !isPimpin && !isDokumen && !isKRS && (
-                              <Link
-                                to={'/akademik/jadwal-perkuliahan/mahasiswa'}
-                                onClick={() => {
-                                  localStorage.setItem(
-                                    'jadwalID',
-                                    row?.id_kelas_makul,
-                                  )
-                                }}
-                                className="rounded-lg bg-info px-12 py-4 text-neutral-white"
-                              >
-                                <FontAwesomeIcon icon={faFolder} />
-                              </Link>
-                            )}
+                            {!isDosen &&
+                              !isPimpin &&
+                              !isDokumen &&
+                              !isKRS &&
+                              !isBimbingan && (
+                                <Link
+                                  to={'/akademik/jadwal-perkuliahan/detail'}
+                                  onClick={() => {
+                                    localStorage.setItem(
+                                      'jadwalID',
+                                      row?.id_kelas_makul,
+                                    )
+                                  }}
+                                  className="rounded-lg bg-info px-12 py-4 text-neutral-white"
+                                >
+                                  <FontAwesomeIcon icon={faUser} />
+                                </Link>
+                              )}
+                            {!isDosen &&
+                              !isPimpin &&
+                              !isDokumen &&
+                              !isKRS &&
+                              !isBimbingan && (
+                                <Link
+                                  to={'/akademik/jadwal-perkuliahan/mahasiswa'}
+                                  onClick={() => {
+                                    localStorage.setItem(
+                                      'jadwalID',
+                                      row?.id_kelas_makul,
+                                    )
+                                  }}
+                                  className="rounded-lg bg-info px-12 py-4 text-neutral-white"
+                                >
+                                  <FontAwesomeIcon icon={faFolder} />
+                                </Link>
+                              )}
                             {isDosen && (
                               <Link
                                 to={'/akademik/umum/dosen-prodi/detail'}
@@ -209,6 +219,34 @@ export function Table<T extends ItemTable, P>({
                               >
                                 <FontAwesomeIcon icon={faCircleExclamation} />
                                 <p>Detail</p>
+                              </Link>
+                            )}
+
+                            {isBimbingan && (
+                              <Link
+                                to={
+                                  '/akademik/bimbingan/pembimbing-akademik/detail'
+                                }
+                                onClick={() => {
+                                  localStorage.setItem('pimpinanID', row?.id)
+                                }}
+                                className="flex items-center gap-12 rounded-lg bg-info px-12 py-4 text-neutral-white"
+                              >
+                                <FontAwesomeIcon icon={faCircleExclamation} />
+                              </Link>
+                            )}
+
+                            {isBimbingan && (
+                              <Link
+                                to={
+                                  '/akademik/bimbingan/pembimbing-akademik/layanan'
+                                }
+                                onClick={() => {
+                                  localStorage.setItem('pimpinanID', row?.id)
+                                }}
+                                className="flex items-center gap-12 rounded-lg bg-primary-active px-12 py-4 text-neutral-white"
+                              >
+                                <FontAwesomeIcon icon={faUser} />
                               </Link>
                             )}
 

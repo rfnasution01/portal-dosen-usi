@@ -2,6 +2,7 @@ import { Table } from '@/components/TableComponent'
 import { columnsListPengajuanKRS } from '@/components/TableComponent/column/akademik/mahasiswaColumn'
 import { useAkademikBimbinganAkademik } from '@/data/akademik/useBimbinganAkademik'
 import { useProfil } from '@/data/useProfil'
+import clsx from 'clsx'
 
 export default function PengajuanKRS() {
   const { dataProfil } = useProfil()
@@ -9,7 +10,11 @@ export default function PengajuanKRS() {
 
   return (
     <div className="scrollbar flex h-full w-full flex-1 flex-col gap-32 overflow-y-auto">
-      <div className="scrollbar flex h-full flex-col overflow-y-auto p-32">
+      <div
+        className={clsx('scrollbar flex h-full flex-col overflow-y-auto', {
+          'p-32': dataKRS?.length > 0,
+        })}
+      >
         <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto">
           <div className="flex flex-col gap-8 rounded-2x bg-primary-50 p-32 text-primary-900">
             <p>
