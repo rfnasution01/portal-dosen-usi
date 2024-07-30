@@ -9,6 +9,8 @@ import { useProfil } from '@/data/useProfil'
 
 export function useAkademikDataLain() {
   const { dataProfil } = useProfil()
+  const [file, setFile] = useState<File | null>(null)
+  const [fileUrl, setFileUrl] = useState<string | null>(null)
 
   const [isShow, setIsShow] = useState<boolean>(false)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
@@ -38,7 +40,7 @@ export function useAkademikDataLain() {
     formData.append('tinggi_badan', values?.tinggi_badan ?? '-')
     formData.append('berat_badan', values?.berat_badan ?? '-')
     formData.append('id_hobby', values?.id_hobby ?? '-')
-    formData.append('file', values?.file ?? '-')
+    formData.append('file', file ?? '')
 
     if (isEdit && isShow && isSubmit) {
       try {
@@ -95,12 +97,11 @@ export function useAkademikDataLain() {
 
       console.log(data)
 
-      form.setValue('berat_badan', data?.berat_badan)
-      form.setValue('file', data?.file_tanda_tangan)
-      form.setValue('golongan_darah', data?.golongan_darah)
+      form.setValue('berat_badan', data?.['Berat Badan'])
+      form.setValue('file', data?.['File Tanda Tangan'])
+      form.setValue('golongan_darah', data?.['Golongan Darah'])
       form.setValue('id_golongan_darah', data?.id_golongan_darah)
       form.setValue('id_hobby', data?.id_hobby)
-      form.setValue('golongan_darah', data?.golongan_darah)
       form.setValue('hobby', data?.Hobby)
     }
   }, [dataProfil])
@@ -115,5 +116,9 @@ export function useAkademikDataLain() {
     form,
     isEdit,
     setIsEdit,
+    file,
+    setFile,
+    fileUrl,
+    setFileUrl,
   }
 }

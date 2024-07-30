@@ -29,6 +29,21 @@ export default function AkademikDetailDokumen({
     form: formDokumen,
     isEdit: isEditDokumen,
     setIsEdit: setIsEditDokumen,
+    fileUrlBPJS,
+    fileUrlBPJSKetenagakerjaan,
+    fileUrlBPJSPensiun,
+    fileUrlKarpeg,
+    fileUrlNPWP,
+    setFileBPJS,
+    setFileBPJSKetenagakerjaan,
+    setFileBPJSPensiun,
+    setFileKarpeg,
+    setFileNPWP,
+    setFileUrlBPJS,
+    setFileUrlBPJSKetenagakerjaan,
+    setFileUrlBPJSPensiun,
+    setFileUrlKarpeg,
+    setFileUrlNPWP,
   } = useAkademikDokumen()
 
   return (
@@ -65,6 +80,21 @@ export default function AkademikDetailDokumen({
                 form={formDokumen}
                 isLoading={loadingUpdateDokumen}
                 isEdit={isEditDokumen}
+                setFileBPJS={setFileBPJS}
+                setFileBPJSKetenagakerjaan={setFileBPJSKetenagakerjaan}
+                setFileBPJSPensiun={setFileBPJSPensiun}
+                setFileKarpeg={setFileKarpeg}
+                setFileNPWP={setFileNPWP}
+                fileUrlBPJS={fileUrlBPJS}
+                fileUrlBPJSKetenagakerjaan={fileUrlBPJSKetenagakerjaan}
+                fileUrlBPJSPensiun={fileUrlBPJSPensiun}
+                fileUrlKarpeg={fileUrlKarpeg}
+                fileUrlNPWP={fileUrlNPWP}
+                setFileUrlBPJS={setFileUrlBPJS}
+                setFileUrlBPJSKetenagakerjaan={setFileUrlBPJSKetenagakerjaan}
+                setFileUrlBPJSPensiun={setFileUrlBPJSPensiun}
+                setFileUrlKarpeg={setFileUrlKarpeg}
+                setFileUrlNPWP={setFileUrlNPWP}
               />
             </div>
           </div>

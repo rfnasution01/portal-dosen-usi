@@ -29,6 +29,9 @@ export default function AkademikDetailDataLain({
     form: formDataLain,
     isEdit: isEditDataLain,
     setIsEdit: setIsEditDataLain,
+    setFile,
+    fileUrl,
+    setFileUrl,
   } = useAkademikDataLain()
 
   return (
@@ -65,6 +68,9 @@ export default function AkademikDetailDataLain({
                 form={formDataLain}
                 isLoading={loadingUpdateDataLain}
                 isEdit={isEditDataLain}
+                setFile={setFile}
+                setFileUrl={setFileUrl}
+                fileUrl={fileUrl}
               />
             </div>
           </div>

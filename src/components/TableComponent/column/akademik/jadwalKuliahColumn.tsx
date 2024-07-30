@@ -153,6 +153,37 @@ export const columnsListJadwalMahasiswa: Column<GetJadwalMahasiswaType>[] = [
       )
     },
   },
+  {
+    header: 'Status',
+    key: 'status_krs',
+    width: '!min-w-[12rem]',
+
+    renderCell: (rowData) => {
+      return (
+        <div className="flex justify-center gap-32">
+          <div className="flex">
+            {rowData?.status_krs && (
+              <p
+                className={clsx(
+                  'rounded-2xl px-24 py-8 text-center text-[1.6rem] text-white',
+                  {
+                    'bg-orange-500': rowData?.status_krs === 'Draft',
+                    'bg-success': rowData?.status_krs === 'Disetujui',
+                    'bg-red-500': rowData?.status_krs === 'Ditolak',
+                    'bg-blue-500': !['Draft', 'Disetujui', 'Ditolak'].includes(
+                      rowData?.status_krs,
+                    ),
+                  },
+                )}
+              >
+                {rowData?.status_krs}
+              </p>
+            )}
+          </div>
+        </div>
+      )
+    },
+  },
 ]
 
 export const columnsListJadwalKuliahMingguIni: Column<JadwalType>[] = [

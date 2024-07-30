@@ -10,6 +10,22 @@ import { useProfil } from '@/data/useProfil'
 export function useAkademikDokumen() {
   const { dataProfil } = useProfil()
 
+  const [fileKarpeg, setFileKarpeg] = useState<File | null>(null)
+  const [fileUrlKarpeg, setFileUrlKarpeg] = useState<string | null>(null)
+  const [fileNPWP, setFileNPWP] = useState<File | null>(null)
+  const [fileUrlNPWP, setFileUrlNPWP] = useState<string | null>(null)
+  const [fileBPJS, setFileBPJS] = useState<File | null>(null)
+  const [fileUrlBPJS, setFileUrlBPJS] = useState<string | null>(null)
+  const [fileBPJSKetenagakerjaan, setFileBPJSKetenagakerjaan] =
+    useState<File | null>(null)
+  const [fileUrlBPJSKetenagakerjaan, setFileUrlBPJSKetenagakerjaan] = useState<
+    string | null
+  >(null)
+  const [fileBPJSPensiun, setFileBPJSPensiun] = useState<File | null>(null)
+  const [fileUrlBPJSPensiun, setFileUrlBPJSPensiun] = useState<string | null>(
+    null,
+  )
+
   const [isShow, setIsShow] = useState<boolean>(false)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
@@ -42,14 +58,11 @@ export function useAkademikDokumen() {
       values?.nomor_bpjs_ketenagakerjaan ?? '-',
     )
     formData.append('nomor_bpjs_pensiun', values?.nomor_bpjs_pensiun ?? '-')
-    formData.append('file_karpeg', values?.file_karpeg ?? '-')
-    formData.append('file_npwp', values?.file_npwp ?? '-')
-    formData.append('file_bpjs', values?.file_bpjs ?? '-')
-    formData.append(
-      'file_bpjs_ketenagakerjaan',
-      values?.file_bpjs_ketenagakerjaan ?? '-',
-    )
-    formData.append('file_bpjs_pensiun', values?.file_bpjs_pensiun ?? '-')
+    formData.append('file_karpeg', fileKarpeg ?? '-')
+    formData.append('file_npwp', fileNPWP ?? '-')
+    formData.append('file_bpjs', fileBPJS ?? '-')
+    formData.append('file_bpjs_ketenagakerjaan', fileBPJSKetenagakerjaan ?? '-')
+    formData.append('file_bpjs_pensiun', fileBPJSPensiun ?? '-')
 
     if (isEdit && isShow && isSubmit) {
       try {
@@ -133,5 +146,20 @@ export function useAkademikDokumen() {
     form,
     isEdit,
     setIsEdit,
+    setFileKarpeg,
+    setFileBPJS,
+    setFileBPJSKetenagakerjaan,
+    setFileBPJSPensiun,
+    setFileNPWP,
+    setFileUrlKarpeg,
+    setFileUrlBPJS,
+    setFileUrlBPJSKetenagakerjaan,
+    setFileUrlBPJSPensiun,
+    setFileUrlNPWP,
+    fileUrlBPJS,
+    fileUrlBPJSKetenagakerjaan,
+    fileUrlBPJSPensiun,
+    fileUrlKarpeg,
+    fileUrlNPWP,
   }
 }

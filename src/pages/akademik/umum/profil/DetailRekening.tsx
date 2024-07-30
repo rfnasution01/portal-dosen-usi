@@ -29,6 +29,9 @@ export default function AkademikDetailRekening({
     form: formRekening,
     isEdit: isEditRekening,
     setIsEdit: setIsEditRekening,
+    setFile,
+    setFileUrl,
+    fileUrl,
   } = useAkademikRekening()
 
   return (
@@ -65,6 +68,9 @@ export default function AkademikDetailRekening({
                 form={formRekening}
                 isLoading={loadingUpdateRekening}
                 isEdit={isEditRekening}
+                setFile={setFile}
+                setFileUrl={setFileUrl}
+                fileUrl={fileUrl}
               />
             </div>
           </div>

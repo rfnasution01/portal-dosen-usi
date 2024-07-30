@@ -109,11 +109,11 @@ type Dokumen = {
 }
 
 type DataLain = {
-  golongan_darah: string
-  tinggi_badan: string
-  berat_badan: string
+  'Golongan Darah': string
+  'Tinggi Badan': string
+  'Berat Badan': string
   Hobby: string
-  file_tanda_tangan: string
+  'File Tanda Tangan': string
   id_hobby: string
   id_golongan_darah: string
 }

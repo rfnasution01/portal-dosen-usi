@@ -29,6 +29,12 @@ export default function AkademikDetailKependudukan({
     form: formKependudukan,
     isEdit: isEditKependudukan,
     setIsEdit: setIsEditKependudukan,
+    setFileKK,
+    setFileKTP,
+    setFileUrlKK,
+    setFileUrlKTP,
+    fileUrlKK,
+    fileUrlKTP,
   } = useAkademikKependudukan()
 
   return (
@@ -65,6 +71,12 @@ export default function AkademikDetailKependudukan({
                 form={formKependudukan}
                 isLoading={loadingUpdateKependudukan}
                 isEdit={isEditKependudukan}
+                setFileKK={setFileKK}
+                setFileKTP={setFileKTP}
+                setFileUrlKK={setFileUrlKK}
+                setFileUrlKTP={setFileUrlKTP}
+                fileUrlKK={fileUrlKK}
+                fileUrlKTP={fileUrlKTP}
               />
             </div>
           </div>

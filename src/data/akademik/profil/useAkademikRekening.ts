@@ -9,6 +9,8 @@ import { useProfil } from '@/data/useProfil'
 
 export function useAkademikRekening() {
   const { dataProfil } = useProfil()
+  const [file, setFile] = useState<File | null>(null)
+  const [fileUrl, setFileUrl] = useState<string | null>(null)
 
   const [isShow, setIsShow] = useState<boolean>(false)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
@@ -39,7 +41,7 @@ export function useAkademikRekening() {
     formData.append('nomor_rekening', values?.nomor_rekening ?? '')
     formData.append('nama_rekening', values?.nama_rekening ?? '')
     formData.append('cabang_bank', values?.cabang_bank ?? '')
-    formData.append('file', values?.file ?? '')
+    formData.append('file', file ?? '')
 
     if (isEdit && isShow && isSubmit) {
       try {
@@ -113,5 +115,9 @@ export function useAkademikRekening() {
     form,
     isEdit,
     setIsEdit,
+    file,
+    setFile,
+    fileUrl,
+    setFileUrl,
   }
 }

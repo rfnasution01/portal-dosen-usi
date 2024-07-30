@@ -9,6 +9,10 @@ import { useProfil } from '@/data/useProfil'
 
 export function useAkademikKependudukan() {
   const { dataProfil } = useProfil()
+  const [fileKTP, setFileKTP] = useState<File | null>(null)
+  const [fileUrlKTP, setFileUrlKTP] = useState<string | null>(null)
+  const [fileKK, setFileKK] = useState<File | null>(null)
+  const [fileUrlKK, setFileUrlKK] = useState<string | null>(null)
 
   const [isShow, setIsShow] = useState<boolean>(false)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
@@ -43,8 +47,8 @@ export function useAkademikKependudukan() {
     formData.append('id_provinsi', values?.id_provinsi ?? '-')
     formData.append('id_kabupaten', values?.id_kabupaten ?? '-')
     formData.append('id_kecamatan', values?.id_kecamatan ?? '-')
-    formData.append('file_ktp', values?.file_ktp ?? '-')
-    formData.append('file_kk', values?.file_kk ?? '-')
+    formData.append('file_ktp', fileKTP ?? '-')
+    formData.append('file_kk', fileKK ?? '-')
 
     if (isEdit && isShow && isSubmit) {
       try {
@@ -130,5 +134,11 @@ export function useAkademikKependudukan() {
     form,
     isEdit,
     setIsEdit,
+    fileUrlKK,
+    fileUrlKTP,
+    setFileKK,
+    setFileKTP,
+    setFileUrlKK,
+    setFileUrlKTP,
   }
 }

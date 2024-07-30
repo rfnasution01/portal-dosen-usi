@@ -1,49 +1,150 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { UseFormReturn } from 'react-hook-form'
+import { FormField, FormItem, FormLabel, FormMessage } from '../Form'
+import clsx from 'clsx'
+import { Input } from './Input'
+import { Bounce, toast } from 'react-toastify'
+import { Link } from 'react-router-dom'
 
 export function FormInputFileAppend({
   name,
   form,
-  isLoading,
+  disabled,
+  className,
+  isRow,
+  label,
+  setFile,
+  fileUrl,
+  setFileUrl,
+  image,
 }: {
   name: string
   form: UseFormReturn
-  isLoading: boolean
+  className?: string
+  isRow?: boolean
+  label?: string
+  disabled?: boolean
+  setFile: Dispatch<SetStateAction<File>>
+  setFileUrl: Dispatch<SetStateAction<string>>
+  fileUrl?: string
+  image?: string
 }) {
-  const [errorMessage, setErrorMessage] = useState<string>('')
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0]
-    const allowedTypesAll = ['image/jpeg', 'image/png', 'application/pdf']
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0]
+    const allowedTypesImage = ['image/jpeg', 'image/png']
 
-    const allowedTypes = allowedTypesAll
     const maxSize = 5 * 1024 * 1024 // 5MB
 
     if (
       selectedFile &&
-      allowedTypes.includes(selectedFile.type) &&
+      allowedTypesImage.includes(selectedFile.type) &&
       selectedFile.size <= maxSize
     ) {
-      form.setValue(name, selectedFile)
-      setErrorMessage('')
+      setFile(selectedFile)
+      setFileUrl(URL.createObjectURL(selectedFile))
     } else {
-      form.setValue(name, null)
-      if (!allowedTypes.includes(selectedFile.type)) {
-        setErrorMessage('File harus berupa gambar (JPEG/PNG) atau PDF')
-      } else if (selectedFile.size > maxSize) {
-        setErrorMessage('Ukuran file tidak boleh lebih dari 5MB')
+      setFile(null)
+      setFileUrl(null)
+      if (!allowedTypesImage.includes(selectedFile?.type || '')) {
+        toast.error(
+          `Type file tidak valid. Upload file dengan type ${allowedTypesImage}`,
+          {
+            position: 'bottom-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+            transition: Bounce,
+          },
+        )
+      } else if (selectedFile?.size > maxSize) {
+        toast.error(
+          `Ukuran file terlalu besar. Upload file dengan ukuran <5 MB`,
+          {
+            position: 'bottom-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+            transition: Bounce,
+          },
+        )
       }
     }
   }
 
   return (
-    <>
-      <div className="flex w-1/2 items-center gap-32 text-[2rem] phones:w-full phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]">
-        <p className="w-2/6 text-left phones:w-full phones:text-left">File</p>
-        <div className="w-4/6 phones:w-full">
-          <input type="file" onChange={handleFileChange} disabled={isLoading} />
-        </div>
-      </div>
-      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-    </>
+    <FormField
+      control={form?.control}
+      name={name}
+      render={({ field }) => (
+        <FormItem
+          className={clsx(
+            `flex w-full flex-col gap-32 text-[2rem] text-primary-100 ${className}`,
+          )}
+        >
+          <div
+            className={clsx(
+              `flex w-full text-[2rem] text-primary-100 ${className}`,
+              {
+                'flex-row items-center gap-32 phones:flex-col phones:items-start phones:gap-12':
+                  isRow,
+                'flex-col gap-12 ': !isRow,
+              },
+            )}
+          >
+            {label && (
+              <FormLabel
+                className={clsx('font-roboto', {
+                  'w-1/3 phones:w-full': isRow,
+                })}
+              >
+                {label}
+              </FormLabel>
+            )}
+
+            <Input
+              type="file"
+              className={clsx('bg-white', { 'w-2/3 phones:w-full': isRow })}
+              disabled={disabled}
+              onChange={(e) => {
+                field.onChange(e)
+                handleFileChange(e)
+              }}
+            />
+          </div>
+
+          {fileUrl ? (
+            <div className="w-1/3">
+              <img
+                src={fileUrl}
+                alt="preview"
+                className="w-1/3 rounded-3xl phones:w-full"
+                loading="lazy"
+              />
+            </div>
+          ) : image ? (
+            <Link to={image} target="_blank">
+              <img
+                src={image}
+                alt="preview"
+                className="w-1/3 rounded-3xl phones:w-full"
+                loading="lazy"
+              />
+            </Link>
+          ) : (
+            ''
+          )}
+
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   )
 }

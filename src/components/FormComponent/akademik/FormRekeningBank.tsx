@@ -1,18 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FormInputText } from '@/components/InputComponent'
+import { FormInputFileAppend, FormInputText } from '@/components/InputComponent'
 import { SelectListReferensi } from '@/components/SelectComponent'
+import { useProfil } from '@/data/useProfil'
+import { Dispatch, SetStateAction } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 
 export function FormAkademikRekeningBank({
   form,
   isLoading,
   isEdit,
+  setFile,
+  setFileUrl,
+  fileUrl,
 }: {
   form: UseFormReturn
   isLoading?: boolean
   isEdit: boolean
+  setFile: Dispatch<SetStateAction<File>>
+  setFileUrl: Dispatch<SetStateAction<string>>
+  fileUrl: string
 }) {
   const disabled = !isEdit || isLoading
+  const { dataProfil } = useProfil()
 
   return (
     <>
@@ -61,16 +70,19 @@ export function FormAkademikRekeningBank({
           isRow
         />
       </div>
+
       <div className="flex gap-64 phones:flex-col phones:gap-24">
-        <FormInputText
+        <FormInputFileAppend
           name="file_rekening"
           form={form}
-          placeholder="File Rekening"
           label="File Rekening"
-          className="w-1/2 text-black-200 phones:w-full"
-          type="file"
-          isDisabled={disabled}
+          className="w-1/2 text-primary-100 phones:w-full"
+          disabled={disabled}
           isRow
+          setFile={setFile}
+          fileUrl={fileUrl}
+          setFileUrl={setFileUrl}
+          image={dataProfil?.rekening?.file_rekening}
         />
         <div className="w-1/2 phones:hidden" />
       </div>

@@ -1,4 +1,4 @@
-import { FormInputText } from '@/components/InputComponent'
+import { FormInputFileAppend, FormInputText } from '@/components/InputComponent'
 import {
   SelectListKabupaten,
   SelectListKecamatan,
@@ -6,18 +6,33 @@ import {
   SelectListProvinsi,
   SelectListReferensi,
 } from '@/components/SelectComponent'
+import { useProfil } from '@/data/useProfil'
+import { Dispatch, SetStateAction } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 
 export function FormAkademikKependudukan({
   form,
   isLoading,
   isEdit,
+  setFileKK,
+  setFileKTP,
+  setFileUrlKK,
+  setFileUrlKTP,
+  fileUrlKK,
+  fileUrlKTP,
 }: {
   form: UseFormReturn
   isLoading?: boolean
   isEdit: boolean
+  setFileKTP: Dispatch<SetStateAction<File>>
+  setFileUrlKTP: Dispatch<SetStateAction<string>>
+  fileUrlKTP: string
+  setFileKK: Dispatch<SetStateAction<File>>
+  setFileUrlKK: Dispatch<SetStateAction<string>>
+  fileUrlKK: string
 }) {
   const disabled = !isEdit || isLoading
+  const { dataProfil } = useProfil()
 
   const provinsi = form.watch('id_provinsi')
   const kabupaten = form.watch('id_kabupaten')
@@ -37,18 +52,6 @@ export function FormAkademikKependudukan({
           isRow
         />
         <FormInputText
-          name="file_ktp"
-          form={form}
-          placeholder="File KTP"
-          label="File KTP"
-          className="w-1/2 text-primary-100 phones:w-full"
-          type="file"
-          isDisabled={disabled}
-          isRow
-        />
-      </div>
-      <div className="flex gap-64 phones:flex-col phones:gap-24">
-        <FormInputText
           name="nomor_kk"
           form={form}
           placeholder="Nomor KK"
@@ -58,17 +61,8 @@ export function FormAkademikKependudukan({
           isDisabled={disabled}
           isRow
         />
-        <FormInputText
-          name="file_kk"
-          form={form}
-          placeholder="File KK"
-          label="File KK"
-          className="w-1/2 text-primary-100 phones:w-full"
-          type="file"
-          isDisabled={disabled}
-          isRow
-        />
       </div>
+
       <div className="flex gap-64 phones:flex-col phones:gap-24">
         <FormInputText
           name="kode_pos"
@@ -150,6 +144,32 @@ export function FormAkademikKependudukan({
           isRow
         />
         <div className="w-1/2 phones:hidden" />
+      </div>
+      <div className="flex gap-64 phones:flex-col phones:gap-24">
+        <FormInputFileAppend
+          name="file_ktp"
+          form={form}
+          label="File KTP"
+          className="w-1/2 text-primary-100 phones:w-full"
+          disabled={disabled}
+          isRow
+          fileUrl={fileUrlKTP}
+          setFile={setFileKTP}
+          setFileUrl={setFileUrlKTP}
+          image={dataProfil?.kependudukan?.file_ktp}
+        />
+        <FormInputFileAppend
+          name="file_kk"
+          form={form}
+          label="File KK"
+          className="w-1/2 text-primary-100 phones:w-full"
+          disabled={disabled}
+          isRow
+          fileUrl={fileUrlKK}
+          setFile={setFileKK}
+          setFileUrl={setFileUrlKK}
+          image={dataProfil?.kependudukan?.file_ktp}
+        />
       </div>
     </>
   )
