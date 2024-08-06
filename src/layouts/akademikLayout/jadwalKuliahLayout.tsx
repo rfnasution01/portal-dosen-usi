@@ -305,7 +305,11 @@ export default function AkademikJadwalKuliahLayout() {
                       <button
                         type="button"
                         onClick={() => setMenu('konfirmasi')}
-                        disabled={Number(calculateTotalPercentage()) !== 100}
+                        disabled={
+                          Number(calculateTotalPercentage()) !== 100 ||
+                          !checkedItems.every((item) => item) ||
+                          checkedItems?.length === 0
+                        }
                         className="rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-90 disabled:cursor-not-allowed disabled:bg-green-100"
                       >
                         Simpan
