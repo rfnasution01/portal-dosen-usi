@@ -32,11 +32,10 @@ export function MainAplikasi({
             <div
               key={idx}
               className={clsx(
-                'col-span-4 flex items-center justify-center rounded-2x border py-64 text-center hover:cursor-pointer hover:border-primary-50 hover:bg-primary-50 phones:col-span-6',
+                'col-span-4 flex items-center justify-center rounded-2x py-64 text-center shadow-md hover:cursor-pointer hover:bg-primary-50 phones:col-span-6',
                 {
-                  'border-primary-50 bg-[#D1E8FF]':
-                    item?.nama_aplikasi === fitur,
-                  'border-primary-50 bg-white ': item?.nama_aplikasi !== fitur,
+                  'bg-[#D1E8FF]': item?.nama_aplikasi === fitur,
+                  'bg-white ': item?.nama_aplikasi !== fitur,
                 },
               )}
               onClick={() => {

@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faSave, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Form } from '@/components/Form'
 import { FormUpdatePhoto } from '@/components/FormComponent/akademik/FormUpdatePhoto'
+import BgImg from '@/assets/imgs/danau-toba.jpg'
 
 export default function Profil() {
   const {
@@ -32,9 +33,13 @@ export default function Profil() {
   } = useResetPassword()
 
   return (
-    <div className="flex h-screen w-full items-center justify-center text-[2rem] phones:text-[2.4rem]">
-      <div className="scrollbar flex h-auto max-h-[98vh] w-[80%] flex-col overflow-y-auto rounded-4x shadow-md phones:h-full phones:max-h-full phones:w-full phones:rounded-none phones:border-0">
-        <div className="rounded-tl-4x rounded-tr-4x bg-primary-100 p-32 text-white phones:rounded-none">
+    <div className="relative flex h-screen w-full items-center justify-center text-[2rem] phones:text-[2.4rem]">
+      <div
+        className="absolute inset-0 bg-cover bg-fixed bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${BgImg})` }}
+      />
+      <div className="scrollbar relative z-10 flex h-auto max-h-[98vh] w-[70%] flex-col overflow-y-auto rounded-4x bg-white bg-opacity-25 p-32 shadow-md phones:h-full phones:max-h-full phones:w-full phones:rounded-none phones:border-0">
+        <div className="rounded-tl-3x rounded-tr-3x bg-primary-100 p-32 text-white phones:rounded-none">
           <MainHeader
             institusi={dataInstitusi}
             identitas={dataIdentitas}
@@ -42,7 +47,7 @@ export default function Profil() {
             loadingInstitusi={loadingInstitusi}
           />
         </div>
-        <div className="scrollbar flex h-full w-full overflow-y-auto">
+        <div className="scrollbar flex h-full w-full overflow-y-auto rounded-bl-3x rounded-br-3x">
           <div className="flex w-full gap-80 bg-white p-32 phones:flex-col phones:gap-32">
             <div className="flex w-1/2 flex-col gap-32 rounded-2x bg-primary-50 p-32 text-primary-900 phones:w-full">
               <div className="flex flex-col gap-12">

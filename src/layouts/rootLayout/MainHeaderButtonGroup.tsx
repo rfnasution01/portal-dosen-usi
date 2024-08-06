@@ -10,11 +10,11 @@ export function MainHeaderButtonGroup() {
   const { lastPathname } = usePathname()
 
   return (
-    <div className="flex flex-col gap-12 phones:w-full phones:flex-row">
+    <div className="flex items-center gap-12 phones:w-full phones:flex-row">
       {lastPathname === '' ? (
         <Link
           to="/profil"
-          className="flex items-center gap-12 rounded-2xl bg-white px-24 py-16 font-semibold text-primary-100 hover:bg-opacity-80 phones:w-full"
+          className="flex items-center gap-12 rounded-2xl bg-primary-900 px-24 py-16 font-semibold text-white hover:bg-opacity-80 phones:w-full"
         >
           <FontAwesomeIcon icon={faUser} />
           Halaman Profil
@@ -22,7 +22,7 @@ export function MainHeaderButtonGroup() {
       ) : (
         <Link
           to="/"
-          className="flex items-center gap-12 rounded-2xl bg-white px-24 py-16 font-semibold text-primary-100 hover:bg-opacity-80 phones:w-full"
+          className="flex items-center gap-12 rounded-2xl bg-primary-900 px-24 py-16 font-semibold text-white hover:bg-opacity-80 phones:w-full"
         >
           <FontAwesomeIcon icon={faHome} />
           Kembali Ke Home
@@ -33,7 +33,7 @@ export function MainHeaderButtonGroup() {
         onClick={() => {
           setIsShowLogout(true)
         }}
-        className="flex items-center gap-12 rounded-2xl bg-danger px-24 py-16 font-semibold text-white hover:bg-opacity-80 phones:w-full"
+        className="flex items-center gap-12 rounded-2xl bg-primary-900 px-24 py-16 font-semibold text-white hover:bg-opacity-80 phones:w-full"
       >
         <FontAwesomeIcon icon={faDoorClosed} />
         Keluar

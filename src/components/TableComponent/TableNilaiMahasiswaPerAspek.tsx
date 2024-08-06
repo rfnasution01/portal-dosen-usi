@@ -77,7 +77,7 @@ export function TableMahasiswaPerAspek({
                   >
                     <div className="flex flex-col">
                       <p>{item?.jenis_nilai} </p>
-                      <p>({item?.nilai}%)</p>
+                      <p>({item?.persentase}%)</p>
                     </div>
                   </th>
                 ))}
