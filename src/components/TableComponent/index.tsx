@@ -23,6 +23,7 @@ export interface ItemTable {
   id_kelas_makul?: string
   id_mahasiswa?: string
   file?: string
+  jlh_mahasiswa?: string
 }
 
 type Props<T extends ItemTable, P> = {
@@ -173,9 +174,12 @@ export function Table<T extends ItemTable, P>({
                                       row?.id_kelas_makul,
                                     )
                                   }}
-                                  className="rounded-lg bg-info px-12 py-4 text-neutral-white"
+                                  className="flex items-center gap-12 rounded-lg bg-info px-12 py-4 text-neutral-white"
                                 >
                                   <FontAwesomeIcon icon={faUser} />
+                                  <p className="text-nowrap">
+                                    {row?.jlh_mahasiswa} Mhs
+                                  </p>
                                 </Link>
                               )}
                             {!isDosen &&

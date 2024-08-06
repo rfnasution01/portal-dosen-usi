@@ -5,6 +5,8 @@ import { ToastContainer } from 'react-toastify'
 import { useState } from 'react'
 import { MainHeader } from './MainHeader'
 import { MainAplikasi } from './MainAplikasi'
+import { Link } from 'react-router-dom'
+import { convertToSlug } from '@/utils/formatText'
 
 export default function RootLayout() {
   const {
@@ -18,6 +20,7 @@ export default function RootLayout() {
   } = useProfil()
 
   const [fitur, setFitur] = useState<string>()
+  const [route, setRoute] = useState<string>()
 
   return (
     <div className="flex h-screen w-full items-center justify-center text-[2rem] phones:text-[2.4rem]">
@@ -37,28 +40,34 @@ export default function RootLayout() {
               aplikasi={dataAplikasi}
               loadingAplikasi={loadingAplikasi}
               fitur={fitur}
+              setRoute={setRoute}
             />
           </div>
           <div className="w-1/3 bg-white p-48 phones:hidden phones:w-full">
-            <div className="flex flex-col gap-32">
-              <div className="flex flex-col gap-12">
-                <p className="text-warna-dark font-roboto text-[3.2rem]">
-                  Data Role
-                </p>
-                {fitur && (
-                  <div
-                    dangerouslySetInnerHTML={{ __html: fitur }}
-                    className="article-content"
-                  />
-                )}
+            {fitur && route && (
+              <div className="flex flex-col gap-32">
+                <div className="flex flex-col gap-12">
+                  <p className="text-warna-dark font-roboto text-[3.2rem]">
+                    Data Role
+                  </p>
+                  {fitur && (
+                    <div
+                      dangerouslySetInnerHTML={{ __html: fitur }}
+                      className="article-content"
+                    />
+                  )}
+                </div>
+                <Link
+                  to={convertToSlug(route)}
+                  className="flex flex-col gap-12 rounded-2xl bg-primary-900 p-32 text-neutral-white shadow hover:opacity-90"
+                >
+                  <p className="text-[2.8rem]">
+                    {dataProfil?.kepegawaian?.hubungan_kerja}
+                  </p>
+                  <p>{dataProfil?.kepegawaian?.unit_kerja}</p>
+                </Link>
               </div>
-              <div className="flex flex-col gap-12 rounded-2xl p-32 shadow">
-                <p className="font-roboto text-[2.8rem]">
-                  {dataProfil?.kepegawaian?.hubungan_kerja}
-                </p>
-                <p>{dataProfil?.kepegawaian?.unit_kerja}</p>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

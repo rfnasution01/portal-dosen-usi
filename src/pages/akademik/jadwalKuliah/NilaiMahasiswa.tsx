@@ -32,9 +32,9 @@ export default function NilaiMahasiswa() {
           onClick={() => {
             setIsShow(true)
           }}
-          disabled={isDisabled}
+          disabled={isDisabled || dataJadwalNilai?.data?.length === 0}
           className={clsx(
-            'flex items-center gap-12 rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-80 disabled:cursor-not-allowed',
+            'flex items-center gap-12 rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-80 disabled:cursor-not-allowed disabled:bg-green-200',
           )}
         >
           <FontAwesomeIcon icon={faFile} />

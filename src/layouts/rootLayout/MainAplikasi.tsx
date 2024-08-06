@@ -1,17 +1,17 @@
 import { Dispatch, SetStateAction } from 'react'
-import { Link } from 'react-router-dom'
 import { Skeleton } from '@/components/Skeleton'
 import clsx from 'clsx'
-import { convertToSlug } from '@/utils/formatText'
 import { GetAplikasiType } from '@/store/type/identitasType'
 
 export function MainAplikasi({
   setFitur,
+  setRoute,
   aplikasi,
   loadingAplikasi,
   fitur,
 }: {
   setFitur: Dispatch<SetStateAction<string>>
+  setRoute: Dispatch<SetStateAction<string>>
   fitur: string
   aplikasi: GetAplikasiType[]
   loadingAplikasi: boolean
@@ -29,18 +29,20 @@ export function MainAplikasi({
       ) : (
         <div className="grid grid-cols-12 gap-32">
           {aplikasi?.map((item, idx) => (
-            <Link
-              to={`/${convertToSlug(item?.route)}`}
+            <div
               key={idx}
               className={clsx(
-                'col-span-4 flex items-center justify-center rounded-2x border py-64 text-center hover:cursor-pointer hover:border-primary-100 hover:bg-primary-50 phones:col-span-6',
+                'col-span-4 flex items-center justify-center rounded-2x border py-64 text-center hover:cursor-pointer hover:border-primary-50 hover:bg-primary-50 phones:col-span-6',
                 {
-                  'border-primary-100 bg-primary-50':
+                  'border-primary-50 bg-[#D1E8FF]':
                     item?.nama_aplikasi === fitur,
                   'border-primary-50 bg-white ': item?.nama_aplikasi !== fitur,
                 },
               )}
-              onMouseEnter={() => setFitur(item?.nama_aplikasi)}
+              onClick={() => {
+                setFitur(item?.nama_aplikasi)
+                setRoute(item?.route)
+              }}
             >
               <div className="flex flex-col items-center justify-center gap-16">
                 <img
@@ -56,7 +58,7 @@ export function MainAplikasi({
                   {item?.nama_aplikasi}
                 </p>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       )}
