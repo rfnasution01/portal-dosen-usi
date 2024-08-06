@@ -19,7 +19,16 @@ export const TahunAktifEndpoints = api.injectEndpoints({
         method: 'POST',
         body: body,
       }),
-      invalidatesTags: ['akademik-tahun-aktif', 'mahasiswa', 'nilai'],
+      invalidatesTags: [
+        'akademik-tahun-aktif',
+        'profil',
+        'komposisi',
+        'nilai',
+        'mahasiswa',
+        'dan-lain-lain',
+        'bimbingan',
+        'krs',
+      ],
     }),
   }),
 })
