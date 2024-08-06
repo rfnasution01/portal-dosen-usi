@@ -476,7 +476,14 @@ export function PrintHasil({
                     </div>
                     <div className="kaprodi">
                       <p>Ketua Program Studi</p>
-                      <p>-</p>
+                      <p>
+                        {
+                          jadwalKuliahDetail?.pimpinan_prodi?.find(
+                            (item) =>
+                              item?.nama_jabatan === 'Ketua Program Studi',
+                          )?.nama_pimpinan
+                        }
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -487,7 +494,7 @@ export function PrintHasil({
             <tr>
               <td>
                 <div className="footer-space">
-                  <p>Di cetak dari https://dosen.sari-mutiara.ac.id/</p>
+                  <p>Di cetak dari https://staf.universitassimalungun.ac.id</p>
                 </div>
               </td>
             </tr>

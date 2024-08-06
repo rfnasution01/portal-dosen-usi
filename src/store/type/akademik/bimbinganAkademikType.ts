@@ -1,3 +1,5 @@
+import { JadwalKuliahType } from './jadwalKuliahType'
+
 export type PostBimbinganAkademik = {
   id: string
   keterangan: string
@@ -68,9 +70,9 @@ export type GetMataKuliahDetail = {
   makul_agama: boolean
   id_agama: string
   kelas: string
-  jadwal_kuliah: []
+  jadwal_kuliah: JadwalKuliahType[]
   sks: string
   semester: string
   status_krs: string
-  dosen_pengajar: []
+  dosen_pengajar: string[]
 }

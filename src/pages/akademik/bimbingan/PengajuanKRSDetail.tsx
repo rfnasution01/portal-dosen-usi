@@ -1,10 +1,17 @@
+import { Accordion } from '@/components/Accordion'
+import { ValidasiKonfirmasi } from '@/components/DialogComponent/ValidasiKonfirmasi'
 import { LabelJadwalKuliah } from '@/components/LabelComponent'
 import { columnsListPengajuanKRSDetail } from '@/components/TableComponent/column/akademik/mahasiswaColumn'
 import { TablePengajuanKRS } from '@/components/TableComponent/TablePengajuanKRS'
 import { useAkademikBimbinganAkademik } from '@/data/akademik/useBimbinganAkademik'
 import { useProfil } from '@/data/useProfil'
-import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowLeftLong,
+  faCheck,
+  faX,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import clsx from 'clsx'
 import { useNavigate } from 'react-router-dom'
 
 export default function PengajuanKRSDetail() {
@@ -18,6 +25,11 @@ export default function PengajuanKRSDetail() {
     handleSubmit,
     isLoadingCreateKRS,
     setkrs,
+    checkedPool,
+    setCheckedPool,
+    setStatusPool,
+    handleSubmitCheckedPool,
+    statusPool,
   } = useAkademikBimbinganAkademik()
 
   return (
@@ -48,7 +60,7 @@ export default function PengajuanKRSDetail() {
               anda di bawah ini.
             </p>
           </div>
-          <div className="flex flex-col gap-8 rounded-2x bg-primary-50 p-32 text-primary-900 shadow">
+          <Accordion title="Detail KRS">
             <LabelJadwalKuliah
               label1="Status"
               value1="Pengajuan"
@@ -79,13 +91,36 @@ export default function PengajuanKRSDetail() {
               label2="Jumlah Kredit"
               value2={dataKRSDetail?.mahasiswa?.jlh_sks}
             />
+          </Accordion>
+          <div className="flex items-center justify-end gap-16">
+            <button
+              onClick={() => {
+                setIsShow(true)
+                setStatusPool('Disetujui')
+              }}
+              disabled={checkedPool?.length === 0}
+              className="flex items-center gap-12 rounded-2xl bg-primary-active px-24 py-12 text-white disabled:cursor-not-allowed"
+            >
+              <FontAwesomeIcon icon={faCheck} />
+              <p>Setujui</p>
+            </button>
+            <button
+              className="flex items-center gap-12 rounded-2xl bg-danger px-24 py-12 text-white disabled:cursor-not-allowed"
+              disabled={checkedPool?.length === 0}
+              onClick={() => {
+                setIsShow(true)
+                setStatusPool('Ditolak')
+              }}
+            >
+              <FontAwesomeIcon icon={faX} />
+              <p>Tolak</p>
+            </button>
           </div>
           <div className="scrollbar flex h-full flex-1 overflow-y-auto phones:overflow-visible">
             <TablePengajuanKRS
               data={dataKRSDetail?.mata_kuliah}
               columns={columnsListPengajuanKRSDetail}
               loading={loadingKRSDetail || isLoadingCreateKRS}
-              isNumber
               currentPage={1}
               pageSize={1000}
               setIsShow={setIsShow}
@@ -94,10 +129,36 @@ export default function PengajuanKRSDetail() {
               handleSubmit={handleSubmit}
               isKRS
               isAksi
+              isChecked
+              setCheckedPool={setCheckedPool}
+              checkedPool={checkedPool}
             />
           </div>
         </div>
       </div>
+      <ValidasiKonfirmasi
+        isOpen={isShow}
+        setIsOpen={setIsShow}
+        cancelString="Kembali"
+        isAuto
+        title={
+          statusPool === 'Disetujui'
+            ? 'Apakah yakin menyetujui krs ini?'
+            : 'Apakah yakin menolak krs ini?'
+        }
+        childrenButton={
+          <button
+            type="button"
+            disabled={isLoadingCreateKRS}
+            onClick={() => handleSubmitCheckedPool()}
+            className={clsx(
+              'flex items-center gap-12 rounded-2xl bg-primary-100 px-24 py-12 text-white hover:bg-opacity-80',
+            )}
+          >
+            Ya
+          </button>
+        }
+      />
     </div>
   )
 }

@@ -9,22 +9,30 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { LinkParent } from './LinkParent'
 import { LinkChild } from './LinkChild'
 import { ValidasiLogout } from '@/components/DialogComponent/ValidasiLogout'
 import { useLogout } from '@/data/useLogout'
+import { ValidasiKonfirmasi } from '@/components/DialogComponent/ValidasiKonfirmasi'
+import { useAkademikBimbinganAkademik } from '@/data/akademik/useBimbinganAkademik'
 
 export function MainMenu({
   setIsOpen,
 }: {
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }) {
+  const navigate = useNavigate()
+
   const { isShowLogout, setIsShowLogout, handleLogout } = useLogout()
   const { secondPathname, thirdPathname } = usePathname()
 
   const [isShow, setIsShow] = useState<boolean>(false)
+  const [isShowInfo, setIsShowInfo] = useState<boolean>(false)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
+
+  const { adaDataPengajuanKrs, tindakLanjutiPengajuan } =
+    useAkademikBimbinganAkademik()
 
   const isActivePage = (item: string) => {
     if (
@@ -42,10 +50,16 @@ export function MainMenu({
   return (
     <div className="flex flex-col gap-8">
       {/* --- Dashboard --- */}
-      <Link
-        to={'/akademik'}
+      <div
+        onClick={() => {
+          if (adaDataPengajuanKrs && !tindakLanjutiPengajuan) {
+            setIsShowInfo(true)
+          } else {
+            navigate('/akademik')
+          }
+        }}
         className={clsx(
-          'flex items-center gap-12 rounded-lg p-12 hover:bg-primary-active hover:text-white',
+          'flex items-center gap-12 rounded-lg p-12 hover:cursor-pointer hover:bg-primary-active hover:text-white',
           {
             'bg-primary-active text-white': isActivePage('dashboard'),
             'text-primary-inactive': !isActivePage('dashboard'),
@@ -54,7 +68,7 @@ export function MainMenu({
       >
         <FontAwesomeIcon icon={faBorderAll} />
         <p className="text-[2.2rem]">Dashboard</p>
-      </Link>
+      </div>
       <hr className="border border-[#fafafa] opacity-50" />
       <div className="flex flex-col gap-8">
         {ListMenu?.map((item, idx) => (
@@ -68,6 +82,9 @@ export function MainMenu({
               idx={idx}
               isActivePage={isActivePage}
               isShow={isShow}
+              setIsShowInfo={setIsShowInfo}
+              adaDataPengajuanKrs={adaDataPengajuanKrs}
+              tindakLanjutiPengajuan={tindakLanjutiPengajuan}
             />
             {item?.children?.length > 0 && activeIndex === idx && (
               <div className="flex flex-col gap-8">
@@ -75,6 +92,9 @@ export function MainMenu({
                   item={item}
                   setIsOpen={setIsOpen}
                   isActivePage={isActivePage}
+                  setIsShowInfo={setIsShowInfo}
+                  adaDataPengajuanKrs={adaDataPengajuanKrs}
+                  tindakLanjutiPengajuan={tindakLanjutiPengajuan}
                 />
               </div>
             )}
@@ -83,10 +103,16 @@ export function MainMenu({
       </div>
       <hr className="border border-[#fafafa] opacity-50" />
       <div className="flex flex-col gap-8">
-        <Link
-          to={'/ubah-password'}
+        <div
+          onClick={() => {
+            if (adaDataPengajuanKrs && !tindakLanjutiPengajuan) {
+              setIsShowInfo(true)
+            } else {
+              navigate('/ubah-password')
+            }
+          }}
           className={clsx(
-            'flex items-center gap-12 rounded-lg p-12 hover:bg-primary-active hover:text-white',
+            'flex items-center gap-12 rounded-lg p-12 hover:cursor-pointer hover:bg-primary-active hover:text-white',
             {
               'bg-primary-active': isActivePage('ubah-password'),
               'text-primary-inactive': !isActivePage('ubah-password'),
@@ -95,7 +121,7 @@ export function MainMenu({
         >
           <FontAwesomeIcon icon={faKey} />
           <p className="text-[2.2rem]">Ubah Password</p>
-        </Link>
+        </div>
         <button
           className={clsx(
             'flex items-center gap-12 rounded-lg p-12 hover:bg-primary-active hover:text-white',
@@ -120,6 +146,15 @@ export function MainMenu({
           >
             <p>Ya</p>
           </button>
+        }
+      />
+      <ValidasiKonfirmasi
+        isOpen={isShowInfo}
+        setIsOpen={setIsShowInfo}
+        cancelString="Kembali"
+        isAuto
+        title={
+          'Mohon Maaf ! Harap tindak lanjuti instruksi yang diberikan terlebih dahulu agar layanan aplikasi Anda dapat diaktifkan.'
         }
       />
     </div>

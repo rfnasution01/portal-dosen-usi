@@ -394,14 +394,27 @@ export function PrintBAUAS({
                         <p>Diketahui</p>
                         <p>Ketua Program Studi</p>
                       </div>
-                      <p>-</p>
+                      <p>
+                        {
+                          jadwalKuliahDetail?.pimpinan_prodi?.find(
+                            (item) =>
+                              item?.nama_jabatan === 'Ketua Program Studi',
+                          )?.nama_pimpinan
+                        }
+                      </p>
                     </div>
                     <div className="penguji-child border-left border-top border-bottom border-right">
                       <div className="diketahui">
                         <p>Diketahui</p>
                         <p>Dekan</p>
                       </div>
-                      <p>-</p>
+                      <p>
+                        {
+                          jadwalKuliahDetail?.pimpinan_fakultas?.find(
+                            (item) => item?.nama_jabatan === 'Dekan',
+                          )?.nama_pimpinan
+                        }
+                      </p>
                     </div>
                   </div>
 
@@ -455,7 +468,7 @@ export function PrintBAUAS({
             <tr>
               <td>
                 <div className="footer-space">
-                  <p>Di cetak dari https://dosen.sari-mutiara.ac.id/</p>
+                  <p>Di cetak dari https://staf.universitassimalungun.ac.id</p>
                 </div>
               </td>
             </tr>

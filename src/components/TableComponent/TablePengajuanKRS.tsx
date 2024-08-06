@@ -1,4 +1,4 @@
-import { Dispatch, Fragment, SetStateAction, useState } from 'react'
+import React, { Dispatch, Fragment, SetStateAction, useState } from 'react'
 import clsx from 'clsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -51,6 +51,18 @@ type Props<T extends ItemTable, P> = {
   setkrs: Dispatch<SetStateAction<{ id: string; status: string }>>
   handleSubmit: () => Promise<void>
   isLoading?: boolean
+  setCheckedPool?: React.Dispatch<React.SetStateAction<string[]>>
+  checkedPool?: string[]
+  disabledCheckboxList?: string[]
+  isChecked?: boolean
+  // Tick the checkbox based on the value of a column from row data
+  checkboxEnablerColumn?: string
+
+  // Paired with checkboxEnablerColumn. It is instead ticked when
+  // row data with specified column is false
+  reverseCheckbox?: boolean
+  disableCheckbox?: boolean
+  checkFn?: (e: boolean, id: string) => void
 }
 
 export function TablePengajuanKRS<T extends ItemTable, P>({
@@ -76,6 +88,14 @@ export function TablePengajuanKRS<T extends ItemTable, P>({
   setkrs,
   handleSubmit,
   isLoading,
+  setCheckedPool,
+  checkedPool,
+  disabledCheckboxList,
+  isChecked,
+  checkboxEnablerColumn,
+  reverseCheckbox,
+  disableCheckbox,
+  checkFn,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
   const [id, setId] = useState<number>()
@@ -83,6 +103,37 @@ export function TablePengajuanKRS<T extends ItemTable, P>({
 
   const columnArray =
     typeof columns === 'function' ? columns(columnProps as P) : columns
+
+  // Header checkbox state
+  const [checked, setChecked] = React.useState(false)
+
+  // Header checkbox event handler
+  const checkHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (setCheckedPool) {
+      if (e.target.checked) {
+        const allCheckedIds = data
+          .map((row) => row?.['id'])
+          .filter((id) => !disabledCheckboxList?.includes(id))
+        setCheckedPool(allCheckedIds)
+        setChecked(true)
+      } else {
+        setCheckedPool([])
+        setChecked(false)
+      }
+    }
+  }
+
+  React.useEffect(() => {
+    if (
+      checkedPool?.length ===
+        data?.length - (disabledCheckboxList?.length ?? 0) &&
+      checkedPool?.length > 0
+    ) {
+      setChecked(true)
+    } else {
+      setChecked(false)
+    }
+  }, [checkedPool, data?.length, disabledCheckboxList])
 
   return (
     <div className={`w-full rounded-2xl ${containerClasses}`}>
@@ -101,6 +152,17 @@ export function TablePengajuanKRS<T extends ItemTable, P>({
             <table className="flex-1 border-collapse border border-black-300 bg-white text-[2rem]">
               <thead className="relative z-10 align-top leading-medium text-neutral-white">
                 <tr className="">
+                  {isChecked && (
+                    <th className="sticky top-0 border-b-2 bg-primary-900 px-24 py-24 text-left uppercase text-white">
+                      <input
+                        type="checkbox"
+                        className="!pt-0"
+                        onChange={checkHandler}
+                        checked={checked}
+                      />
+                    </th>
+                  )}
+
                   {/* --- NO --- */}
                   {isNumber && pageSize && currentPage && (
                     <th className="sticky top-0 border-b-2 bg-primary-900 px-24 py-24 text-left uppercase text-white">
@@ -146,6 +208,39 @@ export function TablePengajuanKRS<T extends ItemTable, P>({
                       )}
                       onClick={onItemClick ? () => onItemClick(row) : undefined}
                     >
+                      {isChecked && (
+                        <td className="px-24 py-12 align-top leading-medium">
+                          <input
+                            type="checkbox"
+                            checked={
+                              checkboxEnablerColumn // Check if checkbox is enabled based on the value of a column from row data
+                                ? reverseCheckbox // If reverseCheckbox is true, checkbox is ticked when the value is false instead
+                                  ? !row[checkboxEnablerColumn]
+                                  : row[checkboxEnablerColumn]
+                                : checkedPool
+                                  ? checkedPool.some(
+                                      (item) => item == row['id'],
+                                    )
+                                  : false
+                            }
+                            onClick={(e) => e.stopPropagation()} // Prevent checkbox from triggering row click
+                            onChange={(e) => {
+                              if (setCheckedPool && row)
+                                setCheckedPool((prev) => {
+                                  if (!prev) return []
+                                  return e.target.checked
+                                    ? [...prev, row['id']]
+                                    : prev.filter((item) => item != row['id'])
+                                })
+                              if (checkFn) checkFn(e.target.checked, row['id'])
+                            }}
+                            disabled={
+                              disableCheckbox ||
+                              disabledCheckboxList?.includes(row?.['id']) // Disable checkbox if disableCheckbox is true or if row id is in disabledCheckboxList
+                            }
+                          />
+                        </td>
+                      )}
                       {/* ----- Nomor ----- */}
                       {isNumber && currentPage && pageSize && (
                         <td className="px-24 py-12 align-top leading-medium">
@@ -155,7 +250,7 @@ export function TablePengajuanKRS<T extends ItemTable, P>({
 
                       {/* ----- Table Data ----- */}
                       {columnArray
-                        .filter((column) => !column.header.includes('Aksi'))
+                        .filter((column) => !column?.header?.includes('Aksi'))
                         .map((column, colIndex) => (
                           <td
                             className={`px-24 py-12 align-top leading-medium ${column.width}`}

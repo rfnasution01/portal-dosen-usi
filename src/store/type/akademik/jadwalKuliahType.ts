@@ -50,6 +50,14 @@ export type GetJadwalDetailType = {
   status_user: string
   status_at: string
   status_alasan: string
+  pimpinan_prodi: Pimpinan[]
+  pimpinan_fakultas: Pimpinan[]
+}
+
+export type Pimpinan = {
+  nama_jabatan: string
+  nama_pimpinan: string
+  urutan: string
 }
 
 export type JadwalKuliahType = {

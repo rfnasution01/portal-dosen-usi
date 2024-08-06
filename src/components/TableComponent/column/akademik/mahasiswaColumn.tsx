@@ -27,8 +27,39 @@ export const columnsListPengajuanKRSDetail: Column<GetMataKuliahDetail>[] = [
   { header: 'SKS', key: 'sks', width: '!min-w-[12rem]' },
   { header: 'SEM', key: 'semester', width: '!min-w-[12rem]' },
   { header: 'Kelas', key: 'kelas', width: '!min-w-[12rem]' },
-  { header: 'Dosen', key: 'dosen_pengajar', width: '!min-w-[12rem]' },
-  { header: 'Jadwal', key: 'jadwal_kuliah', width: '!min-w-[12rem]' },
+  {
+    header: 'Dosen',
+    key: 'dosen_pengajar',
+    width: '!min-w-[12rem]',
+    renderCell(rowData) {
+      return (
+        <div className="flex flex-col gap-8 phones:w-full">
+          {rowData?.dosen_pengajar?.map((item, idx) => (
+            <div key={idx} style={{ lineHeight: '130%' }}>
+              {item}
+            </div>
+          ))}
+        </div>
+      )
+    },
+  },
+  {
+    header: 'Jadwal',
+    key: 'jadwal_kuliah',
+    width: '!min-w-[12rem]',
+    renderCell(rowData) {
+      return (
+        <div className="flex flex-col gap-8 phones:w-full">
+          {rowData?.jadwal_kuliah?.map((item, idx) => (
+            <p key={idx} style={{ lineHeight: '130%' }}>
+              {item?.hari} / {item?.jam_mulai?.slice(0, 5)} -{' '}
+              {item?.jam_akhir?.slice(0, 5)}
+            </p>
+          ))}
+        </div>
+      )
+    },
+  },
   {
     header: 'Status',
     key: 'status_krs',
@@ -41,7 +72,7 @@ export const columnsListPengajuanKRSDetail: Column<GetMataKuliahDetail>[] = [
               'flex rounded-2xl px-24 py-12 text-[1.6rem] text-white',
               {
                 'bg-primary-active': rowData?.status_krs === 'Draft',
-                'bg-success': rowData?.status_krs === 'Diterima',
+                'bg-success': rowData?.status_krs === 'Disetujui',
                 'bg-danger': rowData?.status_krs === 'Ditolak',
               },
             )}

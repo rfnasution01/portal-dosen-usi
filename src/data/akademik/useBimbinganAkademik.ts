@@ -19,6 +19,8 @@ export function useAkademikBimbinganAkademik() {
   const idMahasiswa = localStorage.getItem('mahasiswaID') ?? ''
   const [isShow, setIsShow] = useState<boolean>(false)
   const [krs, setkrs] = useState<{ id: string; status: string }>()
+  const [checkedPool, setCheckedPool] = useState<string[]>()
+  const [statusPool, setStatusPool] = useState<string>()
 
   const {
     data: bimbingan,
@@ -78,7 +80,9 @@ export function useAkademikBimbinganAkademik() {
   }, [KRSDetail])
 
   const adaDataPengajuanKrs = dataKRS?.length > 0
-  const tindakLanjutiPengajuan = pathname === '/akademik/bimbingan/krs/detail'
+  const tindakLanjutiPengajuan =
+    pathname === '/akademik/bimbingan/krs/detail' ||
+    pathname === '/akademik/bimbingan/krs'
   const bimbinganAkademik =
     pathname === '/akademik/bimbingan/pembimbing-akademik'
 
@@ -123,6 +127,8 @@ export function useAkademikBimbinganAkademik() {
       })
       setIsShow(false)
       setkrs(null)
+      setStatusPool(null)
+      setCheckedPool(null)
     }
   }, [isSuccessKRS])
 
@@ -143,8 +149,27 @@ export function useAkademikBimbinganAkademik() {
       })
       setIsShow(false)
       setkrs(null)
+      setStatusPool(null)
+      setCheckedPool(null)
     }
   }, [isErrorKRS, errorKRS])
+
+  const handleSubmitCheckedPool = async () => {
+    if (isShow) {
+      try {
+        for (const id of checkedPool) {
+          const body = {
+            id,
+            status_krs: statusPool, // Sesuaikan status_krs sesuai kebutuhan
+          }
+
+          await createKRS({ body })
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
 
   return {
     dataBimbingan,
@@ -161,5 +186,10 @@ export function useAkademikBimbinganAkademik() {
     handleSubmit,
     isLoadingCreateKRS,
     bimbinganAkademik,
+    setCheckedPool,
+    checkedPool,
+    statusPool,
+    setStatusPool,
+    handleSubmitCheckedPool,
   }
 }

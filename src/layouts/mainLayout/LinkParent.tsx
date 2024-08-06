@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export function LinkParent({
   item,
@@ -18,19 +18,25 @@ export function LinkParent({
   idx,
   activeIndex,
   isActivePage,
+  adaDataPengajuanKrs,
+  setIsShowInfo,
+  tindakLanjutiPengajuan,
 }: {
   item: ListMenuType
   setIsOpen: Dispatch<SetStateAction<boolean>>
   setIsShow: Dispatch<SetStateAction<boolean>>
+  setIsShowInfo: Dispatch<SetStateAction<boolean>>
   setActiveIndex: Dispatch<SetStateAction<number>>
   isShow: boolean
   idx: number
   activeIndex: number
   isActivePage: (item: string) => boolean
+  adaDataPengajuanKrs: boolean
+  tindakLanjutiPengajuan: boolean
 }) {
+  const navigate = useNavigate()
   return (
-    <Link
-      to={item?.children?.length > 0 ? '' : convertToSlug(item?.nama)}
+    <div
       onClick={(e) => {
         if (item?.children?.length > 0) {
           e.preventDefault()
@@ -38,11 +44,18 @@ export function LinkParent({
           setIsShow(!isShow)
         } else {
           setIsOpen(false)
+          if (adaDataPengajuanKrs && !tindakLanjutiPengajuan) {
+            setIsShowInfo(true)
+          } else {
+            navigate(
+              item?.children?.length > 0 ? '' : convertToSlug(item?.nama),
+            )
+          }
         }
         setActiveIndex(activeIndex === idx ? null : idx)
       }}
       className={clsx(
-        'flex items-center justify-between gap-12 rounded-lg p-12 hover:bg-primary-active hover:text-white',
+        'flex items-center justify-between gap-12 rounded-lg p-12 hover:cursor-pointer hover:bg-primary-active hover:text-white',
         {
           'bg-primary-active': isActivePage(item?.nama),
           'text-primary-inactive': !isActivePage(item?.nama),
@@ -62,6 +75,6 @@ export function LinkParent({
           )}
         </span>
       )}
-    </Link>
+    </div>
   )
 }
