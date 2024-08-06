@@ -33,7 +33,7 @@ export default function RootLayout() {
             loadingInstitusi={loadingInstitusi}
           />
         </div>
-        <div className="scrollbar flex h-full w-full overflow-y-auto">
+        <div className="scrollbar flex h-full w-full overflow-y-auto phones:flex-col">
           <div className="scrollbar h-full w-2/3 overflow-y-auto bg-white p-48 phones:w-full">
             <MainAplikasi
               setFitur={setFitur}
@@ -43,7 +43,7 @@ export default function RootLayout() {
               setRoute={setRoute}
             />
           </div>
-          <div className="w-1/3 bg-white p-48 phones:hidden phones:w-full">
+          <div className="w-1/3 bg-white p-48 phones:w-full">
             {fitur && route && (
               <div className="flex flex-col gap-32">
                 <div className="flex flex-col gap-12">

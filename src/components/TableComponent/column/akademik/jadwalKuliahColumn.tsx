@@ -30,7 +30,7 @@ export const columnsListJadwalKuliah: Column<GetJadwalSemesterType>[] = [
     },
   },
   {
-    header: 'Status',
+    header: 'Status KRS',
     key: 'status',
     width: '!min-w-[12rem]',
     renderCell: (rowData) => {

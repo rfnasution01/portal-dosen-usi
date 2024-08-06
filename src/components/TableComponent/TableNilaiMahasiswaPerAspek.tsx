@@ -87,55 +87,70 @@ export function TableMahasiswaPerAspek({
             </tr>
           </thead>
           <tbody>
-            {response?.map((row, rowIndex) => (
-              <Fragment key={rowIndex}>
-                <tr
-                  className={clsx(
-                    'border-b border-black-300 text-neutral-black transition-all ease-in hover:cursor-pointer hover:bg-yellow-100',
-                    {
-                      'bg-neutral-cell': isValueEmpty(row?.[key]),
-                    },
-                  )}
-                >
-                  <td className="px-24 py-12 text-center align-middle leading-medium">
-                    {currentPage * pageSize + (rowIndex + 1 - pageSize)}
-                  </td>
-                  <td className="px-24 py-12 text-center align-middle leading-medium ">
-                    {row?.nim ?? '-'}
-                  </td>
-                  <td className="px-24 py-12 text-left align-middle leading-medium ">
-                    {row?.nama ?? '-'}
-                  </td>
-                  {nilaiMahasiswa.aspek_nilai
-                    ?.filter((item) => item?.id === editID)
-                    ?.map((aspek, idx) => (
-                      <td
-                        key={idx}
-                        className="px-24 py-12 text-center align-middle leading-medium"
-                      >
-                        {row[aspek.jenis_nilai] ?? '-'}
-                      </td>
-                    ))}
-                  <td className="px-24 py-12 text-center align-middle leading-medium ">
-                    {loadingStates[row.id_mk] ? (
-                      <img src={LoadingGif} alt="Loading" />
-                    ) : (
-                      <FormJadwalKuliah
-                        form={form}
-                        isLoading={loadingStates[row.id_mk]}
-                        handleSubmit={handleSubmit}
-                        row={row}
-                        setLoading={handleLoading}
-                        editID={editID}
-                        keyString={key}
-                        isSuccessEditNilai={isSuccessEditNilai}
-                        disabledPengajuan={disabledPengajuan}
-                      />
+            {response?.length > 0 ? (
+              response?.map((row, rowIndex) => (
+                <Fragment key={rowIndex}>
+                  <tr
+                    className={clsx(
+                      'border-b border-black-300 text-neutral-black transition-all ease-in hover:cursor-pointer hover:bg-yellow-100',
+                      {
+                        'bg-neutral-cell': isValueEmpty(row?.[key]),
+                      },
                     )}
-                  </td>
-                </tr>
-              </Fragment>
-            ))}
+                  >
+                    <td className="px-24 py-12 text-center align-middle leading-medium">
+                      {currentPage * pageSize + (rowIndex + 1 - pageSize)}
+                    </td>
+                    <td className="px-24 py-12 text-center align-middle leading-medium ">
+                      {row?.nim ?? '-'}
+                    </td>
+                    <td className="px-24 py-12 text-left align-middle leading-medium ">
+                      {row?.nama ?? '-'}
+                    </td>
+                    {nilaiMahasiswa.aspek_nilai
+                      ?.filter((item) => item?.id === editID)
+                      ?.map((aspek, idx) => (
+                        <td
+                          key={idx}
+                          className="px-24 py-12 text-center align-middle leading-medium"
+                        >
+                          {row[aspek.jenis_nilai] ?? '-'}
+                        </td>
+                      ))}
+                    <td className="px-24 py-12 text-center align-middle leading-medium ">
+                      {loadingStates[row.id_mk] ? (
+                        <img src={LoadingGif} alt="Loading" />
+                      ) : (
+                        <FormJadwalKuliah
+                          form={form}
+                          isLoading={loadingStates[row.id_mk]}
+                          handleSubmit={handleSubmit}
+                          row={row}
+                          setLoading={handleLoading}
+                          editID={editID}
+                          keyString={key}
+                          isSuccessEditNilai={isSuccessEditNilai}
+                          disabledPengajuan={disabledPengajuan}
+                        />
+                      )}
+                    </td>
+                  </tr>
+                </Fragment>
+              ))
+            ) : (
+              <tr
+                className={clsx(
+                  'border-b border-black-300 text-neutral-black transition-all ease-in odd:bg-surface-disabled hover:cursor-pointer hover:bg-yellow-100',
+                )}
+              >
+                <td
+                  colSpan={8}
+                  className="px-24 py-12 text-center align-top leading-medium"
+                >
+                  Data tidak ditemukan
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

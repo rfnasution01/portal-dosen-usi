@@ -104,53 +104,68 @@ export function TableMahasiswa({
               </tr>
             </thead>
             <tbody>
-              {transformResponse(response)?.map((row, rowIndex) => (
-                <Fragment key={rowIndex}>
-                  <tr
-                    className={
-                      'border-b border-black-300 text-neutral-black transition-all ease-in odd:bg-surface-disabled hover:cursor-pointer hover:bg-yellow-100'
-                    }
-                  >
-                    <td className="px-24 py-12 text-center align-top leading-medium">
-                      {currentPage * pageSize + (rowIndex + 1 - pageSize)}
-                    </td>
-                    <td className="px-24 py-12 text-center align-top leading-medium ">
-                      {row?.nim ?? '-'}
-                    </td>
-                    <td className="px-24 py-12 text-center align-top leading-medium ">
-                      {row?.nama ?? '-'}
-                    </td>
-                    {/* Render each aspek_nilai dynamically */}
-                    {response.aspek_nilai.map((aspek, idx) => (
-                      <td
-                        key={idx}
-                        className={clsx(
-                          'px-24 py-12 text-center align-top leading-medium',
-                          {
-                            'bg-neutral-cell': isValueEmpty(
-                              row[aspek?.jenis_nilai],
-                            ),
-                          },
-                        )}
-                      >
-                        {row[aspek?.jenis_nilai] ?? '-'}
+              {transformResponse(response)?.length > 0 ? (
+                transformResponse(response)?.map((row, rowIndex) => (
+                  <Fragment key={rowIndex}>
+                    <tr
+                      className={
+                        'border-b border-black-300 text-neutral-black transition-all ease-in odd:bg-surface-disabled hover:cursor-pointer hover:bg-yellow-100'
+                      }
+                    >
+                      <td className="px-24 py-12 text-center align-top leading-medium">
+                        {currentPage * pageSize + (rowIndex + 1 - pageSize)}
                       </td>
-                    ))}
-                    <td className="px-24 py-12 text-center align-top leading-medium ">
-                      {row?.nilai_akhir ?? '-'}
-                    </td>
-                    <td className="px-24 py-12 text-center align-top leading-medium ">
-                      {row?.huruf ?? '-'}
-                    </td>
-                    <td className="px-24 py-12 text-center align-top leading-medium ">
-                      {row?.sks ?? '-'}
-                    </td>
-                    <td className="px-24 py-12 text-center align-top leading-medium ">
-                      {row?.mutu ?? '-'}
-                    </td>
-                  </tr>
-                </Fragment>
-              ))}
+                      <td className="px-24 py-12 text-center align-top leading-medium ">
+                        {row?.nim ?? '-'}
+                      </td>
+                      <td className="px-24 py-12 text-center align-top leading-medium ">
+                        {row?.nama ?? '-'}
+                      </td>
+                      {/* Render each aspek_nilai dynamically */}
+                      {response.aspek_nilai.map((aspek, idx) => (
+                        <td
+                          key={idx}
+                          className={clsx(
+                            'px-24 py-12 text-center align-top leading-medium',
+                            {
+                              'bg-neutral-cell': isValueEmpty(
+                                row[aspek?.jenis_nilai],
+                              ),
+                            },
+                          )}
+                        >
+                          {row[aspek?.jenis_nilai] ?? '-'}
+                        </td>
+                      ))}
+                      <td className="px-24 py-12 text-center align-top leading-medium ">
+                        {row?.nilai_akhir ?? '-'}
+                      </td>
+                      <td className="px-24 py-12 text-center align-top leading-medium ">
+                        {row?.huruf ?? '-'}
+                      </td>
+                      <td className="px-24 py-12 text-center align-top leading-medium ">
+                        {row?.sks ?? '-'}
+                      </td>
+                      <td className="px-24 py-12 text-center align-top leading-medium ">
+                        {row?.mutu ?? '-'}
+                      </td>
+                    </tr>
+                  </Fragment>
+                ))
+              ) : (
+                <tr
+                  className={clsx(
+                    'border-b border-black-300 text-neutral-black transition-all ease-in odd:bg-surface-disabled hover:cursor-pointer hover:bg-yellow-100',
+                  )}
+                >
+                  <td
+                    colSpan={18}
+                    className="px-24 py-12 text-center align-top leading-medium"
+                  >
+                    Data tidak ditemukan
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
