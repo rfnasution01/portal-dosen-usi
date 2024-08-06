@@ -13,6 +13,7 @@ import {
   faArrowLeftLong,
   faCircleExclamation,
   faPen,
+  faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
@@ -21,6 +22,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { FormInputText } from '@/components/InputComponent'
+import { ValidasiKonfirmasi } from '@/components/DialogComponent/ValidasiKonfirmasi'
 
 export default function AkademikJadwalKuliahLayout() {
   const navigate = useNavigate()
@@ -40,6 +42,8 @@ export default function AkademikJadwalKuliahLayout() {
   } = useAkademikJadwalKuliah()
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isShowValidasi, setIsShowValidasi] = useState(false)
+  const [menu, setMenu] = useState<string>('')
 
   useEffect(() => {
     setIsLoading(true)
@@ -50,6 +54,20 @@ export default function AkademikJadwalKuliahLayout() {
   const isShow = ['1', '2', '3', '4', '5', '6'].includes(
     dataJadwalDetail?.status,
   )
+
+  // State untuk menyimpan status checkbox
+  const [checkedItems, setCheckedItems] = useState<boolean[]>(
+    dataKomposisi?.map(() => false) || [],
+  )
+
+  // Function untuk menghandle perubahan checkbox
+  const handleCheckboxChange = (index: number) => {
+    setCheckedItems((prevCheckedItems) => {
+      const newCheckedItems = [...prevCheckedItems]
+      newCheckedItems[index] = !newCheckedItems[index]
+      return newCheckedItems
+    })
+  }
 
   return (
     <div className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto">
@@ -94,7 +112,13 @@ export default function AkademikJadwalKuliahLayout() {
               )}
             </button> */}
             <button
-              onClick={() => setIsShowKomposisi(true)}
+              onClick={() => {
+                if (dataJadwalNilai?.aspek_nilai?.length !== 0) {
+                  setIsShowValidasi(true)
+                } else {
+                  setIsShowKomposisi(true)
+                }
+              }}
               className="flex items-center gap-12 rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-80"
             >
               <FontAwesomeIcon icon={faPen} />
@@ -184,89 +208,158 @@ export default function AkademikJadwalKuliahLayout() {
         setIsOpen={setIsShowKomposisi}
         child={
           <div className="flex w-full flex-col gap-32 font-sans text-[2rem] phones:text-[2.4rem]">
-            <p className="text-center text-[2.4rem]">
-              Mata Kuliah: {dataJadwalDetail?.nama_makul}
-            </p>
+            {menu === '' ? (
+              <div className="flex flex-col gap-12">
+                <p className="text-center text-[2.4rem]">
+                  Mata Kuliah: {dataJadwalDetail?.nama_makul}
+                </p>
+                <div className="flex items-center gap-12 rounded-2xl bg-red-100 px-24 py-12 text-red-900">
+                  <FontAwesomeIcon icon={faTriangleExclamation} size="sm" />
+                  <p className="text-center text-[2rem]">
+                    Harap centang kotak kiri terlebih dahulu untuk dapat mengisi
+                    nilai pada formulir
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <></>
+            )}
             <Form {...formKomposisi}>
               <form
                 className="flex flex-col gap-32"
                 onSubmit={formKomposisi.handleSubmit(handleSubmitKomposisi)}
               >
-                <table className="h-full flex-1 border-collapse overflow-y-auto border border-black-300 bg-white text-[2rem] phones:h-auto">
-                  <thead className="relative z-10 align-top leading-medium text-neutral-white">
-                    <tr>
-                      <th className="px-6 py-6 sticky top-0 w-[5%] border-b-2 bg-primary-900 text-center align-middle uppercase text-white">
-                        #
-                      </th>
-                      <th className="px-6 py-6 sticky top-0 w-[5%] border-b-2 bg-primary-900 text-center align-middle uppercase text-white">
-                        Unsur Nilai
-                      </th>
-                      <th className="px-6 py-6 sticky top-0 w-[5%] border-b-2 bg-primary-900 text-center align-middle uppercase text-white">
-                        Persentase
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {dataKomposisi?.map((row, rowIndex) => (
-                      <Fragment key={rowIndex}>
-                        <tr
-                          className={clsx(
-                            'border-b border-black-300 text-neutral-black transition-all ease-in hover:cursor-pointer hover:bg-yellow-100',
-                          )}
-                        >
-                          <td className="px-24 py-12 text-center align-middle leading-medium">
-                            {rowIndex + 1}
+                {menu === '' ? (
+                  <>
+                    <table className="h-full flex-1 border-collapse overflow-y-auto border border-black-300 bg-white text-[2rem] phones:h-auto">
+                      <thead className="relative z-10 align-top leading-medium text-neutral-white">
+                        <tr>
+                          <th className="sticky top-0 w-[5%] border-b-2 bg-primary-900 px-8 py-8 text-center align-middle uppercase text-white">
+                            #
+                          </th>
+                          <th className="sticky top-0 w-[5%] border-b-2 bg-primary-900 px-8 py-8 text-center align-middle uppercase text-white">
+                            Unsur Nilai
+                          </th>
+                          <th className="sticky top-0 w-[5%] border-b-2 bg-primary-900 px-8 py-8 text-center align-middle uppercase text-white">
+                            Persentase
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {dataKomposisi?.map((row, rowIndex) => (
+                          <Fragment key={rowIndex}>
+                            <tr
+                              className={clsx(
+                                'border-b border-black-300 text-neutral-black transition-all ease-in hover:cursor-pointer hover:bg-yellow-100',
+                              )}
+                            >
+                              <td className="px-24 py-12 text-center align-middle leading-medium">
+                                <input
+                                  type="checkbox"
+                                  checked={checkedItems[rowIndex]}
+                                  onChange={() =>
+                                    handleCheckboxChange(rowIndex)
+                                  }
+                                />
+                              </td>
+                              <td className="px-24 py-12 text-center align-middle leading-medium">
+                                {row?.jenis_nilai}
+                              </td>
+                              <td className="px-24 py-12 text-center align-middle leading-medium">
+                                <FormInputText
+                                  name={`komposisi_nilai.${row.id}`}
+                                  form={formKomposisi}
+                                  placeholder="Persen"
+                                  className="w-1/2 text-primary-100 phones:w-full"
+                                  type="text"
+                                  isDisabled={!checkedItems[rowIndex]}
+                                />
+                              </td>
+                            </tr>
+                          </Fragment>
+                        ))}
+                        <tr className="border-t-2 border-primary-900 font-bold">
+                          <td
+                            colSpan={2}
+                            className="px-24 py-12 text-center align-middle leading-medium"
+                          >
+                            Total Persentase
                           </td>
                           <td className="px-24 py-12 text-center align-middle leading-medium">
-                            {row?.jenis_nilai}
-                          </td>
-                          <td className="px-24 py-12 text-center align-middle leading-medium">
-                            <FormInputText
-                              name={`komposisi_nilai.${row.id}`}
-                              form={formKomposisi}
-                              placeholder="Persen"
-                              className="w-1/2 text-primary-100 phones:w-full"
-                              type="text"
-                            />
+                            {calculateTotalPercentage()}%
                           </td>
                         </tr>
-                      </Fragment>
-                    ))}
-                    <tr className="border-t-2 border-primary-900 font-bold">
-                      <td
-                        colSpan={2}
-                        className="px-24 py-12 text-center align-middle leading-medium"
+                      </tbody>
+                    </table>
+                    <p className="text-primary-200">
+                      <span className="font-bold">Catatan:</span> Total
+                      persentase nilai harus 100%
+                    </p>
+                    <div className="flex items-center justify-center gap-16">
+                      <button
+                        onClick={() => setIsShowKomposisi(false)}
+                        className="rounded-2xl bg-danger px-24 py-12 text-white hover:bg-opacity-90"
                       >
-                        Total Persentase
-                      </td>
-                      <td className="px-24 py-12 text-center align-middle leading-medium">
-                        {calculateTotalPercentage()}%
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p className="text-primary-200">
-                  Catatan: Total persentase nilai harus 100%
-                </p>
-                <div className="flex items-center justify-center gap-16">
-                  <button
-                    onClick={() => setIsShowKomposisi(false)}
-                    className="rounded-2xl bg-danger px-24 py-12 text-white hover:bg-opacity-90"
+                        Batal
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setMenu('konfirmasi')}
+                        disabled={Number(calculateTotalPercentage()) !== 100}
+                        className="rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-90 disabled:cursor-not-allowed disabled:bg-green-100"
+                      >
+                        Simpan
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <div
+                    className="flex flex-col gap-32 text-[2rem]"
+                    style={{ lineHeight: '130%' }}
                   >
-                    Batal
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={Number(calculateTotalPercentage()) !== 100}
-                    className="rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-90 disabled:cursor-not-allowed disabled:bg-green-100"
-                  >
-                    Simpan
-                  </button>
-                </div>
+                    <p>
+                      {' '}
+                      Apakah Anda sudah yakin dengan komposisi nilai ini? Harap
+                      diperhatikan bahwa setelah Anda memvalidasi komposisi
+                      nilai, data tersebut tidak dapat diperbarui lagi. Pastikan
+                      semua informasi sudah benar sebelum melanjutkan.
+                    </p>
+                    <div className="flex items-center justify-center gap-16">
+                      <button
+                        onClick={() => setMenu('')}
+                        className="rounded-2xl bg-danger px-24 py-12 text-white hover:bg-opacity-90"
+                      >
+                        Batal
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={Number(calculateTotalPercentage()) !== 100}
+                        className="rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-90 disabled:cursor-not-allowed disabled:bg-green-100"
+                      >
+                        Simpan
+                      </button>
+                    </div>
+                  </div>
+                )}
               </form>
             </Form>
           </div>
         }
+      />
+      <ValidasiKonfirmasi
+        isAuto
+        isOpen={isShowValidasi}
+        setIsOpen={setIsShowValidasi}
+        title={'Komposisi Nilai Sudah Divalidasi'}
+        children={
+          <p className="text-[2rem]">
+            Maaf, Anda tidak diperkenankan lagi untuk memperbaharui komposisi
+            nilai. Jika ada kesalahan atau perubahan yang perlu dilakukan,
+            silakan hubungi bagian akademik untuk bantuan lebih lanjut. Terima
+            kasih
+          </p>
+        }
+        cancelString={<button className="">Kembali</button>}
       />
       <ToastContainer />
     </div>
