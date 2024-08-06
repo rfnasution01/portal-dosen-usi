@@ -3,6 +3,7 @@ import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
 import { Pagination } from '@/components/Pagination'
 import { Searching } from '@/components/Searching'
 import { useAkademikPengumuman } from '@/data/akademik/usePengumuman'
+import { createMarkup } from '@/utils/usePurify'
 import dayjs from 'dayjs'
 import 'dayjs/locale/id'
 import { Link } from 'react-router-dom'
@@ -55,9 +56,11 @@ export default function AkademikUmumPengumuman() {
                     <p className="text-[2.4rem] font-bold text-primary-100">
                       {item?.judul}
                     </p>
-                    <p className="line-clamp-3 text-[1.8rem] text-[#6C6C6C]">
-                      {item?.isi}
-                    </p>
+                    <div
+                      className="article-content"
+                      dangerouslySetInnerHTML={createMarkup(item?.isi)}
+                      style={{ lineHeight: '130%' }}
+                    />
                   </div>
                 </Link>
               ))}

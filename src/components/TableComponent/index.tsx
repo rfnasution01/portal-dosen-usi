@@ -79,7 +79,7 @@ export function Table<T extends ItemTable, P>({
         <Loading width="6.4rem" height="6.4rem" />
       ) : (
         <div
-          className={`scrollbar flex h-full flex-col overflow-auto phones:h-auto ${maxHeight}`}
+          className={`scrollbar flex flex-col overflow-auto phones:h-auto ${maxHeight}`}
           style={{ scrollbarGutter: 'stable', borderRadius: '1rem' }}
         >
           {/* ----- No Data/Fallback UI ----- */}
