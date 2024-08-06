@@ -257,7 +257,8 @@ export default function AkademikJadwalKuliahLayout() {
                   </button>
                   <button
                     type="submit"
-                    className="rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-90"
+                    disabled={Number(calculateTotalPercentage()) !== 100}
+                    className="rounded-2xl bg-success px-24 py-12 text-white hover:bg-opacity-90 disabled:cursor-not-allowed disabled:bg-green-100"
                   >
                     Simpan
                   </button>
