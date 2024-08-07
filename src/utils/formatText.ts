@@ -97,14 +97,19 @@ export function formatBibliographyName(fullName: string): string {
   const middleNames = nameParts?.join(' ')
 
   // Construct the formatted name
-  const formattedName = `${lastName}, ${firstName?.charAt(0)}${
-    middleNames
-      ? middleNames
-          ?.split(' ')
-          ?.map((name) => name?.charAt(0))
-          ?.join('')
-      : ''
-  } ${middleNames?.split(' ').pop()}`
+  let formattedName = ''
+  if (nameParts?.length === 0) {
+    formattedName = lastName
+  } else {
+    formattedName = `${lastName}, ${firstName?.charAt(0)}${
+      middleNames
+        ? middleNames
+            ?.split(' ')
+            ?.map((name) => name?.charAt(0))
+            ?.join('')
+        : ''
+    } ${middleNames?.split(' ').pop()}`
+  }
 
   return formattedName
 }

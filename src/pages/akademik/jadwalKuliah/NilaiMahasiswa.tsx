@@ -77,7 +77,7 @@ export default function NilaiMahasiswa() {
     )
 
     const adaDibawah60 = persentaseNullAtauKosong?.some(
-      (aspek) => aspek.persentaseNullAtauKosong < 40,
+      (aspek) => aspek.persentaseNullAtauKosong > 40,
     )
 
     return {
@@ -118,6 +118,14 @@ export default function NilaiMahasiswa() {
       <ValidasiAjukan
         isOpen={isShow}
         setIsOpen={setIsShow}
+        dataChild={
+          <TableMahasiswa
+            response={dataJadwalNilai}
+            loading={loadingJadwalNilai}
+            pageSize={1000}
+            currentPage={1}
+          />
+        }
         child={
           <button
             onClick={handleSubmitAjukan}

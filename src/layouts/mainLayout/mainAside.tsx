@@ -1,5 +1,5 @@
 import SkeletonCard from '@/components/SkeletonComonent/SkeletonCard'
-import { formatBibliographyName, getInitials } from '@/utils/formatText'
+import { getInitials } from '@/utils/formatText'
 import { Dispatch, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { useProfil } from '@/data/useProfil'
@@ -72,7 +72,7 @@ export function MainAside({
 
             <div className="flex items-center gap-12">
               <p className="text-center font-sans text-[2.6rem]">
-                {formatBibliographyName(dataProfil?.header_profil?.nama)}
+                {dataProfil?.header_profil?.nama}
               </p>
             </div>
             <p>{dataProfil?.kepegawaian?.jabatan_akademik}</p>

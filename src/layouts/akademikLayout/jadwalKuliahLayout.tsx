@@ -87,30 +87,6 @@ export default function AkademikJadwalKuliahLayout() {
             Jadwal Perkuliahan
           </p>
           <div className="flex items-center gap-16">
-            {/* <button
-              onClick={() => {
-                setIsEdit(!isEdit)
-              }}
-              className={clsx(
-                'flex items-center gap-12 rounded-2xl px-24 py-12 text-white hover:bg-opacity-80',
-                {
-                  'bg-danger': isEdit,
-                  'bg-warning': !isEdit,
-                },
-              )}
-            >
-              {isEdit ? (
-                <>
-                  <FontAwesomeIcon icon={faXmark} />
-                  <p>Batal</p>
-                </>
-              ) : (
-                <>
-                  <FontAwesomeIcon icon={faPencil} />
-                  <p>Edit Nilai</p>
-                </>
-              )}
-            </button> */}
             <button
               onClick={() => {
                 if (dataJadwalNilai?.aspek_nilai?.length !== 0) {

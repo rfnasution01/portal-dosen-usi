@@ -13,7 +13,7 @@ export default function LoginLayout() {
         className="absolute inset-0 bg-cover bg-fixed bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${BgImg})` }}
       />
-      <div className="relative z-10 flex w-3/12 rounded-4x bg-white bg-opacity-20 p-32 phones:w-5/6 phones:p-16">
+      <div className="relative z-10 flex w-4/12 rounded-4x bg-white bg-opacity-20 p-32 phones:w-5/6 phones:p-16">
         <div className="flex w-full flex-col gap-32 rounded-3x bg-white p-48 shadow-lg phones:w-full">
           <div className="flex flex-col items-center justify-center gap-12">
             <img
