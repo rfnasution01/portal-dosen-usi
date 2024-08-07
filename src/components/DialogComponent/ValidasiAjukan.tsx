@@ -47,7 +47,9 @@ export function ValidasiAjukan({
               Nilai yang sudah diajukan tidak bisa diperbaharui lagi
             </p>
             <div className="scrollbar flex h-full flex-1 flex-col gap-12 overflow-y-auto">
-              <p className="text-[2.2rem] font-bold">Rekap Nilai</p>
+              <p className="text-[2.2rem] font-bold">
+                Rekap Nilai Yang Belum Diisi
+              </p>
               {dataChild}
             </div>
             <div className="flex items-center justify-center gap-32 text-[2rem]">

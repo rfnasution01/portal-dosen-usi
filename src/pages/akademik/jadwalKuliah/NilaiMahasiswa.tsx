@@ -1,7 +1,10 @@
 import { ValidasiAjukan } from '@/components/DialogComponent/ValidasiAjukan'
 import { TableMahasiswa } from '@/components/TableComponent/TableNilaiMahasiswa'
 import { useAkademikJadwalKuliah } from '@/data/akademik'
-import { GetJadwalNilaiType } from '@/store/type/akademik/jadwalKuliahType'
+import {
+  GetAspekNilaiType,
+  GetJadwalNilaiType,
+} from '@/store/type/akademik/jadwalKuliahType'
 import { faFile, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
@@ -91,6 +94,33 @@ export default function NilaiMahasiswa() {
 
   const disabledNull = transform?.adaDibawah60
 
+  function hasInvalidNilai(aspekNilai: GetAspekNilaiType[]): boolean {
+    return aspekNilai?.some(
+      (item) =>
+        item.nilai === null ||
+        item.nilai === undefined ||
+        item.nilai === '' ||
+        item.nilai === '0' ||
+        item.nilai === '0.00',
+    )
+  }
+
+  // Function to filter data based on invalid nilai_aspek
+  function filterDataByNilaiAspek(data: GetJadwalNilaiType) {
+    // Filter data based on nilai_aspek
+    const filteredData = data?.data?.filter((item) =>
+      hasInvalidNilai(item?.nilai_aspek),
+    )
+
+    // Return data with nilai_aspek unchanged
+    return {
+      data: filteredData,
+      aspek_nilai: data?.aspek_nilai,
+    }
+  }
+
+  const filteredData = filterDataByNilaiAspek(dataJadwalNilai)
+
   return (
     <>
       <TableMahasiswa
@@ -120,7 +150,7 @@ export default function NilaiMahasiswa() {
         setIsOpen={setIsShow}
         dataChild={
           <TableMahasiswa
-            response={dataJadwalNilai}
+            response={filteredData}
             loading={loadingJadwalNilai}
             pageSize={1000}
             currentPage={1}
